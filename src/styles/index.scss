@@ -3,3 +3,6 @@
 @use "variables";
 @use "utils";
 @use "globals";
+
+@use "../components/Header/header";
+@use "../components/Button/button";

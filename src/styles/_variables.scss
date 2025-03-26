@@ -25,14 +25,10 @@
 
   --font-family: 'Montserrat', 'sans selif';
 
-  --border-radius: rem(15);
+  --border-radius: #{rem(15)};
 
   --container-width: #{rem(1395)};
   --container-padding-x: #{rem(20)};
-
-  @include tablet {
-    --container-width: #{rem(690)};
-  }
 
   --transition-duration: 0.2s;
 

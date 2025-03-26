@@ -1,0 +1,21 @@
+@use "../../styles/helpers" as *;
+
+.header {
+
+  &__inner {
+    padding-block: rem(20);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__list {
+    display: flex;
+    column-gap: rem(26);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+}
