@@ -1,17 +1,35 @@
 // @ts-ignore
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router";
 import Button from "../Button/Button.tsx";
+import BurgerButton from "../BurgerButton/BurgerButton.tsx";
 
 const Header = () => {
+
+    const [modalElement, setModalElement] = useState('header__nav hidden-tablet')
+
+    const showOverlay: void = () => {
+        document.documentElement.classList.add('is-lock')
+        setModalElement('header__nav is-active')
+    }
+
+    const quitModal: void = (event) => {
+        if (event.target.classList.contains('is-active')) {
+            document.documentElement.classList.remove('is-lock')
+            setModalElement('header__nav hidden-tablet')
+        }
+    }
+
     return (
         <header className='header'>
             <div className="header__inner container">
                 <Link to={'/login'} className='logo'>
                     <img src='/src/assets/images/Logo.svg' alt=''/>
                 </Link>
-
-                <nav className='header__nav'>
+                <nav
+                    className={modalElement}
+                    onClick={(event) => quitModal(event)}
+                >
                     <ul className='header__list'>
                         <li className='header__item'>
                             <Link to={'/#'} >Пассивный заработок</Link>
@@ -25,11 +43,10 @@ const Header = () => {
                         <li className='header__item'>
                             <Link to={'/#'} >Обратная связь</Link>
                         </li>
-                        <li className='header__item'>
-                            <Button children={'Вход'} className={'button__size-s'}/>
-                        </li>
                     </ul>
                 </nav>
+                <BurgerButton className='header__burger-button' onClick={showOverlay} />
+                <Button children={'Вход'} className={'button__size-s'} />
             </div>
         </header>
     );

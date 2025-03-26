@@ -1,10 +1,10 @@
-interface IUser {
-    name: string
-    avatar: string
-    subscribers: number
-    address: string
-    money: number,
-    id: string | number
+export interface IUser {
+    name?: string
+    avatar?: string
+    subscribers?: number
+    address?: string
+    money?: number,
+    id: string | number | null
 }
 
 interface IAction {
@@ -12,7 +12,9 @@ interface IAction {
     payload: any
 }
 
-const defaultState = {}
+const defaultState = {
+    id: null
+}
 
 const ADD_MONEY: string = 'ADD_MONEY'
 const REMOVE_MONEY: string = 'REMOVE_MONEY'
