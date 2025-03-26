@@ -1,0 +1,39 @@
+@use "./helpers" as *;
+
+:root {
+  --base-gradient: linear-gradient(
+                  4deg,
+                  #2C90F7 -17.59%,
+                  #05C0CC 115.3%
+  );
+
+  --alt-gradient: linear-gradient(
+                  74deg,
+                  #057EFB 4.86%,
+                  #0DF0FF 97.42%
+  );
+
+  --dark-color: #253142;
+  --blue-color: #2C90F7;
+  --white-color: #FFFFFF;
+  --grey-color: #DCDCDC;
+  --red-color: #FC4C4F;
+  --green-color: #73FFF2;
+  --green-color-alt: #27AE60;
+  --violet-color: #6526AC;
+  --yellow-color: #F2994A;
+
+  --font-family: 'Montserrat', 'sans selif';
+
+  --border-radius: rem(15);
+
+  --container-width: #{rem(1395)};
+  --container-padding-x: #{rem(20)};
+
+  @include tablet {
+    --container-width: #{rem(690)};
+  }
+
+  --transition-duration: 0.2s;
+
+}
