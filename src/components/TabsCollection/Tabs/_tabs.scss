@@ -21,5 +21,9 @@
     display: flex;
     align-items: center;
     column-gap: rem(7);
+
+    @include mobile {
+      column-gap: 0;
+    }
   }
 }

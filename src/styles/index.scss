@@ -5,6 +5,7 @@
 @use "globals";
 
 @use "../components/Header/header";
+@use "../components/Loader/loader";
 @use "../components/Button/button";
 @use "../components/BurgerButton/burger-button";
 @use "../components/AppRouter/app-router";

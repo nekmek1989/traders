@@ -6,6 +6,55 @@
     background-position: center;
     background-repeat: no-repeat;
 
-    padding-block: rem(100);
+    &-body {
+      padding-block: rem(100);
+
+      @include tablet {
+        padding-block: rem(62);
+      }
+
+      @include mobile {
+        padding-block: rem(48);
+      }
+    }
+
+    &-ui-bubble {
+      display: block;
+      border-radius: 50%;
+      position: fixed;
+
+      &:first-child {
+        @include square(rem(152));
+
+        top: 10%;
+        left: 25%;
+        background: linear-gradient(4deg, rgba(115, 17, 198, 0.90) -0.98%, rgba(132, 105, 209, 0.90) 89%);
+
+        @include tablet {
+          top: 15%;
+          left: 5%;
+        }
+      }
+
+      &:nth-child(2) {
+        @include square(rem(152));
+
+        top: 45%;
+        left: 70%;
+        background: linear-gradient(174deg, #2C90F7 4.43%, #94B9FF 198%);
+
+        @include tablet {
+          top: 35%;
+        }
+      }
+
+      &:last-child {
+        @include square(rem(62));
+
+        top: 45%;
+        left: 70%;
+        background: var(--green-color);
+      }
+    }
   }
 }

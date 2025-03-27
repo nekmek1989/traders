@@ -45,7 +45,10 @@ const Header = () => {
                         </li>
                     </ul>
                 </nav>
-                <BurgerButton className='header__burger-button' onClick={showOverlay} />
+                <BurgerButton
+                    className='header__burger-button'
+                    onClick={showOverlay}
+                />
                 <Button
                     children={'Вход'}
                     className={'button__size-s'}

@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import TabsCollection from "../../components/TabsCollection/TabsCollection.tsx";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
@@ -7,11 +7,13 @@ import {Link} from "react-router";
 import {ITabs} from "../../components/TabsCollection/Tabs/Tabs.tsx";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
+import {AuthContext} from "../../context/Context.ts";
 
 const Register = () => {
 
     const [user, setUser] = useState( {email: '', password: '', accountType: 'Пассивный заработок'})
-    const [userAuth, setUserAuth] = useState(false)
+    const [userAlreadyAuth, setUserAlreadyAuth] = useState<boolean>(false)
+    const {setIsUserAuth} = useContext(AuthContext)
 
     const tabs: ITabs[] = [
         {
@@ -39,12 +41,16 @@ const Register = () => {
             })
 
             if (isAuth) {
-                setUserAuth(true)
+                setUserAlreadyAuth(true)
                 return
             }
 
             await Fetch.postUser(user)
+            setIsUserAuth(true)
 
+            Reflect.deleteProperty(user, accountType)
+
+            localStorage.setItem('auth', JSON.stringify(user))
         }
     )
 
@@ -90,18 +96,18 @@ const Register = () => {
                     className='login__button'
                     type='submit'
                 >
-                    Войти
+                    Зарегистрироваться
                 </Button>
             </form>
             <div className='login__extra'>
                 <p className='login__extra-text'>
-                    Еще нет аккаунта?
+                    Уже зарегистрированы?
                 </p>
-                <Link to='/register' className='login__extra-link'>
-                    Зарегистрироваться
+                <Link to='/login' className='login__extra-link'>
+                    Войти в аккаунт
                 </Link>
             </div>
-            {userAuth &&
+            {userAlreadyAuth &&
                 <div className='login__error'>
                     Данны Email уже зарегистрирован, попробуйте войти или сменить Email
                 </div>

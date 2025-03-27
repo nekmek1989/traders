@@ -7,7 +7,7 @@ interface ITooltip {
 
 const Tooltip :FC<ITooltip> = ({children}) => {
     return (
-        <div className='tooltip'>
+        <div className='tooltip '>
             <div className='tooltip__header'>
                 <p className='size-small'>?</p>
             </div>

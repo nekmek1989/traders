@@ -7,7 +7,7 @@ import AppRouter from "../components/AppRouter/AppRouter.tsx";
 import {useFetch} from "../hooks/useFetch.ts";
 
 
-interface IAuth {
+export interface IAuth {
     email: string
     password: string
 }
@@ -30,7 +30,10 @@ function App() {
                     user.email === isAuthInLocalStorage.email
             })
 
-            if (!isAuth) return
+            if (!isAuth) {
+                localStorage.removeItem('auth')
+                return
+            }
 
             setIsUserAuth(true)
         }
@@ -42,9 +45,8 @@ function App() {
 
     return (
     <div className='app'>
-        <AuthContext.Provider value={{isUserAuth, isLoading, error}}>
+        <AuthContext.Provider value={{isUserAuth, setIsUserAuth, isLoading, error}}>
             <BrowserRouter>
-                <Header />
                 <AppRouter />
             </BrowserRouter>
         </AuthContext.Provider>

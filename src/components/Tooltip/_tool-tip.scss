@@ -39,21 +39,32 @@
 
     z-index: 1000;
 
+    @include mobile {
+      position: fixed;
+      max-width: 70%;
+      left: 10%;
+      top: rem(160);
+    }
+
     &::after {
-      @include square(rem(13));
+      @include mobile-above {
 
-      content: '';
+        @include square(rem(13));
 
-      position: absolute;
+        content: '';
 
-      display: block;
+        position: absolute;
 
-      rotate: 45deg;
+        display: block;
 
-      background-color: inherit;
+        rotate: 45deg;
 
-      top: rem(-6);
-      left: rem(213);
+        background-color: inherit;
+
+        top: rem(-6);
+        left: rem(213);
+
+      }
     }
   }
 }
