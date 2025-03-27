@@ -1,0 +1,55 @@
+@use "../../styles/helpers" as *;
+
+.tooltip {
+  position: relative;
+
+  &__header {
+    @include square(rem(20));
+    @include flex-center;
+
+    border-radius: 50%;
+    background: var(--base-gradient);
+    box-shadow: 0px -4px 12px 0px rgba(0, 0, 0, 0.22) inset, 0px 1px 2px 0px rgba(239, 232, 232, 0.60) inset;
+    backdrop-filter: blur(3px);
+
+    &:hover + .tooltip__description {
+      opacity: 1;
+    }
+  }
+
+  &__description {
+    position: absolute;
+
+    padding: rem(15);
+    border-radius: rem(14);
+    background-color: #222E3E;
+
+    font-size: rem(14);
+
+    min-width: rem(245);
+
+    opacity: 0;
+
+    top: rem(33);
+    left: rem(-210);
+
+    transition-duration: var(--transition-duration);
+
+    &::after {
+      @include square(rem(13));
+
+      content: '';
+
+      position: absolute;
+
+      display: block;
+
+      rotate: 45deg;
+
+      background-color: inherit;
+
+      top: rem(-6);
+      left: rem(213);
+    }
+  }
+}

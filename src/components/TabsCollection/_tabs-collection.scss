@@ -1,0 +1,6 @@
+@use "../../styles/helpers" as *;
+
+.tabs-collection {
+  display: flex;
+  justify-content: space-between;
+}

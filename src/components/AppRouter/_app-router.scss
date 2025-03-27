@@ -2,9 +2,10 @@
 
 .app-router {
   &__not-registered {
-    height: 1132px;
     background-image: url("/src/assets/images/background.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
+
+    padding: 100px;
   }
 }

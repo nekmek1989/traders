@@ -1,0 +1,23 @@
+@use "../../../styles/helpers" as *;
+
+.tabs {
+
+  background-color: transparent;
+  border: none;
+  border-bottom: rem(2) solid transparent;
+
+  &.is-active {
+    color: var(--green-color);
+    border-bottom: rem(2) solid var(--green-color);
+  }
+
+  @include hover {
+    color: var(--green-color);
+  }
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: rem(7);
+  }
+}
