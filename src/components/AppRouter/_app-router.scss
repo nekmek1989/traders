@@ -51,8 +51,8 @@
       &:last-child {
         @include square(rem(62));
 
-        top: 45%;
-        left: 70%;
+        top: 20%;
+        left: 60%;
         background: var(--green-color);
       }
     }
