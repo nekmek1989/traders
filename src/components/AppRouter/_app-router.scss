@@ -3,9 +3,9 @@
 .app-router {
   &__not-registered {
     background-image: url("/src/assets/images/background.jpg");
-    background-size: 100%;
+    background-position: center;
     background-repeat: no-repeat;
 
-    padding: 100px;
+    padding-block: rem(100);
   }
 }

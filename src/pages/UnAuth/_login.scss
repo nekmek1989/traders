@@ -1,0 +1,52 @@
+@use "../../styles/helpers" as *;
+
+.login {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 rem(1) rem(2) 0 rgba(239, 232, 232, 0.60) inset;
+  backdrop-filter: blur(15px);
+
+  padding: rem(90) rem(110);
+
+  max-width: rem(790);
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(35);
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(24);
+  }
+
+  &__button {
+    align-self: start;
+    width: 50%;
+  }
+
+  &__extra {
+    display: flex;
+    justify-content: space-between;
+
+    font-weight: 400;
+
+    border-top: rem(1) solid var(--white-color);
+
+    margin-top: rem(-17);
+    padding-top: rem(17);
+
+    &-link {
+      color: var(--green-color);
+    }
+  }
+
+  &__error {
+    color: var(--red-color);
+  }
+}

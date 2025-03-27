@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, {useState} from 'react';
-import {Link} from "react-router";
+import {Link, redirect} from "react-router";
 import Button from "../Button/Button.tsx";
 import BurgerButton from "../BurgerButton/BurgerButton.tsx";
 
@@ -8,12 +8,12 @@ const Header = () => {
 
     const [modalElement, setModalElement] = useState('header__nav hidden-tablet')
 
-    const showOverlay: void = () => {
+    const showOverlay = (): void => {
         document.documentElement.classList.add('is-lock')
         setModalElement('header__nav is-active')
     }
 
-    const quitModal: void = (event) => {
+    const quitModal = (event): void => {
         if (event.target.classList.contains('is-active')) {
             document.documentElement.classList.remove('is-lock')
             setModalElement('header__nav hidden-tablet')
@@ -46,7 +46,10 @@ const Header = () => {
                     </ul>
                 </nav>
                 <BurgerButton className='header__burger-button' onClick={showOverlay} />
-                <Button children={'Вход'} className={'button__size-s'} />
+                <Button
+                    children={'Вход'}
+                    className={'button__size-s'}
+                />
             </div>
         </header>
     );

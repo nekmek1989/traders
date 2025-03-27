@@ -6,6 +6,8 @@
   border: none;
   border-bottom: rem(2) solid transparent;
 
+  padding-inline: 0;
+
   &.is-active {
     color: var(--green-color);
     border-bottom: rem(2) solid var(--green-color);
