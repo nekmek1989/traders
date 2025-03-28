@@ -3,25 +3,25 @@ import React, {FC} from 'react';
 
 
 export interface IInput {
-    value?: string
     placeholder?: string
-    onChange?: () => void
     type: string
-    required? : boolean
+    onChange: () => void
+    onBlur: () => void
+    name: string
+    ref: any
     className?: string
-    pattern?: string
 }
 
-const Input :FC<IInput> = ({required, type, className, onChange, placeholder, pattern, value}) => {
+const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange}) => {
     return (
         <input
-            value={value}
             placeholder={placeholder}
-            required={required}
             type={type}
-            className={className? className + ' input' : 'input'}
+            name={name}
+            ref={ref}
+            onBlur={onBlur}
             onChange={onChange}
-            pattern={pattern}
+            className={className? className + ' input' : 'input'}
         />
     );
 };

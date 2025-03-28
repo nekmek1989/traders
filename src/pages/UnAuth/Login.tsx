@@ -7,16 +7,27 @@ import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {IAuth} from "../../App/App.tsx";
+import {useForm} from "react-hook-form";
 
 const Login = () => {
 
     const {setIsUserAuth} = useContext(AuthContext)
     const [user, setUser] = useState<IAuth>( {email: '', password: ''} )
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
+    const {
+        handleSubmit,
+        register,
+        formState: {
+            errors
+        }
+    } = useForm({mode: 'onBlur'})
 
     const [fetch, error, isLoading] = useFetch(
-        async () => {
+        async (user) => {
+            setUser(user)
+
             const {email, password} = user
+            console.log(user)
 
             const response = await Fetch.getAllUsers()
 
@@ -35,33 +46,56 @@ const Login = () => {
     )
 
     const checkUser = (event: React.FormEvent<HTMLFormElement>): void => {
-        event.preventDefault()
-        fetch()
+        fetch(event)
     }
 
     return (
 
             <div className='login'>
                 <h1 className='login__title'>Вход</h1>
-                <form className='login__form' onSubmit={checkUser}>
+                <form className='login__form' onSubmit={handleSubmit(checkUser)}>
 
                     <Input
-                        required={true}
                         type='text'
                         placeholder='Email'
-                        value={user.email}
-                        className='login__field'
-                        onChange={event => setUser({...user, email: event.target.value})}
+                        className='login__field input'
+
+                        {...register('email', {
+                                required: 'Введите почту',
+                                pattern: {
+                                    value: /^\S+@\S+\.\S+$/,
+                                    message: 'Введите корректную почту'
+                                }
+                        })}
+
                     />
+                    {errors?.email &&
+                            <p className='login__error'>
+                                {errors.email?.message || 'Error'}
+                            </p>
+                    }
 
                     <Input
-                        required={true}
                         type='password'
                         placeholder='Пароль'
-                        value={user.password}
-                        className='login__field'
-                        onChange={event => setUser({...user, password: event.target.value})}
+                        className='login__field input'
+                        {...register('password', {
+                            required: 'Введите пароль',
+                            pattern: {
+                                value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+                                message: 'Пароль должен содержать 1 заглавную букву, 1 строчную букву и 1 число'
+                            },
+                            minLength: {
+                                value: 8,
+                                message: `Минимальная длинна пароля 8 символов`
+                            }
+                        })}
                     />
+                    {errors?.password &&
+                        <p className='login__error'>
+                            {errors.password?.message || 'Error'}
+                        </p>
+                    }
 
                     <Button
                         className='login__button'

@@ -1,5 +1,4 @@
 import {BrowserRouter} from "react-router";
-import Header from "../components/Header/Header.tsx";
 import {useEffect, useState} from "react";
 import Fetch from "../API/fetch.ts";
 import { AuthContext } from "../context/Context.ts";

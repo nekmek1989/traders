@@ -8,12 +8,21 @@ import {ITabs} from "../../components/TabsCollection/Tabs/Tabs.tsx";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
+import {useForm} from "react-hook-form";
 
 const Register = () => {
 
     const [user, setUser] = useState( {email: '', password: '', accountType: 'Пассивный заработок'})
     const [userAlreadyAuth, setUserAlreadyAuth] = useState<boolean>(false)
     const {setIsUserAuth} = useContext(AuthContext)
+    const {
+        handleSubmit,
+        register,
+        getValues,
+        formState: {
+            errors
+        }
+    } = useForm({mode: 'onBlur'})
 
     const tabs: ITabs[] = [
         {
@@ -30,8 +39,18 @@ const Register = () => {
     ]
 
 
+    const passwordsMatches = (passwordRepeat) => {
+        if (passwordRepeat === getValues('password')) {
+            return true
+        }
+        return 'Пароли должны совпадать'
+    }
+
+
     const [fetch, error, isLoading] = useFetch(
-        async () => {
+        async (userData) => {
+            setUser({...user, ...userData})
+
             const {email, password, accountType} = user
 
             const response = await Fetch.getAllUsers()
@@ -55,8 +74,7 @@ const Register = () => {
     )
 
     const addUser = (event: React.FormEvent<HTMLFormElement>): void => {
-        event.preventDefault()
-        fetch()
+        fetch(event)
     }
 
 
@@ -64,33 +82,61 @@ const Register = () => {
         <div className='login'>
             <h1 className='login__title'>Регистрация</h1>
             <TabsCollection tabs={tabs} />
-            <form className='login__form' onSubmit={addUser}>
+            <form className='login__form' onSubmit={handleSubmit(addUser)}>
                 <Input
-                    required={true}
                     type='text'
                     placeholder='Email'
-                    value={user.email}
                     className='login__field'
-                    onChange={event => setUser({...user, email: event.target.value})}
+                    {...register('email', {
+                        required: 'Введите почту',
+                        pattern: {
+                            value: /^\S+@\S+\.\S+$/,
+                            message: 'Введите корректную почту'
+                        }
+                    })}
                 />
+                {errors?.email &&
+                    <p className='login__error'>
+                        {errors.email?.message || 'Error'}
+                    </p>
+                }
 
                 <Input
-                    required={true}
                     type='password'
                     placeholder='Пароль'
-                    value={user.password}
                     className='login__field'
-                    onChange={event => setUser({...user, password: event.target.value})}
+                    {...register('password', {
+                        required: 'Введите пароль',
+                        pattern: {
+                            value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+                            message: 'Пароль должен содержать 1 заглавную букву, 1 строчную букву и 1 число'
+                        },
+                        minLength: {
+                            value: 8,
+                            message: `Минимальная длинна пароля 8 символов`
+                        }
+                    })}
                 />
+                {errors?.password &&
+                    <p className='login__error'>
+                        {errors.password?.message || 'Error'}
+                    </p>
+                }
 
                 <Input
-                    required={false}
                     type='password'
-                    placeholder='Повторить пароль'
-                    value={''}
+                    placeholder='Повторите пароль'
                     className='login__field'
-                    onChange={event =>  4} //организовать валидацию пароля
+                    {...register('passwordRepeat', {
+                        required: 'Пароли должны совпадать',
+                        validate: value => passwordsMatches(value)
+                    })}
                 />
+                {errors?.passwordRepeat &&
+                    <p className='login__error'>
+                        {errors.passwordRepeat?.message || 'Error'}
+                    </p>
+                }
 
                 <Button
                     className='login__button'
