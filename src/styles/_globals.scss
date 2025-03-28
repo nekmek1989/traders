@@ -1,7 +1,7 @@
 @use "./helpers" as *;
 
 html {
-  .is-lock {
+  &.is-lock {
     overflow: hidden;
   }
 }

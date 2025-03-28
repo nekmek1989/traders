@@ -2,7 +2,8 @@
 
 $desktop: 1926.98;
 $tablet: 1024.98;
-$mobile: 500.98;
+$mobile: 767.98;
+$mobile-s: 480.98;
 
 @mixin desktop-above {
   @media (width > rem($desktop)) {
@@ -36,6 +37,18 @@ $mobile: 500.98;
 
 @mixin mobile {
   @media (width <= rem($mobile)) {
+    @content;
+  }
+}
+
+@mixin mobile-s-above {
+  @media (width > rem($mobile-s)) {
+    @content;
+  }
+}
+
+@mixin mobile-s {
+  @media (width <= rem($mobile-s)) {
     @content;
   }
 }

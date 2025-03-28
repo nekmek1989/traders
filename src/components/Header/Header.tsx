@@ -49,10 +49,6 @@ const Header = () => {
                     className='header__burger-button'
                     onClick={showOverlay}
                 />
-                <Button
-                    children={'Вход'}
-                    className={'button__size-s'}
-                />
             </div>
         </header>
     );

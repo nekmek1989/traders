@@ -7,6 +7,7 @@ import {AuthContext} from "../../context/Context.ts";
 import Loader from "../Loader/Loader.tsx";
 import Error from "../../pages/Error.tsx";
 import Header from "../Header/Header.tsx";
+import Footer from "../Footer/Footer.tsx";
 
 const AppRouter = () => {
     //@ts-ignore
@@ -23,21 +24,24 @@ const AppRouter = () => {
     return (
         isUserAuth
             ? null
-            :<div className='app-router__not-registered'>
-                <div className='app-router__not-registered-ui-bubble-wrapper'>
-                    <span className="app-router__not-registered-ui-bubble"></span>
-                    <span className="app-router__not-registered-ui-bubble"></span>
-                    <span className="app-router__not-registered-ui-bubble"></span>
+            :<>
+                <div className='app-router__not-registered'>
+                    <div className='app-router__not-registered-ui-bubble-wrapper'>
+                        <span className="app-router__not-registered-ui-bubble"></span>
+                        <span className="app-router__not-registered-ui-bubble hidden-mobile"></span>
+                        <span className="app-router__not-registered-ui-bubble"></span>
+                    </div>
+                    <Header />
+                    <div className='app-router__not-registered-body container'>
+                        <Routes>
+                            <Route path={'/register'} element={<Register />} />
+                            <Route path={'/login'} element={<Login />} />
+                            <Route path="*" element={<Navigate to="/register" replace />}/>
+                        </Routes>
+                    </div>
                 </div>
-                <Header />
-                <div className='app-router__not-registered-body container'>
-                    <Routes>
-                        <Route path={'/register'} element={<Register />} />
-                        <Route path={'/login'} element={<Login />} />
-                        <Route path="*" element={<Navigate to="/register" replace />}/>
-                    </Routes>
-                </div>
-            </div>
+                <Footer />
+            </>
     );
 };
 

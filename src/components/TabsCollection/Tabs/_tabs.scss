@@ -22,7 +22,7 @@
     align-items: center;
     column-gap: rem(7);
 
-    @include mobile {
+    @include mobile-s {
       column-gap: 0;
     }
   }

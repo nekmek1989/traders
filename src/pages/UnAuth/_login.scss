@@ -54,6 +54,11 @@
     margin-top: rem(-17);
     padding-top: rem(17);
 
+    @include mobile {
+      flex-direction: column;
+      row-gap: rem(10);
+    }
+
     &-link {
       color: var(--green-color);
     }

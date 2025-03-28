@@ -8,6 +8,8 @@
 
     &-body {
       padding-block: rem(100);
+      position: relative;
+      z-index: 2;
 
       @include tablet {
         padding-block: rem(62);
@@ -22,12 +24,13 @@
       display: block;
       border-radius: 50%;
       position: fixed;
+      z-index: 1;
 
       &:first-child {
         @include square(rem(152));
 
         top: 10%;
-        left: 25%;
+        left: 15%;
         background: linear-gradient(4deg, rgba(115, 17, 198, 0.90) -0.98%, rgba(132, 105, 209, 0.90) 89%);
 
         @include tablet {

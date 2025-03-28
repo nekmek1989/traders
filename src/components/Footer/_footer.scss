@@ -1,0 +1,86 @@
+@use "../../styles/helpers" as *;
+
+.footer {
+  --footerLinkOffsetTop: #{rem(-30)};
+  --footerPaddingBlock: #{rem(75)};
+
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    --footerLinkOffsetTop: #{rem(-15)};
+    --footerPaddingBlock: #{rem(35)};
+  }
+
+  @include mobile {
+    --footerPaddingBlock: #{rem(42)};
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    column-gap: rem(30);
+
+    padding-bottom: var(--footerPaddingBlock);
+    padding-top: calc(var(--footerPaddingBlock) + var(--footerLinkOffsetTop));
+
+    @include mobile {
+      row-gap: rem(24);
+      flex-direction: column;
+      align-items: center;
+
+      text-align: center;
+      text-wrap: balance;
+    }
+  }
+
+  &__title {
+    max-width: rem(235);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(15);
+
+    @include mobile {
+      align-items: center;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(30);
+    align-items: end;
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__list {
+    display: flex;
+    column-gap: rem(40);
+
+    @include tablet {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: rem(17);
+      column-gap: rem(80);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      row-gap: rem(15);
+    }
+  }
+
+  &__link {
+    width: max-content;
+    margin-top: var(--footerLinkOffsetTop);
+    align-self: end;
+  }
+
+  &__icon {
+    @include square(rem(52))
+  }
+}

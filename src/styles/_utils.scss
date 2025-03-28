@@ -27,3 +27,15 @@
     display: none !important;
   }
 }
+
+ .visible-mobile {
+   @include tablet-above {
+     display: none !important;
+   }
+ }
+
+.hidden-mobile {
+  @include tablet {
+    display: none !important;
+  }
+}
