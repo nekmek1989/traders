@@ -1,10 +1,14 @@
 export interface IUser {
-    name?: string
-    avatar?: string
-    subscribers?: number
-    address?: string
-    money?: number,
-    id: string | number | null
+    readonly id: string | number
+    name: string
+    password: string
+    avatar: string | '../assets/icons/default-user.png'
+    subscribers: number
+    addressWallet: string
+    money: number
+    accountType: string
+    readonly createdAt: string
+    headers: any
 }
 
 interface IAction {
@@ -18,6 +22,7 @@ const defaultState = {
 
 const ADD_MONEY: string = 'ADD_MONEY'
 const REMOVE_MONEY: string = 'REMOVE_MONEY'
+const RECORD_USER: string = 'RECORD_USER'
 
 export const userReducer = (state: IUser | {} = defaultState, action: IAction) => {
     switch (action.type) {
@@ -31,10 +36,13 @@ export const userReducer = (state: IUser | {} = defaultState, action: IAction) =
             }
             //@ts-ignore
             return {...state, money: state.money - action.payload}
+        case RECORD_USER:
+            return {...action.payload}
         default:
             return state
     }
 }
 
+export const recordUser = (payload: string):IAction => ({type: 'RECORD_USER', payload})
 export const addMoney = (payload: string): IAction => ({type: 'ADD_MONEY', payload})
-export const removeMoney = (payload: string): IAction => ({type: 'REMOVE_MONEY', payload})
+export const removeMoney = (payload: IUser): IAction => ({type: 'REMOVE_MONEY', payload})

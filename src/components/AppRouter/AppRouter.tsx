@@ -23,7 +23,11 @@ const AppRouter = () => {
 
     return (
         isUserAuth
-            ? null
+            ? <>
+                <div className="app-router__registered">
+
+                </div>
+              </>
             :<>
                 <div className='app-router__not-registered'>
                     <div className='app-router__not-registered-ui-bubble-wrapper'>

@@ -15,6 +15,13 @@ export default class Fetch {
         return response
     }
 
+    static async getUserByEmail(email: string) {
+        const response = await axios
+            .get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users?email=${email}`)
+
+        return response
+    }
+
     static async postUser(user: IUser) {
         const response = await axios
             .post('https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users',

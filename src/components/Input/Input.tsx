@@ -9,10 +9,12 @@ export interface IInput {
     onBlur: () => void
     name: string
     ref: any
+    value: string
+    disabled: boolean
     className?: string
 }
 
-const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange}) => {
+const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange, disabled, value}) => {
     return (
         <input
             placeholder={placeholder}
@@ -21,6 +23,8 @@ const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onC
             ref={ref}
             onBlur={onBlur}
             onChange={onChange}
+            disabled={disabled}
+            value={value}
             className={className? className + ' input' : 'input'}
         />
     );

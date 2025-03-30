@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TabsCollection from "../../components/TabsCollection/TabsCollection.tsx";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
@@ -8,21 +8,25 @@ import {ITabs} from "../../components/TabsCollection/Tabs/Tabs.tsx";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
-import {useForm} from "react-hook-form";
+import {useForm, useWatch} from "react-hook-form";
+import Loader from "../../components/Loader/Loader.tsx";
+import {store} from "../../store/store.ts";
+import {recordUser} from "../../store/userReducer.ts";
 
 const Register = () => {
 
-    const [user, setUser] = useState( {email: '', password: '', accountType: 'Пассивный заработок'})
+    const [user, setUser] = useState({email: '', password: '', accountType: 'Пассивный заработок'})
     const [userAlreadyAuth, setUserAlreadyAuth] = useState<boolean>(false)
     const {setIsUserAuth} = useContext(AuthContext)
     const {
         handleSubmit,
         register,
         getValues,
+        control,
         formState: {
             errors
         }
-    } = useForm({mode: 'onBlur'})
+    } = useForm( {mode: 'onBlur'} )
 
     const tabs: ITabs[] = [
         {
@@ -39,7 +43,7 @@ const Register = () => {
     ]
 
 
-    const passwordsMatches = (passwordRepeat) => {
+    const passwordsMatches = (passwordRepeat: string) => {
         if (passwordRepeat === getValues('password')) {
             return true
         }
@@ -48,12 +52,10 @@ const Register = () => {
 
 
     const [fetch, error, isLoading] = useFetch(
-        async (userData) => {
-            setUser({...user, ...userData})
+        async () => {
+            const {email, accountType} = user
 
-            const {email, password, accountType} = user
-
-            const response = await Fetch.getAllUsers()
+            const response = await Fetch.getUserByEmail(email)
 
             const isAuth =  response.data.find(user => {
                 return user.email === email
@@ -65,18 +67,23 @@ const Register = () => {
             }
 
             await Fetch.postUser(user)
+
             setIsUserAuth(true)
 
-            Reflect.deleteProperty(user, accountType)
+            store.dispatch(recordUser(response.data))
 
+            Reflect.deleteProperty(user, accountType)
             localStorage.setItem('auth', JSON.stringify(user))
         }
     )
 
-    const addUser = (event: React.FormEvent<HTMLFormElement>): void => {
-        fetch(event)
+    const addUser = (): void => {
+        fetch()
     }
 
+    useEffect(() => {
+        setUser({...user, email: getValues('email'), password: getValues('password')})
+    }, [useWatch({control, name: 'email'}), useWatch({control, name: 'password'})]);
 
     return (
         <div className='login'>
@@ -95,6 +102,7 @@ const Register = () => {
                         }
                     })}
                 />
+
                 {errors?.email &&
                     <p className='login__error'>
                         {errors.email?.message || 'Error'}
@@ -153,12 +161,14 @@ const Register = () => {
                     Войти в аккаунт
                 </Link>
             </div>
+            {isLoading &&
+                <Loader />
+            }
             {userAlreadyAuth &&
                 <div className='login__error'>
                     Данны Email уже зарегистрирован, попробуйте войти или сменить Email
                 </div>
             }
-
         </div>
     );
 };

@@ -8,11 +8,12 @@ import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {IAuth} from "../../App/App.tsx";
 import {useForm} from "react-hook-form";
+import {store} from "../../store/store.ts";
+import {recordUser} from "../../store/userReducer.ts";
 
 const Login = () => {
 
     const {setIsUserAuth} = useContext(AuthContext)
-    const [user, setUser] = useState<IAuth>( {email: '', password: ''} )
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
     const {
         handleSubmit,
@@ -23,22 +24,22 @@ const Login = () => {
     } = useForm({mode: 'onBlur'})
 
     const [fetch, error, isLoading] = useFetch(
-        async (user) => {
-            setUser(user)
+        async (userLogin: IAuth) => {
+            const {email, password} = userLogin
 
-            const {email, password} = user
-            console.log(user)
+            const response = await Fetch.getUserByEmail(email)
 
-            const response = await Fetch.getAllUsers()
-
-            const isAuth =  response.data.find(user => {
-                return user.password === password &&
-                    user.email === email
+            const isAuth: boolean =  response.data.find(user => {
+                if ( user.password === password &&
+                    user.email === email ) return true
             })
 
             if (isAuth) {
                 setIsUserAuth(true)
-                localStorage.setItem('auth', JSON.stringify(user))
+                localStorage.setItem('auth', JSON.stringify(userLogin))
+
+                const userData = await Fetch.getUserByEmail(email)
+                store.dispatch(recordUser(userData.data))
             } else {
                 setErrorLogin(true)
             }
