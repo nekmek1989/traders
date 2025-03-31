@@ -7,17 +7,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include mobile {
+      flex-direction: column;
+      row-gap: rem(15);
+    }
   }
 
   &__components {
     display: flex;
     align-items: center;
     column-gap: rem(32);
+
+    @include mobile {
+      column-gap: rem(20);
+    }
   }
 
   &__money-amount {
     display: flex;
     column-gap: rem(8);
+    align-items: center;
   }
 
   &__account-type {

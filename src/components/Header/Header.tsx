@@ -57,7 +57,7 @@ const Header = () => {
                 <div className='header__components'>
                     {userData.accountType === 'Пассивный заработок'
                         || userData.accountType === 'Публичный трейдинг'
-                            ? <Button alt smallest className='header__account-type'>
+                            ? <Button alt smallest className='header__account-type hidden-mobile'>
                                 {userData.accountType}
                               </Button>
                             : null

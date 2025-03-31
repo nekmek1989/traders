@@ -30,19 +30,22 @@ const Login = () => {
 
             const response = await Fetch.getUserByEmail(email)
 
-            const isAuth: boolean =  response.data.find(user => {
-                if ( user.password === password &&
-                    user.email === email ) return true
-            })
+            if (response) {
+                const isAuth: boolean =  response.data.find(user => {
+                    if ( user.password === password &&
+                        user.email === email ) return true
+                })
 
-            if (isAuth) {
-                setIsUserAuth(true)
-                localStorage.setItem('auth', JSON.stringify(userLogin))
+                if (isAuth) {
+                    setIsUserAuth(true)
 
-                const userData = await Fetch.getUserByEmail(email)
-                store.dispatch(recordUser(userData.data))
-            } else {
-                setErrorLogin(true)
+                    localStorage.setItem('auth', JSON.stringify(userLogin))
+
+                    const userData = await Fetch.getUserByEmail(email)
+                    store.dispatch(recordUser(userData.data[0]))
+                } else {
+                    setErrorLogin(true)
+                }
             }
          }
     )

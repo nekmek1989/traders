@@ -16,10 +16,14 @@ export default class Fetch {
     }
 
     static async getUserByEmail(email: string) {
-        const response = await axios
-            .get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users?email=${email}`)
+        try {
+            const response = await axios
+                .get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users?email=${email}`)
 
-        return response
+            return response
+        } catch (e) {
+            return false
+        }
     }
 
     static async postUser(user: IUser) {

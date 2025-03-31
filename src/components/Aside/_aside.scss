@@ -1,0 +1,29 @@
+@use "../../styles/helpers" as *;
+
+.aside {
+  padding: rem(38) rem(28);
+  width: max-content;
+
+  border-radius: rem(8);
+  background: rgba(80, 110, 131, 0.20);
+  box-shadow: 0 rem(1) rem(2) 0 rgba(239, 232, 232, 0.60) inset;
+  backdrop-filter: blur(rem(12));
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(24);
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: rem(6);
+    
+    &.is-active {
+      color: var(--green-color);
+    }
+  }
+
+}

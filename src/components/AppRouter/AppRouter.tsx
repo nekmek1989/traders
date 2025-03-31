@@ -10,6 +10,8 @@ import HeaderUnlogin from "../Header/HeaderUnlogin.tsx";
 import Footer from "../Footer/Footer.tsx";
 import Header from "../Header/Header.tsx";
 import UserPage from "../../pages/UserPage.tsx";
+import Aside from "../Aside/Aside.tsx";
+import OtherUsersPage from "../../pages/OtherUsersPage.tsx";
 
 const AppRouter = () => {
     //@ts-ignore
@@ -29,11 +31,15 @@ const AppRouter = () => {
                 <div className="app-router__registered">
                     <div className='app-router__registered-inner'>
                         <Header />
-                        <Routes>
-                            <Route path={'/name'} element={<UserPage />} />
+                        <div className='container'>
+                            <Aside />
+                            <Routes>
+                                <Route path={'/name'} element={<UserPage />} />
+                                <Route path={'/traders'} element={<OtherUsersPage />} />
 
-                            <Route path="*" element={<Navigate to="/name" replace />}/>
-                        </Routes>
+                                <Route path="*" element={<Navigate to="/name" replace />}/>
+                            </Routes>
+                        </div>
                     </div>
                 </div>
               </>

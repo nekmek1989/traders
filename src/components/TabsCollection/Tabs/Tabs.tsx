@@ -16,7 +16,6 @@ const Tabs: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
     const onTabClick = (event: React.MouseEvent<HTMLDivElement>): void => {
         onClick?.()
 
-
         const target = event.target as HTMLElement;
         const parent = target.closest('.tabs-collection') as HTMLElement | null;
 

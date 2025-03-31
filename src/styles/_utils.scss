@@ -10,12 +10,6 @@
   @include visually-hidden;
 }
 
-.visible-mobile {
-  @include mobile-above {
-    display: none !important;
-  }
-}
-
 .visible-tablet {
   @include tablet-above {
     display: none !important;
@@ -29,13 +23,13 @@
 }
 
  .visible-mobile {
-   @include tablet-above {
+   @include mobile-above {
      display: none !important;
    }
  }
 
 .hidden-mobile {
-  @include tablet {
+  @include mobile {
     display: none !important;
   }
 }

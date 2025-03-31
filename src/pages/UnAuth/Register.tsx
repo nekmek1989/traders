@@ -57,22 +57,23 @@ const Register = () => {
 
             const response = await Fetch.getUserByEmail(email)
 
-            const isAuth =  response.data.find(user => {
-                return user.email === email
-            })
+            if (response) {
+                const isAuth =  response.data.find(user => {
+                    return user.email === email
+                })
 
-            if (isAuth) {
-                setUserAlreadyAuth(true)
-                return
+                if (isAuth) {
+                    setUserAlreadyAuth(true)
+                    return
+                }
             }
 
-            await Fetch.postUser(user)
+            const userData = await Fetch.postUser(user)
 
             setIsUserAuth(true)
 
-            store.dispatch(recordUser(response.data))
+            store.dispatch(recordUser(userData.data))
 
-            Reflect.deleteProperty(user, accountType)
             localStorage.setItem('auth', JSON.stringify(user))
         }
     )
