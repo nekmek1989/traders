@@ -1,0 +1,20 @@
+@use "../../styles/helpers" as *;
+
+.icon-drop-down-button {
+  display: flex;
+  align-items: center;
+  column-gap: rem(4);
+
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+
+  &__description {
+    cursor: default;
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

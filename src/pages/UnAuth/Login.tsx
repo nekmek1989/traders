@@ -10,6 +10,7 @@ import {IAuth} from "../../App/App.tsx";
 import {useForm} from "react-hook-form";
 import {store} from "../../store/store.ts";
 import {recordUser} from "../../store/userReducer.ts";
+import Loader from "../../components/Loader/Loader.tsx";
 
 const Login = () => {
 
@@ -113,9 +114,17 @@ const Login = () => {
                         Зарегистрироваться
                     </Link>
                 </div>
-                {errorLogin &&
+                {isLoading &&
+                    <Loader />
+                }
+                {error &&
                     <div className='login__error'>
                         Такого пользователя не существует
+                    </div>
+                }
+                {errorLogin &&
+                    <div className='login__error'>
+                        Неверно введенный пароль
                     </div>
                 }
             </div>

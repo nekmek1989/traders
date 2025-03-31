@@ -7,12 +7,23 @@ interface IButtonProps {
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
     className?: string
     type?: 'button' | 'submit' | 'reset' | undefined
+    small?: boolean
+    alt?: boolean
+    smallest?: boolean
 }
 
-const Button: FC<IButtonProps> = ({children, className, onClick, type}) => {
+const Button: FC<IButtonProps> = ({children, className, onClick, type, small, smallest, alt}) => {
+    const size: string = small? ' button__size-small'
+        : smallest? ' button__size-smallest'
+            : ''
+    const altButton: string = alt? ' button__alt' : ''
+
     return (
         <button
-            className={className? `button ${className}` : 'button'}
+            className={
+                className? `button ${className}` + size + altButton
+                    : 'button' + size + altButton
+            }
             onClick={onClick}
             type={type}
         >

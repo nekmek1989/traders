@@ -3,60 +3,69 @@
 .header {
 
   &__inner {
-    padding-block: rem(20);
-
+    padding: rem(22);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    column-gap: rem(26);
-
   }
 
-  &__nav {
-    margin-left: auto;
-
-    @include tablet {
-      position: absolute;
-      inset: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: rem(30);
-
-      background-color: rgba(0, 0, 0, 0.3);
-
-      z-index: 1000;
-    }
-  }
-
-  &__list {
-    display: flex;
-    column-gap: rem(26);
-
-    @include tablet {
-      flex-direction: column;
-      row-gap: rem(20);
-      align-items: center;
-      justify-content: center;
-
-      text-align: center;
-
-      background-color: var(--dark-color);
-      border-radius: var(--border-radius);
-
-      padding: rem(30);
-
-      width: 75%;
-      height: 65%;
-
-      z-index: 1000;
-    }
-  }
-
-  &__item {
+  &__components {
     display: flex;
     align-items: center;
+    column-gap: rem(32);
+  }
+
+  &__money-amount {
+    display: flex;
+    column-gap: rem(8);
+  }
+
+  &__account-type {
+    cursor: default;
+    @include hover {
+      opacity: 1;
+    }
+  }
+
+  &__user-button {
+    background: transparent;
+    border: none;
+    text-align: start;
+    align-items: center;
+
+    display: flex;
+    column-gap: rem(8);
+    width: max-content;
+
+    &::before {
+      @include square(rem(14));
+
+      content: '';
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    &:first-child {
+      &::before {
+        background-image: url("/src/assets/icons/Options.svg");
+      }
+    }
+
+    &:nth-child(2) {
+      &:before {
+        background-image: url("/src/assets/icons/Setting.svg");
+      }
+    }
+
+    &:last-child {
+      &::before {
+        background-image: url("/src/assets/icons/Logout.svg");
+      }
+    }
+
+    @include hover {
+      color: var(--green-color);
+    }
   }
 }

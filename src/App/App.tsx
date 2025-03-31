@@ -1,7 +1,7 @@
 import {BrowserRouter} from "react-router";
 import {useEffect, useState} from "react";
 import Fetch from "../API/fetch.ts";
-import { AuthContext } from "../context/Context.ts";
+import {AuthContext} from "../context/Context.ts";
 import AppRouter from "../components/AppRouter/AppRouter.tsx";
 import {useFetch} from "../hooks/useFetch.ts";
 import Loader from "../components/Loader/Loader.tsx";
@@ -19,6 +19,8 @@ export interface IAuth {
 function App() {
 
     const [isUserAuth, setIsUserAuth] = useState<boolean>(false)
+    const [selectSection, setSelectSection] = useState<'main' | 'balance' | 'settings'>('main')
+
 
     const [fetch, error, isLoading] = useFetch(
         async () => {
@@ -38,7 +40,7 @@ function App() {
                 return
             }
 
-            store.dispatch(recordUser(response.data))
+            store.dispatch(recordUser(response.data[0]))
             setIsUserAuth(true)
         }
     )
@@ -52,7 +54,7 @@ function App() {
 
     return (
     <div className='app'>
-        <AuthContext.Provider value={{isUserAuth, setIsUserAuth}}>
+        <AuthContext.Provider value={{isUserAuth, setIsUserAuth, selectSection, setSelectSection}}>
             <BrowserRouter>
                 <AppRouter />
             </BrowserRouter>

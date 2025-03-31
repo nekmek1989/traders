@@ -11,8 +11,12 @@
 
   padding: rem(12) rem(43);
 
-  &__size-s {
+  &__size-small {
     padding: rem(7) rem(24);
+  }
+
+  &__size-smallest {
+    padding: rem(5) rem(12);
   }
 
   &::before {
@@ -41,6 +45,22 @@
   @include hover {
     &::before {
       opacity: 1;
+    }
+  }
+
+  &__alt {
+    background: transparent;
+    border: rem(1) solid var(--green-color);
+    box-shadow: none;
+    backdrop-filter: none;
+
+    border-radius: rem(7);
+
+    @include hover {
+      &::before {
+        opacity: 0;
+      }
+      opacity: 0.7;
     }
   }
 }
