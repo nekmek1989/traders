@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 import Button from "../Button/Button.tsx";
 import IconDropDownButton from "../IconDropDownButton/IconDropDownButton.tsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,6 +10,7 @@ import {selectBalance, selectSettings} from "../../store/sectionReducer.ts";
 const Header = () => {
     const userData = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const {setIsUserAuth} = useContext(AuthContext)
     const languageOptions = [
@@ -33,7 +34,7 @@ const Header = () => {
 
         <button
             className='header__user-button'
-            onClick={() => dispatch(selectSettings())}
+            onClick={() => navigate('/settings')}
             key={'settings'}
         >
             Настройки

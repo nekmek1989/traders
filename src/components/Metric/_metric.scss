@@ -1,0 +1,39 @@
+@use "../../styles/helpers" as *;
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(10);
+  justify-content: space-between;
+
+  padding: rem(18) rem(30);
+
+  border: rem(1) solid #39384F;
+  border-radius: rem(7);
+
+  max-width: max-content;
+
+  height: 100%;
+
+  @include tablet {
+    padding: rem(10) rem(15);
+    row-gap: rem(5);
+  }
+
+  @include mobile {
+    padding: rem(6) rem(10);
+
+    hyphens: auto;
+  }
+
+  &__title {
+    color: #9C9BD6;
+    opacity: 0.6;
+  }
+
+  &__body {
+    font-size: rem(22);
+    display: flex;
+    column-gap: rem(8);
+  }
+}

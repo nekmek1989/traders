@@ -82,5 +82,14 @@
       height: 100%;
     }
 
+    &-body {
+      display: flex;
+      column-gap: rem(30);
+
+      @include mobile {
+        flex-direction: column;
+      }
+    }
+
   }
 }

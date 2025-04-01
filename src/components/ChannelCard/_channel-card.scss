@@ -1,0 +1,61 @@
+@use "../../styles/helpers" as *;
+
+
+.channel-card {
+  padding: rem(17);
+  padding-bottom: rem(30);
+
+  border-radius: rem(20);
+  background-color: rgba(23, 35, 51, 0.70);
+  box-shadow: 0px 1px 2px 0px rgba(239, 232, 232, 0.40) inset;
+  backdrop-filter: blur(15px);
+
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(20);
+
+  &__header {
+    background-color: var(--dark-color-alt);
+    padding-block: rem(15);
+    text-align: center;
+    border-radius: rem(10);
+
+    font-weight: 500;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(20);
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: rem(20);
+  }
+
+  &__author,
+  &__buttons{
+    display: flex;
+    column-gap: rem(12);
+    align-items: center;
+  }
+
+  &__image {
+    @include square(100%);
+
+    &-wrapper {
+      @include square(rem(50));
+
+      overflow: hidden;
+      border-radius: 50%;
+    }
+  }
+
+  &__info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

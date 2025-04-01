@@ -1,4 +1,4 @@
-interface IState {
+export interface ISection {
     section: string
 }
 
@@ -8,22 +8,19 @@ interface IAction {
 }
 
 const selectSection = {
-    settings: 'settings',
     balance: 'balance',
     main: 'main'
 }
 
-const defaultState: IState = {
+const defaultState: ISection = {
     section: 'main'
 }
 
-export const sectionReducer = (state: IState = defaultState, action: IAction) => {
+export const sectionReducer = (state: ISection = defaultState, action: IAction) => {
     switch (action.type) {
         case selectSection.main:
             return {section: action.payload}
         case selectSection.balance:
-            return {section: action.payload}
-        case selectSection.settings:
             return {section: action.payload}
         default:
             return state
@@ -32,4 +29,3 @@ export const sectionReducer = (state: IState = defaultState, action: IAction) =>
 
 export const selectMain = (): IAction => ({type: 'main', payload: 'main'})
 export const selectBalance = (): IAction => ({type: 'balance', payload: 'balance'})
-export const selectSettings = (): IAction => ({type: 'settings', payload: 'settings'})

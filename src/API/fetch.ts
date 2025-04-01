@@ -39,4 +39,10 @@ export default class Fetch {
 
         return response
     }
+
+    static async getChannelByUserId(userId: string | number) {
+        const response = await axios.get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel?userId=${userId}`)
+
+        return response
+    }
 }

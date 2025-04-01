@@ -1,0 +1,78 @@
+@use "../../styles/helpers" as *;
+
+.user-page {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(36);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: rem(10);
+
+    padding: rem(20);
+
+    background-color: var(--dark-color-alt);
+
+    border-radius: rem(20);
+
+    @include tablet {
+      padding: rem(12) rem(16);
+    }
+
+    @include mobile {
+      flex-direction: column;
+      align-items: normal;
+      row-gap: rem(13);
+
+      padding-inline: rem(12);
+    }
+  }
+
+  &__title {
+    display: flex;
+    column-gap: rem(24);
+    align-items: center;
+
+    @include tablet {
+      column-gap: rem(10);
+    }
+  }
+
+  &__image {
+    @include square(100%);
+
+    &-wrapper {
+      @include square(rem(85));
+
+      border-radius: 50%;
+
+      overflow: hidden;
+
+      @include tablet {
+        @include square(rem(56))
+      }
+    }
+  }
+
+  &__metrics {
+    display: flex;
+    column-gap: rem(22);
+    flex-wrap: wrap;
+
+    @include mobile {
+      justify-content: space-between;
+    }
+
+    @include mobile-s {
+      row-gap: rem(10);
+    }
+  }
+
+  &__item {
+
+  }
+}
