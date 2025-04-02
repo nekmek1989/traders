@@ -7,7 +7,7 @@ import {useFetch} from "../hooks/useFetch.ts";
 import Loader from "../components/Loader/Loader.tsx";
 import Error from "../pages/Error.tsx";
 import {store} from "../store/store.ts";
-import {recordUser} from "../store/userReducer.ts";
+import {IUser, recordUser} from "../store/userReducer.ts";
 
 
 export interface IAuth {
@@ -19,7 +19,7 @@ export interface IAuth {
 function App() {
 
     const [isUserAuth, setIsUserAuth] = useState<boolean>(false)
-    const [selectSection, setSelectSection] = useState<'main' | 'balance' | 'settings'>('main')
+    const [selectSection, setSelectSection] = useState<'main' | 'balance'>('main')
 
 
     const [fetch, error, isLoading] = useFetch(
@@ -30,18 +30,20 @@ function App() {
 
             const response = await Fetch.getUserByEmail(isAuthInLocalStorage.email)
 
-            const isAuth: boolean = response.data.find(user => {
-                if ( user.password === isAuthInLocalStorage.password &&
-                    user.email === isAuthInLocalStorage.email ) return true
-            })
+            if (response) {
+                const isAuth: boolean = response.data.find((user: IUser) => {
+                    if ( user.password === isAuthInLocalStorage.password &&
+                        user.email === isAuthInLocalStorage.email ) return true
+                })
 
-            if (!isAuth) {
-                localStorage.removeItem('auth')
-                return
+                if (!isAuth) {
+                    localStorage.removeItem('auth')
+                    return
+                }
+
+                store.dispatch(recordUser(response.data[0]))
+                setIsUserAuth(true)
             }
-
-            store.dispatch(recordUser(response.data[0]))
-            setIsUserAuth(true)
         }
     )
 

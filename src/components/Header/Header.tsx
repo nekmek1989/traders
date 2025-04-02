@@ -26,7 +26,10 @@ const Header = () => {
     const userMenu = [
         <button
             className='header__user-button'
-            onClick={() => dispatch(selectBalance())}
+            onClick={() => {
+                dispatch(selectBalance())
+                navigate('/name')
+            }}
             key={'balance'}
         >
             Управление балансом

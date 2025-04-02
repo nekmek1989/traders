@@ -3,6 +3,7 @@ export interface IUser {
     name: string
     password: string
     avatar: string | '../assets/icons/default-user.png'
+    email: string
     subscribers: number
     addressWallet: string
     money: number
