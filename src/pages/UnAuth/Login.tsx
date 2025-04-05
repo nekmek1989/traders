@@ -42,7 +42,8 @@ const Login = () => {
                     localStorage.setItem('auth', JSON.stringify(userLogin))
 
                     const userData = await Fetch.getUserByEmail(email)
-                    store.dispatch(recordUser(userData.data[0]))
+
+                    if (userData) store.dispatch(recordUser(userData.data[0]))
                 } else {
                     setErrorLogin(true)
                 }

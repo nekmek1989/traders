@@ -11,4 +11,14 @@
   padding: rem(16) rem(27);
 
   color: var(--grey-color);
+
+  &::placeholder {
+    color: var(--grey-color);
+  }
+
+  &__upload-file {
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
 }

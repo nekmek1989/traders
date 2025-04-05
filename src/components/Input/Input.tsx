@@ -12,9 +12,12 @@ export interface IInput {
     value: string
     disabled: boolean
     className?: string
+    uploadFile?: boolean
 }
 
-const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange, disabled, value}) => {
+const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange, disabled, value, uploadFile}) => {
+
+    const upload = uploadFile ? ' input__upload-file' : ''
     return (
         <input
             placeholder={placeholder}
@@ -25,7 +28,7 @@ const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onC
             onChange={onChange}
             disabled={disabled}
             value={value}
-            className={className? className + ' input' : 'input'}
+            className={className? className + ' input' + upload : ' input' + upload}
         />
     );
 };

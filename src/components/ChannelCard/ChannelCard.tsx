@@ -9,7 +9,7 @@ interface IChannelCard {
     error?: boolean
     channels?: IChannel[]
     setChannels?: (channels: IChannel[]) => void
-    changeChannel: () => void
+    changeChannel?: () => void
 }
 
 export interface IChannel {
@@ -46,7 +46,7 @@ const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, set
     }
 
     const onClickChangeChannel = (): void => {
-        changeChannel()
+        changeChannel?.()
     }
 
     const createChannel = (): void => {

@@ -103,4 +103,35 @@
       }
     }
   }
+
+  &__modal {
+    padding: rem(8) rem(75) rem(50) rem(75);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(30);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(22);
+  }
+
+  &__error {
+    color: var(--red-color);
+  }
+
+  &__field {
+    width: 100%;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__tooltip {
+    margin-left: rem(-46);
+  }
 }

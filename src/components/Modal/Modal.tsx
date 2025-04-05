@@ -10,7 +10,6 @@ const Modal = (props: Props) => {
     const { onClose, children } = props;
 
     const rootRef = useRef<HTMLDivElement>(null);
-
     const [isMounted, setMounted] = useState(false);
 
     useEffect(() => {
