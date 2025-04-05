@@ -10,6 +10,8 @@
 
   transition-duration: var(--transition-duration);
 
+
+
   &__inner {
     @include square(rem(24));
     @include flex-center;
@@ -31,7 +33,24 @@
     }
   }
 
+  &.is-active {
+    position: relative;
 
+    .burger-button__line {
+      position: absolute;
+      &:first-child {
+        rotate: 45deg;
+      }
+
+      &:nth-child(2) {
+        rotate: -45deg;
+      }
+
+      &:last-child {
+        @include visually-hidden;
+      }
+    }
+  }
 
   @include hover {
     background-color: var(--green-color);

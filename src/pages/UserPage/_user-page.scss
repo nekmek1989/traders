@@ -61,7 +61,10 @@
   &__metrics {
     display: flex;
     column-gap: rem(22);
-    flex-wrap: wrap;
+
+    @include tablet {
+      column-gap: rem(10);
+    }
 
     @include mobile {
       justify-content: space-between;
@@ -74,5 +77,30 @@
 
   &__item {
 
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(20);
+
+    @include mobile {
+      row-gap: rem(10);
+    }
+
+    &-inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: rem(30);
+
+      @include tablet {
+        gap: rem(17);
+      }
+
+      @include mobile {
+        grid-template-columns: 1fr;
+        gap: rem(26);
+      }
+    }
   }
 }

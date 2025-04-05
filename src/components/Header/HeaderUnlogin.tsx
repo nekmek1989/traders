@@ -3,19 +3,20 @@ import React, {useState} from 'react';
 import {Link, redirect} from "react-router";
 import Button from "../Button/Button.tsx";
 import BurgerButton from "../BurgerButton/BurgerButton.tsx";
+import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
 
 const HeaderUnlogin = () => {
 
     const [modalElement, setModalElement] = useState('header-unlogin__nav hidden-tablet')
 
     const showOverlay = (): void => {
-        document.documentElement.classList.add('is-lock')
+        lockHTMLElement()
         setModalElement('header-unlogin__nav is-active')
     }
 
     const quitModal = (event): void => {
         if (event.target.classList.contains('is-active')) {
-            document.documentElement.classList.remove('is-lock')
+            unlockHTMLElement()
             setModalElement('header-unlogin__nav hidden-tablet')
         }
     }
@@ -46,7 +47,7 @@ const HeaderUnlogin = () => {
                     </ul>
                 </nav>
                 <BurgerButton
-                    className='header-unlogin__burger-button'
+                    className='visible-tablet header-unlogin__burger-button'
                     onClick={showOverlay}
                 />
             </div>

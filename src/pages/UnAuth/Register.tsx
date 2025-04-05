@@ -11,7 +11,7 @@ import {AuthContext} from "../../context/Context.ts";
 import {useForm, useWatch} from "react-hook-form";
 import Loader from "../../components/Loader/Loader.tsx";
 import {store} from "../../store/store.ts";
-import {recordUser} from "../../store/userReducer.ts";
+import {recordUser, IUser} from "../../store/userReducer.ts";
 
 const Register = () => {
 
@@ -53,12 +53,12 @@ const Register = () => {
 
     const [fetch, error, isLoading] = useFetch(
         async () => {
-            const {email, accountType} = user
+            const {email} = user
 
             const response = await Fetch.getUserByEmail(email)
 
             if (response) {
-                const isAuth =  response.data.find(user => {
+                const isAuth: boolean =  response.data.find((user: IUser): boolean => {
                     return user.email === email
                 })
 

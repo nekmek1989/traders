@@ -30,7 +30,7 @@ const AppRouter = () => {
         isUserAuth
             ? <>
                 <div className="app-router__registered">
-                    <div className='app-router__registered-inner'>
+                    <div className='app-router__registered-inner' id={'modal-container-id'}>
                         <Header />
                         <div className='container app-router__registered-body'>
                             <Aside />

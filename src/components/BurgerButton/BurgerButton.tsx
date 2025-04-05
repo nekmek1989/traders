@@ -3,14 +3,20 @@ import React, {FC} from 'react';
 
 interface IBurgerButtonProps {
     className?: string
-    onClick?: void
+    onClick?: () => void
 }
 
 const BurgerButton: FC<IBurgerButtonProps> = ({onClick, className}) => {
+
+    const buttonClick = (): void => {
+        if (onClick) {
+            onClick()
+        }
+    }
     return (
         <button
-            className={'visible-tablet burger-button ' + className}
-            onClick={() => onClick()}
+            className={'burger-button ' + className}
+            onClick={() => buttonClick()}
         >
             <div className='burger-button__inner'>
                 <span className='burger-button__line'></span>

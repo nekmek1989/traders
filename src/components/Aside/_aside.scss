@@ -22,10 +22,12 @@
   &__list {
     display: flex;
     flex-direction: column;
+    align-items: center;
     row-gap: rem(24);
 
     @include mobile {
       flex-direction: row;
+      align-items: center;
       justify-content: space-around;
     }
   }

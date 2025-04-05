@@ -50,4 +50,29 @@ export default class Fetch {
         }
 
     }
+
+    static async deleteChannel(id: string | number) {
+        try {
+            const response = await axios.put(
+                `https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel/${id}`,
+                { title: "Deleted",
+                    avatar: '',
+                    createdAt: '',
+                    id: '',
+                    name: '',
+                    price: '',
+                    rating: '',
+                    revenue: '',
+                    risk: '',
+                    stock: '',
+                    subscribes: '',
+                    type: '',
+                    userId: '',
+                }
+            );
+            return response
+        } catch (e) {
+            return false
+        }
+    }
 }

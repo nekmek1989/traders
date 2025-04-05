@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from "react-router";
 import {useDispatch} from "react-redux";
 import {selectMain} from "../../store/sectionReducer.ts";
@@ -7,6 +7,7 @@ const Aside = () => {
     const searchParams: string = useLocation().pathname
     const [currentLocation, setCurrentLocation] = useState<string>('')
     const dispatch = useDispatch()
+    const navMenu = useRef(null)
     const path = {
         name: '/name',
         traders: '/traders',
@@ -19,13 +20,25 @@ const Aside = () => {
         dispatch(selectMain())
     }
 
+    const scroll = () => {
+
+        if (document.documentElement.clientWidth < 767) return
+
+        const {current} = navMenu
+        const coordinateY = document.documentElement.getBoundingClientRect().y
+
+        current.style.marginTop = `${-coordinateY}px`
+    }
+
+    document.addEventListener('scroll', scroll)
+
     useEffect(() => {
         setCurrentLocation(searchParams)
     }, [searchParams]);
 
     return (
         <aside className='aside'>
-            <nav className='aside__nav'>
+            <nav className='aside__nav' ref={navMenu}>
                 <ul className='aside__list'>
                     <li className="aside__item">
                         <Link

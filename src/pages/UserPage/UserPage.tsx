@@ -8,6 +8,9 @@ import {ISection} from "../../store/sectionReducer.ts";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import ChannelCard, {IChannel} from "../../components/ChannelCard/ChannelCard.tsx";
+import Portal from "../../components/Portal/Portal.tsx";
+import Modal from "../../components/Modal/Modal.tsx";
+import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
 
 const UserPage = () => {
     //@ts-ignore
@@ -15,6 +18,7 @@ const UserPage = () => {
     //@ts-ignore
     const section: ISection = useSelector(state => state.section)
     const [channels, setChannels] = useState<IChannel[] | []>([])
+    const [isModal, setIsModal] = useState<boolean>(false)
 
     const revenue = randomInt(user.money)
 
@@ -22,14 +26,27 @@ const UserPage = () => {
         async () => {
             const response = await Fetch.getChannelByUserId(user.id)
 
-            const filteredResponse: IChannel[] = response.data.filter((channel: IChannel)=> channel.userId === user.id)
-
-            setChannels(filteredResponse)
+            if (response) {
+                const filteredResponse: IChannel[] = response.data.filter(
+                    (channel: IChannel)=> channel.userId === user.id
+                )
+                setChannels(filteredResponse)
+                return
+            }
         }
     )
 
-    useEffect(() => {
-        //@ts-ignore
+    const showModal = (): void => {
+        lockHTMLElement()
+        setIsModal(true)
+    }
+
+    const closeModal = () => {
+        unlockHTMLElement()
+        setIsModal(false)
+    }
+
+    useEffect((): void => {
         fetch()
     }, []);
 
@@ -69,8 +86,24 @@ const UserPage = () => {
                     </h4>
                     <div className="user-page__body-inner">
                         {channels.map(channel =>
-                            <ChannelCard header={'Spot'} components={channel} key={channel.id} />
+                            <ChannelCard
+                                header={ channel.type === 'Spot' || channel.type === 'Futures'
+                                    ? channel.type
+                                    : Math.random() > 0.5 ? 'Spot' : 'Futures'
+                                }
+                                components={channel}
+                                channels={channels}
+                                setChannels={setChannels}
+                                changeChannel={showModal}
+                                key={channel.id}
+                            />
                         )}
+                        <ChannelCard header={'Spot'}/>
+                        {isModal &&
+                            <Modal onClose={closeModal} >
+                                <p style={{marginLeft: '210px'}}>1</p>
+                            </Modal>
+                        }
                     </div>
                 </div>
             }

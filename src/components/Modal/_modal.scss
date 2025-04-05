@@ -1,0 +1,19 @@
+@use "../../styles/helpers" as *;
+
+.modal {
+  @include flex-center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  &__inner {
+    background-color: var(--dark-color);
+
+    padding-bottom: rem(50);
+    border-radius: rem(20);
+  }
+
+  &__button {
+    margin-left: auto;
+  }
+}
