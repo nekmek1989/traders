@@ -1,33 +1,30 @@
-import React, {FC} from 'react';
+import React, {useState} from 'react';
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {Link} from "react-router";
+import Modal from "../Modal/Modal.tsx";
+import Input from "../Input/Input.tsx";
+import Select from "../Select/Select.tsx";
+import Tooltip from "../Tooltip/Tooltip.tsx";
+import Button from "../Button/Button.tsx";
+import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
+import {useForm} from "react-hook-form";
+import {TChannelCard, TFormChannel} from "./types";
 
-interface IChannelCard {
-    header: 'Spot' | 'Futures'
-    components?: IChannel
-    error?: boolean
-    channels?: IChannel[]
-    setChannels?: (channels: IChannel[]) => void
-    changeChannel?: () => void
-}
 
-export interface IChannel {
-    avatar: string | '/src/assets/icons/default-user.png'
-    createdAt: string
-    id: string
-    name: string
-    price: string
-    rating: number
-    revenue: number
-    risk: 1 | 2 | 3
-    stock: string
-    subscribes: number
-    type: 'Spot' | 'Futures'
-    userId: string
-}
+const ChannelCard = (props: TChannelCard): React.ReactNode => {
+    const {header, components, error, channels, setChannels} = props
 
-const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, setChannels, changeChannel}) => {
+    const [isModal, setIsModal] = useState(false)
+    const {
+        handleSubmit,
+        register,
+        formState: {
+            errors
+        }
+    } = useForm({mode: 'onBlur'})
+    const optionStock = [ 'Binance', 'Bybit', '1488', 'Mexc']
+    const optionRisk = [ 'Низкий', "Средний", "Высокий"]
 
     const [fetch] = useFetch(
         async () => {
@@ -45,12 +42,19 @@ const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, set
         fetch()
     }
 
-    const onClickChangeChannel = (): void => {
-        changeChannel?.()
+
+    const showModal = (): void => {
+        lockHTMLElement()
+        setIsModal(true)
     }
 
-    const createChannel = (): void => {
+    const closeModal = (): void => {
+        unlockHTMLElement()
+        setIsModal(false)
+    }
 
+    const createChannel = async (data: TFormChannel, event: SubmitEvent) => {
+        console.log( event, data)
     }
 
     return (
@@ -71,7 +75,7 @@ const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, set
                         </div>
                         <div className='channel-card__buttons'>
                             <button
-                                className='channel-card__button'
+                                className='channel-card__button-icon'
                                 onClick={deleteChannel}
                             >
                                 <svg
@@ -93,8 +97,8 @@ const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, set
                                 </svg>
                             </button>
                             <button
-                                className='channel-card__button'
-                                onClick={changeChannel}
+                                className='channel-card__button-icon'
+                                onClick={showModal}
                             >
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +170,7 @@ const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, set
                 : <div className='channel-card__create-channel'>
                     <button
                         className='channel-card__create-button'
-                        onClick={onClickChangeChannel}
+                        onClick={showModal}
                       >
                         <img src={'/src/assets/icons/Plus.svg'} className='channel-card__create-image'/>
                         Создать канал
@@ -175,6 +179,114 @@ const ChannelCard: FC<IChannelCard> = ({header, components, error, channels, set
                         Инструкция по подключению
                     </Link>
                    </div>
+            }
+            {isModal &&
+                <Modal onClose={closeModal} >
+                    <div className='channel-card__modal'>
+                        {components
+                            ? <h4 className='channel-card__modal-title'>
+                                ИЗМИНЕНИЕ {components.type.toUpperCase()} КАНАЛА
+                              </h4>
+                            : <h4 className='channel-card__modal-title'>
+                                СОЗДАНИЕ FUTURES КАНАЛА
+                              </h4>
+                        }
+                        <form
+                            className='channel-card__form'
+                            onSubmit={handleSubmit(createChannel)}
+                        >
+                            <label htmlFor={'photo'} className={'channel-card__field-wrapper'}>
+                                <img src={'/src/assets/images/uploadPhoto.png'}/>
+                                <Input
+                                    type={'file'}
+                                    placeholder='Название канала'
+                                    className='channel-card__field'
+                                    uploadFile
+                                    {...register('photo')}
+                                    id={'photo'}
+                                />
+                                <p>Загрузить аватар канала</p>
+                            </label>
+
+                            <Input
+                                type={'text'}
+                                placeholder='Название канала'
+                                className='channel-card__field'
+                                {...register('channelName', {
+                                    required: 'Введите название канала',
+                                    minLength: {
+                                        value: 4,
+                                        message: 'Название канала должно быть не меньше 4 символов'
+                                    }
+                                })}
+                            />
+                            {errors?.channelName &&
+                                <p className='channel-card__error'>
+                                    {errors.channelName?.message || 'Error'}
+                                </p>
+                            }
+                            <Select
+                                className={'channel-card__field'}
+                                options={optionStock}
+                                {...register('stock', {
+                                    validate: value => value === '---' ? 'Выберите биржу' : true
+                                })}
+                            />
+                            {errors?.stock &&
+                                <p className='channel-card__error'>
+                                    {errors.stock?.message || 'Error'}
+                                </p>
+                            }
+                            <Select
+                                className={'channel-card__field'}
+                                options={optionRisk}
+                                {...register('risk', {
+                                    validate: value => value === '---' ? 'Выберите уровень риска' : true
+                                })}
+                            />
+                            {errors?.risk &&
+                                <p className='channel-card__error'>
+                                    {errors.risk?.message || 'Error'}
+                                </p>
+                            }
+                            <label className={'channel-card__field-wrapper'} htmlFor={'price'}>
+                                <Input
+                                    type={'number'}
+                                    placeholder='Стоимость подписки (от 50$)'
+                                    className='channel-card__field'
+                                    {...register('price', {
+                                        required: 'Введите стоимость подписки',
+                                        pattern: {
+                                            value: /^(0|[1-9][0-9]*)$/,
+                                            message: 'Только положительные числа!'
+                                        },
+                                        maxLength: {
+                                            value: 4,
+                                            message: 'Стоимость подписки может быть не больше 9999$'
+                                        }
+                                    })}
+                                    id={'price'}
+                                />
+                                <Tooltip children={'Комиссия сервиса 10%'} className={'channel-card__tooltip'}/>
+                            </label>
+                            {errors?.price &&
+                                <p className='channel-card__error'>
+                                    {errors.price?.message || 'Error'}
+                                </p>
+                            }
+
+                            <Button
+                                className={'channel-card__button'}
+                                type={'submit'}
+                            >
+                                Создать канал
+                            </Button>
+                        </form>
+                    </div>
+                </Modal>
+            }
+            {error &&
+                <p>Что-то пошло не так :(</p>
             }
         </article>
     );

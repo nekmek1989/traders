@@ -5,7 +5,7 @@ type Select = {
     options: string[]
     name: string
     ref: React.Ref<any>
-    onClick: (e: SyntheticEvent) => void
+    onClick?: (e: SyntheticEvent) => void
     onBlur: (e: SyntheticEvent) => void
 }
 

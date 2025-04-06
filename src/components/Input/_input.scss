@@ -12,13 +12,20 @@
 
   color: var(--grey-color);
 
+  &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  @include mobile-s {
+    padding: rem(10) rem(20);
+  }
+
   &::placeholder {
     color: var(--grey-color);
   }
 
   &__upload-file {
-    box-shadow: none;
-    backdrop-filter: none;
-    padding: 0;
+    @include visually-hidden;
   }
 }

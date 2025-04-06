@@ -15,6 +15,11 @@
 
   width: 100%;
 
+
+  @include mobile-s {
+    padding: rem(10) rem(20);
+  }
+
   &-wrapper {
     position: relative;
 

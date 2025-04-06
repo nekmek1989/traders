@@ -17,23 +17,10 @@ import Select from "../../components/Select/Select.tsx";
 import Tooltip from "../../components/Tooltip/Tooltip.tsx";
 
 const UserPage = () => {
-    //@ts-ignore
     const user: IUser = useSelector(state => state.user)
-    //@ts-ignore
-    const section: ISection = useSelector(state => state.section)
+    const section = useSelector<ISection>(state => state.section)
     const [channels, setChannels] = useState<IChannel[] | []>([])
-    const [isModal, setIsModal] = useState<boolean>(false)
     const revenue = useMemo<number>(() => randomInt(user.money), [user.money])
-    const {
-        handleSubmit,
-        register,
-        formState: {
-            errors
-        }
-    } = useForm({mode: 'onBlur'})
-    const optionStock = [ 'Binance', 'Bybit', '1488', 'Mexc']
-    const optionRist = [ 'Низкий', "Средний", "Высокий"]
-
 
     const [fetch] = useFetch(
         async () => {
@@ -49,19 +36,6 @@ const UserPage = () => {
         }
     )
 
-    const showModal = (): void => {
-        lockHTMLElement()
-        setIsModal(true)
-    }
-
-    const closeModal = () => {
-        unlockHTMLElement()
-        setIsModal(false)
-    }
-
-    const createChannel = (event) => {
-        console.log(event)
-    }
 
     useEffect((): void => {
         fetch()
@@ -112,102 +86,10 @@ const UserPage = () => {
                                 components={channel}
                                 channels={channels}
                                 setChannels={setChannels}
-                                changeChannel={showModal}
                                 key={channel.id}
                             />
                         )}
-                        <ChannelCard header={'Spot'} changeChannel={showModal}/>
-                        {isModal &&
-                            <Modal onClose={closeModal} >
-                                <div className='user-page__modal'>
-                                    <h4 className='user-page__modal-title'>
-                                        СОЗДАНИЕ FUTURES КАНАЛА
-                                    </h4>
-                                    <form
-                                        className='user-page__form'
-                                        onSubmit={handleSubmit(createChannel)}
-                                    >
-                                        <label htmlFor={'photo'} className={'user-page__field-wrapper'}>
-                                            <Input
-                                                type={'file'}
-                                                placeholder='Название канала'
-                                                className='user-page__field'
-                                                uploadFile
-                                                {...register('photo')}
-                                            />
-                                            <p>Загрузить аватар канала</p>
-                                        </label>
-
-                                        <Input
-                                            type={'text'}
-                                            placeholder='Название канала'
-                                            className='user-page__field'
-                                            {...register('channelName', {
-                                                required: 'Введите название канала',
-                                                minLength: {
-                                                    value: 4,
-                                                    message: 'Название канала должно быть не меньше 4 символов'
-                                                }
-                                            })}
-                                        />
-                                        {errors?.channelName &&
-                                            <p className='user-page__error'>
-                                                {errors.channelName?.message || 'Error'}
-                                            </p>
-                                        }
-                                        <Select
-                                            className={'user-page__field'}
-                                            options={optionStock}
-                                            {...register('stock', {
-                                                    validate: value => value === '---' ? 'Выберите биржу' : true
-                                            })}
-                                        />
-                                        {errors?.stock &&
-                                            <p className='user-page__error'>
-                                                {errors.stock?.message || 'Error'}
-                                            </p>
-                                        }
-                                        <Select
-                                            className={'user-page__field'}
-                                            options={optionRist}
-                                            {...register('risk', {
-                                                validate: value => value === '---' ? 'Выберите уровень риска' : true
-                                            })}
-                                        />
-                                        {errors?.risk &&
-                                            <p className='user-page__error'>
-                                                {errors.risk?.message || 'Error'}
-                                            </p>
-                                        }
-                                        <label className={'user-page__field-wrapper'}>
-                                            <Input
-                                                type={'text'}
-                                                placeholder='Стоимость подписки (от 50$)'
-                                                className='user-page__field'
-                                                {...register('price', {
-                                                    required: 'Введите стоимость подписки'
-                                                })}
-                                            />
-                                            <Tooltip children={'Комиссия сервиса 10%'} className={'user-page__tooltip'}/>
-                                        </label>
-                                        {errors?.price &&
-                                            <p className='user-page__error'>
-                                                {errors.price?.message || 'Error'}
-                                            </p>
-                                        }
-
-
-
-                                        <Button
-                                            className={'user-page__button'}
-                                            type={'submit'}
-                                        >
-                                            Создать канал
-                                        </Button>
-                                    </form>
-                                </div>
-                            </Modal>
-                        }
+                        <ChannelCard header={'Spot'} />
                     </div>
                 </div>
             }
