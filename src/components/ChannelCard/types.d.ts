@@ -12,10 +12,10 @@ export interface IChannel {
     createdAt: string
     id: string
     name: string
-    price: string
+    price: number
     rating: number
     revenue: number
-    risk: 1 | 2 | 3
+    risk: 'Низкий' | 'Средний' | 'Высокий'
     stock: string
     subscribes: number
     type: 'Spot' | 'Futures'
@@ -23,9 +23,9 @@ export interface IChannel {
 }
 
 export type TFormChannel = {
-    channelName: string
-    photo: FileList
-    price: string
-    risk: 'Низкий' | 'Средний' | 'Высокий'
-    stock: 'Binance' | 'Bybit' | '1488' | 'Mexc'
+    name: string
+    avatar: File
+    price: number
+    risk: '---' | 'Низкий' | 'Средний' | 'Высокий'
+    stock: '---' | 'Binance' | 'Bybit' | '1488' | 'Mexc'
 }

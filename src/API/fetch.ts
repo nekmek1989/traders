@@ -1,4 +1,5 @@
 import axios from "axios";
+import {TFormChannel} from "../components/ChannelCard/types";
 
 export interface IUser {
     email: string
@@ -70,6 +71,37 @@ export default class Fetch {
                     userId: '',
                 }
             );
+            return response
+        } catch (e) {
+            return false
+        }
+    }
+
+    static async changeChannel(id: string | number, data: TFormChannel) {
+        try {
+            const response = await axios.put(
+                `https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel/${id}`,
+                {
+                    id: id,
+                    ...data
+                }
+            )
+            return response
+        } catch (e) {
+            return false
+        }
+    }
+
+    static async postChannel(userId: string | number, data: TFormChannel) {
+        try {
+            const response = await axios.post(
+                `https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel`,
+                {
+                    headers: {'content-type':'application/json'},
+                    userId: userId,
+                    ...data
+                }
+            )
             return response
         } catch (e) {
             return false

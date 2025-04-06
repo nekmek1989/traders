@@ -9,14 +9,14 @@ export interface IInput {
     onBlur: (e: SyntheticEvent) => void
     name: string
     ref: any
-    value?: string
+    defaultValue?: string | number
     disabled?: boolean
     className?: string
     uploadFile?: boolean
     id?: string
 }
 
-const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange, disabled, value, uploadFile, id}) => {
+const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange, disabled, defaultValue, uploadFile, id}) => {
 
     const upload = uploadFile ? ' input__upload-file' : ''
     return (
@@ -28,7 +28,7 @@ const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onC
             onBlur={onBlur}
             onChange={onChange}
             disabled={disabled}
-            value={value}
+            defaultValue={defaultValue}
             className={className? className + ' input' + upload : ' input' + upload}
             id={id}
         />

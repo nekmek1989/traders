@@ -8,13 +8,14 @@ import Select from "../Select/Select.tsx";
 import Tooltip from "../Tooltip/Tooltip.tsx";
 import Button from "../Button/Button.tsx";
 import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {TChannelCard, TFormChannel} from "./types";
+import {useSelector} from "react-redux";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
     const {header, components, error, channels, setChannels} = props
-
+    const user = useSelector(state => state.user)
     const [isModal, setIsModal] = useState(false)
     const {
         handleSubmit,
@@ -22,26 +23,57 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
         formState: {
             errors
         }
-    } = useForm({mode: 'onBlur'})
-    const optionStock = [ 'Binance', 'Bybit', '1488', 'Mexc']
-    const optionRisk = [ 'Низкий', "Средний", "Высокий"]
+    } = useForm<TFormChannel>({mode: 'onBlur'})
+    const optionStock = ['Binance', 'Bybit', '1488', 'Mexc']
+    const optionRisk = ['Низкий', "Средний", "Высокий"]
 
     const [fetch] = useFetch(
-        async () => {
-            if (components && setChannels && channels) {
-                await Fetch.deleteChannel(components?.id)
+        async ( data: {
+            action: 'delete' | 'edit' | 'create',
+            formData?: TFormChannel
+        }) => {
+            const {action, formData} = data
 
-                setChannels([...channels].filter(
-                    (channel) => channel.id !== components?.id)
-                )
+            switch (action) {
+                case "delete":
+                    if (components && setChannels && channels) {
+                        await Fetch.deleteChannel(components.id)
+
+                        setChannels([...channels].filter(
+                            (channel) => channel.id !== components.id)
+                        )
+                    }
+                    return
+                case "edit":
+                    if (components && formData) {
+                        const response = await Fetch.changeChannel(components?.id, formData)
+                        if (response && setChannels && channels) {
+                            setChannels([...channels].map(channel => {
+                                if (channel.id === components.id) {
+                                    return response.data
+                                }
+                                return channel
+                            }))
+                            closeModal()
+                        }
+                    }
+                    return
+                case 'create':
+                    if (formData) {
+                        const response = await Fetch.postChannel(user.id, formData)
+
+                        if (response && setChannels && channels) {
+                            setChannels([...channels, response.data])
+                            closeModal()
+                        }
+                    }
             }
         }
     )
 
     const deleteChannel = (): void => {
-        fetch()
+        fetch({action: 'delete'})
     }
-
 
     const showModal = (): void => {
         lockHTMLElement()
@@ -53,8 +85,18 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
         setIsModal(false)
     }
 
-    const createChannel = async (data: TFormChannel, event: SubmitEvent) => {
-        console.log( event, data)
+    const createChannel: SubmitHandler<TFormChannel> = async (data, event) => {
+        if (event) {
+            const isChangeChannel =  event.target.attributes['data-is-change-channel'].value === 'true'
+
+            //@ts-ignore
+            data.avatar = '/src/assets/icons/default-user.png'
+            if (isChangeChannel) {
+                fetch({action: 'edit', formData: data})
+            } else {
+                fetch({action: 'create', formData: data})
+            }
+        }
     }
 
     return (
@@ -67,7 +109,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                     <div className="channel-card__title">
                         <div className='channel-card__author'>
                             <div className="channel-card__image-wrapper">
-                                <img src={components?.avatar}/>
+                                <img src={components?.avatar} alt={''}/>
                             </div>
                             <h3 className='channel-card__name'>
                                 {components?.name}
@@ -136,9 +178,9 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                         </li>
                         <li className="channel-card__item">
                             <p className='size-small'>УРОВЕНЬ РИСКА</p>
-                            {components?.risk === 1
+                            {components?.risk === 'Низкий'
                                 ? <p className='channel-card__risk-1'>Низкий</p>
-                                : components?.risk === 2
+                                : components?.risk === 'Средний'
                                     ? <p className='channel-card__risk-2'>Средний</p>
                                     : <p className='channel-card__risk-3'>Высокий</p>
                             }
@@ -172,7 +214,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                         className='channel-card__create-button'
                         onClick={showModal}
                       >
-                        <img src={'/src/assets/icons/Plus.svg'} className='channel-card__create-image'/>
+                        <img src={'/src/assets/icons/Plus.svg'} className='channel-card__create-image' alt={''}/>
                         Создать канал
                     </button>
                     <Link to={'/instructions'} className='channel-card__link'>
@@ -194,16 +236,19 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                         <form
                             className='channel-card__form'
                             onSubmit={handleSubmit(createChannel)}
+                            data-is-change-channel={!!components}
                         >
-                            <label htmlFor={'photo'} className={'channel-card__field-wrapper'}>
-                                <img src={'/src/assets/images/uploadPhoto.png'}/>
+                            <label htmlFor={'avatar'} className={'channel-card__field-wrapper'}>
+                                <div className={'channel-card__image-wrapper'}>
+                                    <img src={components?.avatar || '/src/assets/images/uploadPhoto.png'} alt={''} className={'channel-card__image'}/>
+                                </div>
                                 <Input
                                     type={'file'}
                                     placeholder='Название канала'
                                     className='channel-card__field'
                                     uploadFile
-                                    {...register('photo')}
-                                    id={'photo'}
+                                    {...register('avatar')}
+                                    id={'avatar'}
                                 />
                                 <p>Загрузить аватар канала</p>
                             </label>
@@ -212,41 +257,56 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                 type={'text'}
                                 placeholder='Название канала'
                                 className='channel-card__field'
-                                {...register('channelName', {
-                                    required: 'Введите название канала',
-                                    minLength: {
-                                        value: 4,
-                                        message: 'Название канала должно быть не меньше 4 символов'
-                                    }
-                                })}
+                                defaultValue={components?.name}
+                                {...register('name',
+                                    components
+                                        ? {}
+                                        : {
+                                            required: 'Введите название канала',
+                                            minLength: {
+                                                value: 4,
+                                                message: 'Название канала должно быть не меньше 4 символов'
+                                            }
+                                        }
+                                )}
                             />
-                            {errors?.channelName &&
+                            {errors?.name &&
                                 <p className='channel-card__error'>
-                                    {errors.channelName?.message || 'Error'}
+                                    {errors.name?.message as string || 'Error'}
                                 </p>
                             }
                             <Select
                                 className={'channel-card__field'}
                                 options={optionStock}
-                                {...register('stock', {
-                                    validate: value => value === '---' ? 'Выберите биржу' : true
-                                })}
+                                value={components?.stock}
+                                {...register('stock',
+                                    components
+                                        ? {}
+                                        : {
+                                            validate: value => value === '---' ? 'Выберите биржу' : true
+                                        }
+                                )}
                             />
                             {errors?.stock &&
                                 <p className='channel-card__error'>
-                                    {errors.stock?.message || 'Error'}
+                                    {errors.stock?.message as string || 'Error'}
                                 </p>
                             }
                             <Select
                                 className={'channel-card__field'}
                                 options={optionRisk}
-                                {...register('risk', {
-                                    validate: value => value === '---' ? 'Выберите уровень риска' : true
-                                })}
+                                value={components?.risk}
+                                {...register('risk',
+                                    components
+                                        ? {}
+                                        : {
+                                            validate: value => value === '---' ? 'Выберите уровень риска' : true
+                                        }
+                                )}
                             />
                             {errors?.risk &&
                                 <p className='channel-card__error'>
-                                    {errors.risk?.message || 'Error'}
+                                    {errors.risk?.message as string || 'Error'}
                                 </p>
                             }
                             <label className={'channel-card__field-wrapper'} htmlFor={'price'}>
@@ -254,24 +314,40 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                     type={'number'}
                                     placeholder='Стоимость подписки (от 50$)'
                                     className='channel-card__field'
-                                    {...register('price', {
-                                        required: 'Введите стоимость подписки',
-                                        pattern: {
-                                            value: /^(0|[1-9][0-9]*)$/,
-                                            message: 'Только положительные числа!'
-                                        },
-                                        maxLength: {
-                                            value: 4,
-                                            message: 'Стоимость подписки может быть не больше 9999$'
-                                        }
-                                    })}
+                                    defaultValue={components?.price}
+                                    {...register('price',
+                                        components
+                                            ? {
+                                                pattern: {
+                                                    value: /^(0|[1-9][0-9]*)$/,
+                                                    message: 'Только положительные числа!'
+                                                },
+                                                maxLength: {
+                                                    value: 4,
+                                                    message: 'Стоимость подписки может быть не больше 9999$'
+                                                },
+                                                valueAsNumber: true as any,
+                                            }
+                                            : {
+                                                required: 'Введите стоимость подписки',
+                                                pattern: {
+                                                    value: /^(0|[1-9][0-9]*)$/,
+                                                    message: 'Только положительные числа!'
+                                                },
+                                                maxLength: {
+                                                    value: 4,
+                                                    message: 'Стоимость подписки может быть не больше 9999$'
+                                                },
+                                                valueAsNumber: true as any,
+                                            }
+                                    )}
                                     id={'price'}
                                 />
                                 <Tooltip children={'Комиссия сервиса 10%'} className={'channel-card__tooltip'}/>
                             </label>
                             {errors?.price &&
                                 <p className='channel-card__error'>
-                                    {errors.price?.message || 'Error'}
+                                    {errors.price?.message as string || 'Error'}
                                 </p>
                             }
 
@@ -279,7 +355,10 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                 className={'channel-card__button'}
                                 type={'submit'}
                             >
-                                Создать канал
+                                {components
+                                    ? 'Сохранить изменения'
+                                    : "Создать канал"
+                                }
                             </Button>
                         </form>
                     </div>

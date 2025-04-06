@@ -1,25 +1,20 @@
-import React, {SyntheticEvent} from 'react';
+import React from 'react';
 
 type Select = {
     className: string
     options: string[]
-    name: string
-    ref: React.Ref<any>
-    onClick?: (e: SyntheticEvent) => void
-    onBlur: (e: SyntheticEvent) => void
-}
+    value?: string
+} & React.SelectHTMLAttributes<HTMLSelectElement>
 
 const Select = (props: Select) => {
-    const { className, options, name, ref, onClick, onBlur } = props
+    const { className, options, value, ...rest } = props
+
     return (
         <div className={'select-wrapper'}>
         <select
             className={className + ' select'}
-            name={name}
-            ref={ref}
-            onClick={onClick}
-            onBlur={onBlur}
-            defaultValue="---"
+            defaultValue={value? value : '---'}
+            {...rest}
         >
             <option disabled value={'---'}>---</option>
             {options.map((element: string)=>

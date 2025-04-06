@@ -89,7 +89,7 @@ const UserPage = () => {
                                 key={channel.id}
                             />
                         )}
-                        <ChannelCard header={'Spot'} />
+                        <ChannelCard header={'Spot'} channels={channels} setChannels={setChannels} />
                     </div>
                 </div>
             }
