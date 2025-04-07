@@ -7,14 +7,9 @@ import {randomInt} from "../../utils/randomInt.ts";
 import {ISection} from "../../store/sectionReducer.ts";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
-import ChannelCard, {IChannel} from "../../components/ChannelCard/ChannelCard.tsx";
-import Modal from "../../components/Modal/Modal.tsx";
-import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
-import {useForm} from "react-hook-form";
-import Input from "../../components/Input/Input.tsx";
-import Button from "../../components/Button/Button.tsx";
-import Select from "../../components/Select/Select.tsx";
-import Tooltip from "../../components/Tooltip/Tooltip.tsx";
+import ChannelCard from "../../components/ChannelCard/ChannelCard.tsx";
+import {IChannel} from "../../components/ChannelCard/types";
+
 
 const UserPage = () => {
     const user: IUser = useSelector(state => state.user)

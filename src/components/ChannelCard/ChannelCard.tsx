@@ -92,9 +92,9 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
             //@ts-ignore
             data.avatar = '/src/assets/icons/default-user.png'
             if (isChangeChannel) {
-                fetch({action: 'edit', formData: data})
+                await fetch({action: 'edit', formData: data})
             } else {
-                fetch({action: 'create', formData: data})
+                await fetch({action: 'create', formData: data})
             }
         }
     }
