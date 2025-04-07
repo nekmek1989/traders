@@ -11,7 +11,7 @@ import {AuthContext} from "../../context/Context.ts";
 import {useForm, useWatch} from "react-hook-form";
 import Loader from "../../components/Loader/Loader.tsx";
 import {store} from "../../store/store.ts";
-import {recordUser, IUser} from "../../store/userReducer.ts";
+import {recordUser, User} from "../../store/userReducer.ts";
 
 const Register = () => {
 
@@ -51,14 +51,14 @@ const Register = () => {
     }
 
 
-    const [fetch, error, isLoading] = useFetch(
+    const [fetch, isLoading] = useFetch(
         async () => {
             const {email} = user
 
             const response = await Fetch.getUserByEmail(email)
 
             if (response) {
-                const isAuth: boolean =  response.data.find((user: IUser): boolean => {
+                const isAuth: boolean =  response.data.find((user: User): boolean => {
                     return user.email === email
                 })
 
@@ -106,7 +106,7 @@ const Register = () => {
 
                 {errors?.email &&
                     <p className='login__error'>
-                        {errors.email?.message || 'Error'}
+                        {errors.email?.message as string || 'Error'}
                     </p>
                 }
 
@@ -128,7 +128,7 @@ const Register = () => {
                 />
                 {errors?.password &&
                     <p className='login__error'>
-                        {errors.password?.message || 'Error'}
+                        {errors.password?.message as string || 'Error'}
                     </p>
                 }
 
@@ -143,7 +143,7 @@ const Register = () => {
                 />
                 {errors?.passwordRepeat &&
                     <p className='login__error'>
-                        {errors.passwordRepeat?.message || 'Error'}
+                        {errors.passwordRepeat?.message as string || 'Error'}
                     </p>
                 }
 

@@ -11,11 +11,12 @@ import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {TChannelCard, TFormChannel} from "./types";
 import {useSelector} from "react-redux";
+import {RootState} from "../../store/store.ts";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
     const {header, components, error, channels, setChannels} = props
-    const user = useSelector(state => state.user)
+    const user = useSelector((state: RootState) => state.user)
     const [isModal, setIsModal] = useState(false)
     const {
         handleSubmit,

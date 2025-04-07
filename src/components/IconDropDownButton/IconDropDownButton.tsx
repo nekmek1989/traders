@@ -1,16 +1,17 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import DropDown from "../DropDown/DropDown.tsx";
 
 interface IDropDown {
-    children: any
-    elements: any
+    children: React.ReactNode
+    elements: React.ReactNode
     className?: string
 }
 
-const IconDropDownButton:FC<IDropDown> = ({children, className, elements}) => {
+const IconDropDownButton = (props: IDropDown): React.ReactNode => {
+    const {children, className, elements} = props
 
     const [classes, setClasses] = useState<string>('icon-drop-down-button__description')
-    const menuRef = useRef(null)
+    const menuRef = useRef<HTMLDivElement | null>(null)
 
     const showDescription = ():void => {
         if (!classes.includes('is-active')) setClasses(classes + ' is-active')
@@ -18,8 +19,8 @@ const IconDropDownButton:FC<IDropDown> = ({children, className, elements}) => {
 
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setClasses('icon-drop-down-button__description');
             }
         };

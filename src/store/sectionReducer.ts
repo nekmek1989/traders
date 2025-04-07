@@ -1,31 +1,26 @@
-export interface ISection {
-    section: string
+import {createSlice} from "@reduxjs/toolkit";
+
+export interface Section {
+    section: 'main' | 'balance'
 }
 
-interface IAction {
-    type: string
-    payload: any
+const defaultState: Section = {
+    section: "main"
 }
 
-const selectSection = {
-    balance: 'balance',
-    main: 'main'
-}
+export const  sectionReducer = createSlice({
+    name: 'section',
+    initialState: defaultState,
+    reducers: {
+        selectMain: state => {
+            state.section = 'main'
+        },
 
-const defaultState: ISection = {
-    section: 'main'
-}
-
-export const sectionReducer = (state: ISection = defaultState, action: IAction) => {
-    switch (action.type) {
-        case selectSection.main:
-            return {section: action.payload}
-        case selectSection.balance:
-            return {section: action.payload}
-        default:
-            return state
+        selectBalance: state => {
+            state.section = 'balance'
+        }
     }
-}
+})
 
-export const selectMain = (): IAction => ({type: 'main', payload: 'main'})
-export const selectBalance = (): IAction => ({type: 'balance', payload: 'balance'})
+export const {selectMain, selectBalance} = sectionReducer.actions
+export default sectionReducer.reducer

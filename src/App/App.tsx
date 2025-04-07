@@ -7,7 +7,7 @@ import {useFetch} from "../hooks/useFetch.ts";
 import Loader from "../components/Loader/Loader.tsx";
 import Error from "../pages/Error.tsx";
 import {store} from "../store/store.ts";
-import {IUser, recordUser} from "../store/userReducer.ts";
+import {User, recordUser} from "../store/userReducer.ts";
 
 
 export interface IAuth {
@@ -26,12 +26,12 @@ function App() {
         async () => {
             const isAuthInLocalStorage: IAuth | null = JSON.parse(localStorage.getItem('auth') as string)
 
-            if (!isAuthInLocalStorage) return false
+            if (!isAuthInLocalStorage) return
 
             const response = await Fetch.getUserByEmail(isAuthInLocalStorage.email)
 
             if (response) {
-                const isAuth: boolean = response.data.find((user: IUser) => {
+                const isAuth: boolean = response.data.find((user: User) => {
                     if ( user.password === isAuthInLocalStorage.password &&
                         user.email === isAuthInLocalStorage.email ) return true
                 })

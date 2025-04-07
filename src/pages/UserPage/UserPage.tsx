@@ -1,19 +1,18 @@
 //@ts-ignore
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSelector} from "react-redux";
-import {IUser} from "../../store/userReducer.ts";
 import Metric from "../../components/Metric/Metric.tsx";
 import {randomInt} from "../../utils/randomInt.ts";
-import {ISection} from "../../store/sectionReducer.ts";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import ChannelCard from "../../components/ChannelCard/ChannelCard.tsx";
 import {IChannel} from "../../components/ChannelCard/types";
+import {RootState} from "../../store/store.ts";
 
 
 const UserPage = () => {
-    const user: IUser = useSelector(state => state.user)
-    const section = useSelector<ISection>(state => state.section)
+    const user = useSelector((state: RootState) => state.user)
+    const section = useSelector((state: RootState) => state.section)
     const [channels, setChannels] = useState<IChannel[] | []>([])
     const revenue = useMemo<number>(() => randomInt(user.money), [user.money])
 

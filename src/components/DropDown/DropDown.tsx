@@ -1,11 +1,13 @@
-import React, {FC} from 'react';
+import React from 'react';
 
-interface IDropDown {
+type IDropDown = {
     children: any
     className?: string
 }
 
-const DropDown: FC<IDropDown> = ({children, className}) => {
+const DropDown = (props: IDropDown): React.ReactNode => {
+    const {children, className} = props
+
     return (
         <div className={className? className + ' dropDown': 'dropDown'}>
             {children}

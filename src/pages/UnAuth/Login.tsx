@@ -7,9 +7,9 @@ import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {IAuth} from "../../App/App.tsx";
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {store} from "../../store/store.ts";
-import {recordUser} from "../../store/userReducer.ts";
+import {recordUser, User} from "../../store/userReducer.ts";
 import Loader from "../../components/Loader/Loader.tsx";
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
         formState: {
             errors
         }
-    } = useForm({mode: 'onBlur'})
+    } = useForm<IAuth>({mode: 'onBlur'})
 
     const [fetch, error, isLoading] = useFetch(
         async (userLogin: IAuth) => {
@@ -31,7 +31,7 @@ const Login = () => {
             const response = await Fetch.getUserByEmail(email)
 
             if (response) {
-                const isAuth: boolean =  response.data.find(user => {
+                const isAuth: boolean =  response.data.find((user: User) => {
                     if ( user.password === password &&
                         user.email === email ) return true
                 })
@@ -51,8 +51,8 @@ const Login = () => {
          }
     )
 
-    const checkUser = (event: React.FormEvent<HTMLFormElement>): void => {
-        fetch(event)
+    const checkUser: SubmitHandler<IAuth> = (data): void => {
+        fetch(data)
     }
 
     return (
@@ -77,7 +77,7 @@ const Login = () => {
                     />
                     {errors?.email &&
                             <p className='login__error'>
-                                {errors.email?.message || 'Error'}
+                                {errors.email?.message as string || 'Error'}
                             </p>
                     }
 
@@ -99,7 +99,7 @@ const Login = () => {
                     />
                     {errors?.password &&
                         <p className='login__error'>
-                            {errors.password?.message || 'Error'}
+                            {errors.password?.message as string || 'Error'}
                         </p>
                     }
 

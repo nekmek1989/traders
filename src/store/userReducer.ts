@@ -1,5 +1,7 @@
-export interface IUser {
-    readonly id: string | number
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
+export interface User {
+    id: string | number
     name: string
     password: string
     avatar: string | '../assets/icons/default-user.png'
@@ -8,42 +10,41 @@ export interface IUser {
     addressWallet: string
     money: number
     accountType: string
-    readonly createdAt: string
+    createdAt: string
     headers: any
 }
 
-interface IAction {
-    type: string
-    payload: any
+const defaultState: User = {
+    id: 0,
+    name: '',
+    password: '',
+    avatar: '',
+    email: '',
+    subscribers: 0,
+    addressWallet: '',
+    money: 0,
+    accountType: '',
+    createdAt: '',
+    headers: '',
 }
 
-const defaultState = {
-    id: null
-}
+export const userReducer = createSlice({
+    name: 'user',
+    initialState: defaultState,
+    reducers: {
+        addMoney: (state, actions: PayloadAction<number>) => {
+            state.money = state.money + actions.payload
+        },
 
-const ADD_MONEY: string = 'ADD_MONEY'
-const REMOVE_MONEY: string = 'REMOVE_MONEY'
-const RECORD_USER: string = 'RECORD_USER'
+        removeMoney: (state, actions: PayloadAction<number>) => {
+            state.money = state.money - actions.payload
+        },
 
-export const userReducer = (state: IUser | {} = defaultState, action: IAction) => {
-    switch (action.type) {
-        case ADD_MONEY:
-            //@ts-ignore
-            return {...state, money: state.money + action.payload}
-        case REMOVE_MONEY:
-            //@ts-ignore
-            if (state.money < action.payload) {
-                return new Error('Недостаточно средств!')
-            }
-            //@ts-ignore
-            return {...state, money: state.money - action.payload}
-        case RECORD_USER:
-            return {...action.payload}
-        default:
-            return state
+        recordUser: (_, actions: PayloadAction<User>) => {
+            return  {...actions.payload}
+        }
     }
-}
+})
 
-export const recordUser = (payload: string):IAction => ({type: 'RECORD_USER', payload})
-export const addMoney = (payload: string): IAction => ({type: 'ADD_MONEY', payload})
-export const removeMoney = (payload: IUser): IAction => ({type: 'REMOVE_MONEY', payload})
+export const {addMoney, removeMoney, recordUser} = userReducer.actions
+export default userReducer.reducer

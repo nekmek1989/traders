@@ -1,5 +1,4 @@
-//@ts-ignore
-import React, {FC} from 'react';
+import React from 'react';
 import DropDown from "../DropDown/DropDown.tsx";
 
 interface ITooltip {
@@ -7,7 +6,9 @@ interface ITooltip {
     className?: string
 }
 
-const Tooltip :FC<ITooltip> = ({children, className}) => {
+const Tooltip = (props: ITooltip): React.ReactNode => {
+    const {children, className} = props
+
     return (
         <div className={'tooltip ' + className}>
             <div className='tooltip__header'>

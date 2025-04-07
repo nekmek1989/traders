@@ -1,13 +1,15 @@
-import {combineReducers, createStore} from "redux";
-import {composeWithDevTools} from "@redux-devtools/extension";
-import {userReducer} from "./userReducer.ts";
 import {languageReducer} from "./languageReducer.ts";
+import {configureStore} from "@reduxjs/toolkit";
 import {sectionReducer} from "./sectionReducer.ts";
+import {userReducer} from "./userReducer.ts";
 
-const rootReducer = combineReducers({
-    user: userReducer,
-    language: languageReducer,
-    section: sectionReducer
+export const store =  configureStore({
+    reducer: {
+        language: languageReducer.reducer,
+        section: sectionReducer.reducer,
+        user: userReducer.reducer
+    }
 })
-//@ts-ignore
-export const store = createStore(rootReducer, composeWithDevTools())
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
