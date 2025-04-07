@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from "react-router";
 import {useDispatch} from "react-redux";
 import {selectMain} from "../../store/sectionReducer.ts";
@@ -7,7 +7,7 @@ const Aside = () => {
     const searchParams: string = useLocation().pathname
     const [currentLocation, setCurrentLocation] = useState<string>('')
     const dispatch = useDispatch()
-    const navMenu = useRef(null)
+    const navMenu = useRef<HTMLElement | null>(null)
     const path = {
         name: '/name',
         traders: '/traders',
@@ -27,7 +27,7 @@ const Aside = () => {
         const {current} = navMenu
         const coordinateY = document.documentElement.getBoundingClientRect().y
 
-        current.style.marginTop = `${-coordinateY}px`
+        if (current) current.style.marginTop = `${-coordinateY}px`
     }
 
     document.addEventListener('scroll', scroll)

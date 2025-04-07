@@ -1,6 +1,7 @@
 @use "../../styles/helpers" as *;
 
 .dropDown {
+  --left: #{rem(-190)};
   position: absolute;
 
   padding: rem(15);
@@ -9,8 +10,6 @@
 
   font-size: rem(14);
 
-  min-width: rem(245);
-
   display: flex;
   flex-direction: column;
   row-gap: rem(10);
@@ -18,38 +17,30 @@
   opacity: 0;
   visibility: hidden;
 
+  min-width: rem(230);
+  max-width: rem(250);
+
   top: rem(33);
-  left: rem(-210);
+  left: var(--left);
 
   transition-duration: var(--transition-duration);
 
   z-index: 1000;
 
-  @include mobile {
-    position: fixed;
-    max-width: 70%;
-    left: 10%;
-    top: rem(160);
-  }
-
   &::after {
-    @include mobile-above {
+    @include square(rem(13));
 
-      @include square(rem(13));
+    content: '';
 
-      content: '';
+    position: absolute;
 
-      position: absolute;
+    display: block;
 
-      display: block;
+    rotate: 45deg;
 
-      rotate: 45deg;
+    background-color: inherit;
 
-      background-color: inherit;
-
-      top: rem(-6);
-      left: rem(213);
-
-    }
+    top: rem(-6);
+    left: calc(var(--left) * (-1) + 4px);
   }
 }
