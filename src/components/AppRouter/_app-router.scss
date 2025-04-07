@@ -87,6 +87,7 @@
 
       @include mobile {
         flex-direction: column;
+        row-gap: rem(30);
       }
     }
 

@@ -13,7 +13,7 @@ const DropDown = (props: IDropDown): React.ReactNode => {
         if (window.innerWidth < 480) {
             const { current } = dropDownElement
             const x = current?.getBoundingClientRect().x
-            console.dir(current)
+
             if(x && current) {
                 if (x < 0) {
                     current.style.setProperty('--left', '-100px')

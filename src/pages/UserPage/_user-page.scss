@@ -103,4 +103,31 @@
       }
     }
   }
+
+  &__error {
+    color: var(--red-color);
+  }
+
+  &__balance {
+    display: flex;
+    column-gap: rem(42);
+    justify-content: space-between;
+
+    padding: rem(50) rem(40);
+
+    border-radius: rem(20);
+    background: rgba(23, 35, 51, 0.80);
+
+    box-shadow: 0px 1px 2px 0px rgba(239, 232, 232, 0.40) inset;
+    backdrop-filter: blur(15px);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: rem(26);
+
+    width: 100%;
+  }
 }

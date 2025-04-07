@@ -1,5 +1,6 @@
 import axios from "axios";
 import {TFormChannel} from "../components/ChannelCard/types";
+import {User} from "../store/userReducer.ts";
 
 export interface IUser {
     email: string
@@ -9,6 +10,7 @@ export interface IUser {
 
 
 export default class Fetch {
+
     static async getAllUsers() {
         const response = await axios
             .get('https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users')
@@ -20,6 +22,17 @@ export default class Fetch {
         try {
             const response = await axios
                 .get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users?email=${email}`)
+
+            return response
+        } catch (e) {
+            return false
+        }
+    }
+
+    static async getUserById(Id: string | number) {
+        try {
+            const response = await axios
+                .get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users/${Id}`)
 
             return response
         } catch (e) {
@@ -40,6 +53,16 @@ export default class Fetch {
 
         return response
     }
+
+    static async changeUser(user: User) {
+            const response = await axios.put(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users/${user.id}`,
+                {
+                    ...user
+                }
+            )
+            return response
+    }
+
 
     static async getChannelByUserId(userId: string | number) {
         try{

@@ -7,7 +7,12 @@ import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import ChannelCard from "../../components/ChannelCard/ChannelCard.tsx";
 import {IChannel} from "../../components/ChannelCard/types";
-import {RootState} from "../../store/store.ts";
+import {RootState, store} from "../../store/store.ts";
+import {useForm} from "react-hook-form";
+import {balanceForm} from "./types";
+import Input from "../../components/Input/Input.tsx";
+import Button from "../../components/Button/Button.tsx";
+import {addMoney, removeMoney, User} from "../../store/userReducer.ts";
 
 
 const UserPage = () => {
@@ -15,27 +20,68 @@ const UserPage = () => {
     const section = useSelector((state: RootState) => state.section)
     const [channels, setChannels] = useState<IChannel[] | []>([])
     const revenue = useMemo<number>(() => randomInt(user.money), [user.money])
+    const {
+        handleSubmit: handleAddBalanceSubmit,
+        register: registerAddBalance,
+        formState: { errors: addBalanceErrors },
+        resetField: resetAddBalanceField,
+    } = useForm<balanceForm>({ mode: 'onBlur',  defaultValues: {balance: null}})
+
+    const {
+        handleSubmit: handleWithdrawBalanceSubmit,
+        register: registerWithdrawBalance,
+        formState: { errors: withdrawBalanceErrors },
+        resetField: resetRemoveBalanceField,
+    } = useForm<balanceForm>({ mode: 'onBlur',  defaultValues: {balance: null}})
 
     const [fetch] = useFetch(
-        async () => {
-            const response = await Fetch.getChannelByUserId(user.id)
+        async (data: {
+            action: 'downloadChannels' | 'changeBalance',
+            formData?: User
+        }) => {
+            switch (data.action) {
+                case 'downloadChannels':
+                    const response = await Fetch.getChannelByUserId(user.id)
 
-            if (response) {
-                const filteredResponse: IChannel[] = response.data.filter(
-                    (channel: IChannel)=> channel.userId === user.id
-                )
-                setChannels(filteredResponse)
-                return
+                    if (response) {
+                        const filteredResponse: IChannel[] = response.data.filter(
+                            (channel: IChannel) => channel.userId === user.id
+                        )
+                        setChannels(filteredResponse)
+                        return
+                    }
+                    return
+                case 'changeBalance':
+                    if (data.formData) {
+                        await Fetch.changeUser(user)
+                    }
             }
+
         }
     )
 
+    const addBalance = (data: balanceForm) => {
+            if (data.balance) store.dispatch(addMoney(data.balance))
+
+            resetAddBalanceField('balance')
+    }
+
+    const withdrawBalance = async (data: balanceForm) => {
+            if (data.balance) store.dispatch(removeMoney(data.balance))
+
+            resetRemoveBalanceField('balance')
+    }
+
+
 
     useEffect((): void => {
-        fetch()
+        fetch({action: 'downloadChannels'})
     }, []);
 
-    // @ts-ignore
+    useEffect(() => {
+        fetch({action: 'changeBalance', formData: user})
+    }, [user.money]);
+
     return (
         <div className='user-page'>
             <div className="user-page__header">
@@ -89,8 +135,76 @@ const UserPage = () => {
             }
 
             {section.section === 'balance' &&
-                <div>
-                    balance
+                <div className={'user-page__balance'}>
+                    <form className={'user-page__form'} onSubmit={handleAddBalanceSubmit(addBalance)}>
+                        <h4 className={'user-page__title'}>
+                            Пополнить баланс
+                        </h4>
+                        <Input
+                            type={'number'}
+                            placeholder='Сумма'
+                            className='user-page__field'
+                            {...registerAddBalance('balance',
+                                {
+                                        required: 'Введите стоимость подписки',
+                                        pattern: {
+                                            value: /^(0|[1-9][0-9]*)$/,
+                                            message: 'Только положительные числа!'
+                                        },
+                                        validate: value => value as number <= 0 ? 'Только положительные числа!' : true,
+                                        maxLength: {
+                                            value: 4,
+                                            message: 'Стоимость подписки может быть не больше 9999$'
+                                        },
+                                        valueAsNumber: true as any,
+                                    }
+                            )}
+                        />
+                        {addBalanceErrors?.balance &&
+                            <p className='user-page__error'>
+                            {addBalanceErrors.balance?.message as string || 'Error'}
+                        </p>
+                        }
+                        <Button type={'submit'}>
+                            Пополнить баланс
+                        </Button>
+                    </form>
+                    <form
+                        className={'user-page__form'}
+                        onSubmit={handleWithdrawBalanceSubmit(withdrawBalance)}
+                    >
+                        <h4 className={'user-page__title'}>
+                            Вывести баланс
+                        </h4>
+                        <Input
+                            type={'number'}
+                            placeholder='Сумма'
+                            className='user-page__field'
+                            {...registerWithdrawBalance('balance',
+                                {
+                                    required: 'Введите стоимость подписки',
+                                    pattern: {
+                                        value: /^(0|[1-9][0-9]*)$/,
+                                        message: 'Только положительные числа!'
+                                    },
+                                    validate: value => value as number > user.money ? 'Недостаточно средств' : true,
+                                    maxLength: {
+                                        value: 4,
+                                        message: 'Стоимость подписки может быть не больше 9999$'
+                                    },
+                                    valueAsNumber: true as any,
+                                }
+                            )}
+                        />
+                        {withdrawBalanceErrors?.balance &&
+                            <p className='user-page__error'>
+                                {withdrawBalanceErrors.balance?.message as string || 'Error'}
+                            </p>
+                        }
+                        <Button type={'submit'}>
+                            Вывести баланс
+                        </Button>
+                    </form>
                 </div>
             }
         </div>
