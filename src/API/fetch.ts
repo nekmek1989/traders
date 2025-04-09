@@ -78,7 +78,6 @@ export default class Fetch {
         }
     }
 
-
     static async getChannelByUserId(userId: string | number) {
         try{
             const response = await axios.get(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel?userId=${userId}`)
@@ -88,6 +87,15 @@ export default class Fetch {
             return false
         }
 
+    }
+
+    static async getChannelById(id: string | number) {
+        try {
+            const response = await axios.get(`http://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel/${id}`)
+            return response
+        } catch (e) {
+            return false
+        }
     }
 
     static async deleteChannel(id: string | number) {

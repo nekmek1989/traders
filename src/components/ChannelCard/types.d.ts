@@ -5,6 +5,7 @@ export type TChannelCard = {
     channels?: IChannel[]
     setChannels?: (channels: IChannel[]) => void
     isListElement?: boolean
+    isMainOnPage?: boolean
 }
 
 export interface IChannel {

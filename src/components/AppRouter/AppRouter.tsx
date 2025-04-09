@@ -13,9 +13,9 @@ import UserPage from "../../pages/UserPage/UserPage.tsx";
 import Aside from "../Aside/Aside.tsx";
 import Traders from "../../pages/Traders/Traders.tsx";
 import Settings from "../../pages/Settings.tsx";
+import TraderChannel from "../../pages/TraderChannel/TraderChannel.tsx";
 
 const AppRouter = () => {
-    //@ts-ignore
     const {isUserAuth, isLoading, error} = useContext(AuthContext)
 
     if (isLoading) {
@@ -37,6 +37,7 @@ const AppRouter = () => {
                             <Routes>
                                 <Route path={'/name'} element={<UserPage />} />
                                 <Route path={'/traders'} element={<Traders />} />
+                                <Route path={'/traders/:id'} element={<TraderChannel/>}/>
                                 <Route path={'/settings'} element={<Settings/>} />
 
                                 <Route path="*" element={<Navigate to="/name" replace />}/>

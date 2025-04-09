@@ -15,7 +15,7 @@ import {useModal} from "../../hooks/useModal.ts";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
-    const {header, components, error, channels, setChannels, isListElement} = props
+    const {header, components, error, channels, setChannels, isListElement, isMainOnPage} = props
     const user = useSelector((state: RootState) => state.user)
     const [isModal, openModal, closeModal] = useModal()
     const {
@@ -27,8 +27,6 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
     } = useForm<TFormChannel>({mode: 'onBlur'})
     const optionStock = ['Binance', 'Bybit', '1488', 'Mexc']
     const optionRisk = ['Низкий', "Средний", "Высокий"]
-
-    const listElement = isListElement ? 'list-element' : null
 
     const [fetch] = useFetch(
         async ( data: {
@@ -93,7 +91,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
     }
 
     return (
-        <article className={'channel-card ' + listElement}>
+        <article className={'channel-card'} data-list-element={`${isListElement}`} data-main-element={`${isMainOnPage}`}>
             <h3 className='channel-card__header'>
                 {header}
             </h3>
@@ -197,7 +195,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                     </ul>
                     <div className='channel-card__extra'>
                         <p className={'channel-card__date'}>Дата создания: <br/> {components?.createdAt.slice(0, 10)}</p>
-                        <Link to={'/instructions'} className='channel-card__link'>
+                        <Link to={`/traders/${components.id}`} className='channel-card__link'>
                             <p>Cтраница канала</p>
                         </Link>
                     </div>

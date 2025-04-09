@@ -1528,10 +1528,10 @@ a[class] {
 .channel-card__tooltip {
   margin-left: -4rem;
 }
-.channel-card[class="channel-card list-element"] {
+.channel-card[data-list-element=true] {
   padding: 1.0625rem 1.75rem;
 }
-[class="channel-card list-element"] .channel-card__header, [class="channel-card list-element"] .channel-card__buttons, [class="channel-card list-element"] .channel-card__date {
+[data-list-element=true] .channel-card__header, [data-list-element=true] .channel-card__buttons, [data-list-element=true] .channel-card__date {
   position: absolute !important;
   width: 1px !important;
   height: 1px !important;
@@ -1543,61 +1543,61 @@ a[class] {
   clip: rect(0 0 0 0) !important;
   overflow: hidden !important;
 }
-[class="channel-card list-element"] .channel-card__body {
+[data-list-element=true] .channel-card__body {
   display: grid;
   grid-template-columns: 1.9fr 0.8fr 1fr 1fr 0.8fr 0.6fr 0.8fr 0.36fr;
   align-items: center;
   column-gap: 1.875rem;
 }
 @media (width <= 64.06125rem) {
-  [class="channel-card list-element"] .channel-card__body {
+  [data-list-element=true] .channel-card__body {
     column-gap: 1.25rem;
   }
 }
 @media (width <= 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__body {
+  [data-list-element=true] .channel-card__body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (width <= 64.06125rem) {
-  [class="channel-card list-element"] .channel-card__author {
+  [data-list-element=true] .channel-card__author {
     flex-direction: column;
     text-align: center;
   }
 }
 @media (width <= 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__author {
+  [data-list-element=true] .channel-card__author {
     flex-direction: row;
   }
 }
-[class="channel-card list-element"] .channel-card__image-wrapper {
+[data-list-element=true] .channel-card__image-wrapper {
   width: 2.5rem;
   height: 2.5rem;
 }
 @media (width > 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__info {
+  [data-list-element=true] .channel-card__info {
     display: contents;
   }
 }
 @media (width <= 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__info {
+  [data-list-element=true] .channel-card__info {
     grid-column: 1/-1;
     order: 1;
     grid-template-columns: 1fr;
   }
 }
-[class="channel-card list-element"] .channel-card__item {
+[data-list-element=true] .channel-card__item {
   background-color: transparent;
   padding: 0;
   align-items: start;
 }
 @media (width <= 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__item {
+  [data-list-element=true] .channel-card__item {
     flex-direction: row;
   }
 }
 @media (width > 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__item p[class=size-small] {
+  [data-list-element=true] .channel-card__item p[class=size-small] {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
@@ -1610,19 +1610,19 @@ a[class] {
     overflow: hidden !important;
   }
 }
-[class="channel-card list-element"] .channel-card__name {
+[data-list-element=true] .channel-card__name {
   font-size: 0.75rem;
   hyphens: auto;
 }
-[class="channel-card list-element"] .channel-card__link {
+[data-list-element=true] .channel-card__link {
   position: relative;
 }
 @media (width <= 47.99875rem) {
-  [class="channel-card list-element"] .channel-card__link {
+  [data-list-element=true] .channel-card__link {
     margin-left: auto;
   }
 }
-[class="channel-card list-element"] .channel-card__link p {
+[data-list-element=true] .channel-card__link p {
   position: absolute !important;
   width: 1px !important;
   height: 1px !important;
@@ -1634,13 +1634,99 @@ a[class] {
   clip: rect(0 0 0 0) !important;
   overflow: hidden !important;
 }
-[class="channel-card list-element"] .channel-card__link::after {
+[data-list-element=true] .channel-card__link::after {
   width: 2.25rem;
   height: 2.25rem;
   content: "";
   background-image: url("/src/assets/icons/Arrow-right.svg");
   background-position: center;
   background-repeat: no-repeat;
+}
+.channel-card[data-main-element=true] {
+  padding: 1.0625rem 1.75rem;
+}
+[data-main-element=true] .channel-card__header, [data-main-element=true] .channel-card__buttons, [data-main-element=true] .channel-card__date {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+[data-main-element=true] .channel-card__body {
+  display: grid;
+  grid-template-columns: 1.9fr 0.8fr 1fr 1fr 0.8fr 0.6fr 0.8fr;
+  align-items: center;
+  column-gap: 1.875rem;
+}
+@media (width <= 64.06125rem) {
+  [data-main-element=true] .channel-card__body {
+    grid-template-columns: 0.8fr 0.8fr 1fr 1fr 0.8fr 0.8fr;
+    column-gap: 1.25rem;
+  }
+}
+@media (width <= 47.99875rem) {
+  [data-main-element=true] .channel-card__body {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (width <= 64.06125rem) {
+  [data-main-element=true] .channel-card__title {
+    grid-column: 1/-1;
+  }
+}
+@media (width <= 47.99875rem) {
+  [data-main-element=true] .channel-card__author {
+    flex-direction: row;
+  }
+}
+[data-main-element=true] .channel-card__image-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+@media (width > 47.99875rem) {
+  [data-main-element=true] .channel-card__info {
+    display: contents;
+  }
+}
+@media (width <= 47.99875rem) {
+  [data-main-element=true] .channel-card__info {
+    grid-column: 1/-1;
+    order: 1;
+    grid-template-columns: 1fr;
+  }
+}
+[data-main-element=true] .channel-card__item {
+  background-color: transparent;
+  padding: 0;
+  align-items: start;
+  text-align: start;
+}
+@media (width <= 47.99875rem) {
+  [data-main-element=true] .channel-card__item {
+    flex-direction: row;
+  }
+}
+[data-main-element=true] .channel-card__name {
+  font-size: 0.75rem;
+  hyphens: auto;
+}
+[data-main-element=true] .channel-card__extra {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+  display: none;
 }
 
 .channels-list {
