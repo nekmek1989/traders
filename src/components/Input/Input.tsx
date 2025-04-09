@@ -1,22 +1,8 @@
-//@ts-ignore
-import React, {FC, SyntheticEvent} from 'react';
+import React from 'react';
+import {InputProps} from "./types";
 
-
-export interface IInput {
-    placeholder?: string
-    type: string
-    onChange: (e: SyntheticEvent) => void
-    onBlur: (e: SyntheticEvent) => void
-    name: string
-    ref: any
-    defaultValue?: string | number
-    disabled?: boolean
-    className?: string
-    uploadFile?: boolean
-    id?: string
-}
-
-const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onChange, disabled, defaultValue, uploadFile, id}) => {
+const Input = (props: InputProps): React.ReactNode => {
+    const {type, className, placeholder, name, ref, onBlur, onChange, disabled, defaultValue, uploadFile} = props
 
     const upload = uploadFile ? ' input__upload-file' : ''
     return (
@@ -29,8 +15,8 @@ const Input :FC<IInput> = ({type, className, placeholder, name, ref, onBlur, onC
             onChange={onChange}
             disabled={disabled}
             defaultValue={defaultValue}
-            className={className? className + ' input' + upload : ' input' + upload}
-            id={id}
+            className={className + ' input' + upload}
+            id={name}
         />
     );
 };

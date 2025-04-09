@@ -4,7 +4,7 @@ export type TChannelCard = {
     error?: boolean
     channels?: IChannel[]
     setChannels?: (channels: IChannel[]) => void
-    changeChannel?: () => void
+    isListElement?: boolean
 }
 
 export interface IChannel {

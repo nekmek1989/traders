@@ -134,6 +134,14 @@
 
     width: auto;
 
+    &:nth-child(3) {
+      color: var(--green-color-alt);
+    }
+
+    &:nth-child(4) {
+      color: var(--green-color);
+    }
+
     p[class='size-small'] {
       color: #9C9BD6;
       hyphens: auto;
@@ -242,5 +250,105 @@
 
   &__tooltip {
     margin-left: rem(-64);
+  }
+
+  &[class='channel-card list-element'] {
+    padding: rem(17) rem(28);
+  }
+
+  [class='channel-card list-element'] & {
+
+    &__header,
+    &__buttons,
+    &__date {
+      @include visually-hidden;
+    }
+
+    &__body {
+      display: grid;
+      grid-template-columns: 1.9fr 0.8fr 1fr 1fr 0.8fr 0.6fr 0.8fr 0.36fr;
+      align-items: center;
+      column-gap: rem(30);
+
+      @include tablet {
+        column-gap: rem(20);
+      }
+      @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &__author {
+      @include tablet {
+        flex-direction: column;
+        text-align: center;
+      }
+      @include mobile {
+        flex-direction: row;
+      }
+    }
+
+    &__image {
+      &-wrapper {
+        @include square(rem(40))
+      }
+    }
+
+    &__info {
+      @include mobile-above {
+        display: contents;
+      }
+
+      @include mobile {
+        grid-column: 1 / -1;
+        order: 1;
+
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &__item {
+      background-color: transparent;
+      padding: 0;
+
+      align-items: start;
+
+      @include mobile {
+        flex-direction: row;
+      }
+
+      p[class='size-small'] {
+        @include mobile-above {
+          @include visually-hidden;
+        }
+      }
+    }
+
+    &__name {
+      font-size: rem(12);
+      hyphens: auto;
+    }
+
+
+
+    &__link {
+      position: relative;
+
+      @include mobile {
+        margin-left: auto;
+      }
+
+      p {
+        @include visually-hidden;
+      }
+      &::after {
+        @include square(rem(36));
+        content: '';
+
+        background-image: url("/src/assets/icons/Arrow-right.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
   }
 }

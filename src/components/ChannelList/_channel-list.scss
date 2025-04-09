@@ -1,0 +1,41 @@
+@use "../../styles/helpers" as *;
+
+.channels-list {
+
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(4);
+
+  @include mobile {
+    row-gap: rem(12);
+  }
+  &__header {
+    display: grid;
+    grid-template-columns: 1.9fr 0.8fr 1fr 1fr 0.8fr 0.6fr 0.8fr rem(36);
+    column-gap: rem(30);
+
+    align-items: center;
+
+    background: rgba(19, 24, 31, 0.70);
+    border-radius: rem(10);
+
+    padding: rem(13) rem(28);
+
+    @include tablet {
+      column-gap: rem(20);
+      padding-block: rem(7);
+    }
+
+    &-item {
+      font-size: rem(10);
+      color: #696B95;
+      hyphens: auto;
+
+      &:first-child {
+        @include tablet {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

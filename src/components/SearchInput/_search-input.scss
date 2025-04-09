@@ -1,0 +1,20 @@
+@use "../../styles/helpers" as *;
+
+.search-input {
+  width: 100%;
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__image {
+    margin-left: rem(-46);
+    z-index: 1;
+
+    @include mobile-s {
+      margin-left: rem(-40);
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {Link} from "react-router";
@@ -7,17 +7,17 @@ import Input from "../Input/Input.tsx";
 import Select from "../Select/Select.tsx";
 import Tooltip from "../Tooltip/Tooltip.tsx";
 import Button from "../Button/Button.tsx";
-import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {TChannelCard, TFormChannel} from "./types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store.ts";
+import {useModal} from "../../hooks/useModal.ts";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
-    const {header, components, error, channels, setChannels} = props
+    const {header, components, error, channels, setChannels, isListElement} = props
     const user = useSelector((state: RootState) => state.user)
-    const [isModal, setIsModal] = useState(false)
+    const [isModal, openModal, closeModal] = useModal()
     const {
         handleSubmit,
         register,
@@ -27,6 +27,8 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
     } = useForm<TFormChannel>({mode: 'onBlur'})
     const optionStock = ['Binance', 'Bybit', '1488', 'Mexc']
     const optionRisk = ['Низкий', "Средний", "Высокий"]
+
+    const listElement = isListElement ? 'list-element' : null
 
     const [fetch] = useFetch(
         async ( data: {
@@ -76,16 +78,6 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
         fetch({action: 'delete'})
     }
 
-    const showModal = (): void => {
-        lockHTMLElement()
-        setIsModal(true)
-    }
-
-    const closeModal = (): void => {
-        unlockHTMLElement()
-        setIsModal(false)
-    }
-
     const createChannel: SubmitHandler<TFormChannel> = async (data, event) => {
         if (event) {
             const isChangeChannel =  event.target.attributes['data-is-change-channel'].value === 'true'
@@ -101,7 +93,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
     }
 
     return (
-        <article className='channel-card'>
+        <article className={'channel-card ' + listElement}>
             <h3 className='channel-card__header'>
                 {header}
             </h3>
@@ -110,7 +102,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                     <div className="channel-card__title">
                         <div className='channel-card__author'>
                             <div className="channel-card__image-wrapper">
-                                <img src={components?.avatar} alt={''}/>
+                                <img src={components?.avatar || '/src/assets/icons/default-user.png'} alt={''}/>
                             </div>
                             <h3 className='channel-card__name'>
                                 {components?.name}
@@ -141,7 +133,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                             </button>
                             <button
                                 className='channel-card__button-icon'
-                                onClick={showModal}
+                                onClick={openModal}
                             >
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -204,16 +196,16 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                         </li>
                     </ul>
                     <div className='channel-card__extra'>
-                        <p>Дата создания: <br/> {components?.createdAt.slice(0, 10)}</p>
+                        <p className={'channel-card__date'}>Дата создания: <br/> {components?.createdAt.slice(0, 10)}</p>
                         <Link to={'/instructions'} className='channel-card__link'>
-                            Cтраница канала
+                            <p>Cтраница канала</p>
                         </Link>
                     </div>
                  </div>
                 : <div className='channel-card__create-channel'>
                     <button
                         className='channel-card__create-button'
-                        onClick={showModal}
+                        onClick={openModal}
                       >
                         <img src={'/src/assets/icons/Plus.svg'} className='channel-card__create-image' alt={''}/>
                         Создать канал
@@ -249,11 +241,9 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                     className='channel-card__field'
                                     uploadFile
                                     {...register('avatar')}
-                                    id={'avatar'}
                                 />
                                 <p>Загрузить аватар канала</p>
                             </label>
-
                             <Input
                                 type={'text'}
                                 placeholder='Название канала'
@@ -342,7 +332,6 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                                 valueAsNumber: true as any,
                                             }
                                     )}
-                                    id={'price'}
                                 />
                                 <Tooltip children={'Комиссия сервиса 10%'} className={'channel-card__tooltip'}/>
                             </label>

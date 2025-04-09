@@ -55,12 +55,27 @@ export default class Fetch {
     }
 
     static async changeUser(user: User) {
+        try {
             const response = await axios.put(`https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users/${user.id}`,
                 {
                     ...user
                 }
             )
             return response
+        } catch (e) {
+            return false
+        }
+    }
+
+
+
+    static async getAllChannels() {
+        try {
+            const response = await axios.get('https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/channel')
+            return response
+        } catch (e) {
+            return false
+        }
     }
 
 

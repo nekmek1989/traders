@@ -12,6 +12,7 @@ import {useForm, useWatch} from "react-hook-form";
 import Loader from "../../components/Loader/Loader.tsx";
 import {store} from "../../store/store.ts";
 import {recordUser, User} from "../../store/userReducer.ts";
+import {passwordsMatches} from "../../utils/passwordsMatches.ts";
 
 const Register = () => {
 
@@ -41,15 +42,6 @@ const Register = () => {
             onClick: () => setUser({...user, accountType: 'Публичный трейдинг'})
         }
     ]
-
-
-    const passwordsMatches = (passwordRepeat: string) => {
-        if (passwordRepeat === getValues('password')) {
-            return true
-        }
-        return 'Пароли должны совпадать'
-    }
-
 
     const [fetch, isLoading] = useFetch(
         async () => {
@@ -138,7 +130,7 @@ const Register = () => {
                     className='login__field'
                     {...register('passwordRepeat', {
                         required: 'Пароли должны совпадать',
-                        validate: value => passwordsMatches(value)
+                        validate: value => passwordsMatches(value, getValues('password'))
                     })}
                 />
                 {errors?.passwordRepeat &&

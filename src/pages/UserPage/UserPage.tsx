@@ -48,11 +48,11 @@ const UserPage = () => {
                             (channel: IChannel) => channel.userId === user.id
                         )
                         setChannels(filteredResponse)
-                        return
                     }
                     return
                 case 'changeBalance':
                     if (data.formData) {
+                        if (!user.id) return
                         await Fetch.changeUser(user)
                     }
             }
@@ -66,7 +66,7 @@ const UserPage = () => {
             resetAddBalanceField('balance')
     }
 
-    const withdrawBalance = async (data: balanceForm) => {
+    const withdrawBalance = (data: balanceForm) => {
             if (data.balance) store.dispatch(removeMoney(data.balance))
 
             resetRemoveBalanceField('balance')
@@ -74,16 +74,16 @@ const UserPage = () => {
 
 
 
-    useEffect((): void => {
+    useEffect(() => {
         fetch({action: 'downloadChannels'})
-    }, []);
+    }, [user.id]);
 
     useEffect(() => {
         fetch({action: 'changeBalance', formData: user})
     }, [user.money]);
 
     return (
-        <div className='user-page'>
+        <section className='user-page'>
             <div className="user-page__header">
                 <div className="user-page__title">
                     <div className="user-page__image-wrapper">
@@ -105,7 +105,7 @@ const UserPage = () => {
                     <li className="user-page__item">
                         <Metric
                             title={'Общая прибыль'}
-                            count={'$ '+  revenue.toFixed(1).toString()}
+                            count={'$ '+  revenue.toFixed(1).toString().substring(0, 4)}
                             svg={<img src={'/src/assets/icons/Money.svg'}/>}
                         />
                     </li>
@@ -165,14 +165,11 @@ const UserPage = () => {
                             {addBalanceErrors.balance?.message as string || 'Error'}
                         </p>
                         }
-                        <Button type={'submit'}>
+                        <Button type={'submit'} className={'user-page__button'}>
                             Пополнить баланс
                         </Button>
                     </form>
-                    <form
-                        className={'user-page__form'}
-                        onSubmit={handleWithdrawBalanceSubmit(withdrawBalance)}
-                    >
+                    <form className={'user-page__form'} onSubmit={handleWithdrawBalanceSubmit(withdrawBalance)}>
                         <h4 className={'user-page__title'}>
                             Вывести баланс
                         </h4>
@@ -201,13 +198,13 @@ const UserPage = () => {
                                 {withdrawBalanceErrors.balance?.message as string || 'Error'}
                             </p>
                         }
-                        <Button type={'submit'}>
+                        <Button type={'submit'} className={'user-page__button'}>
                             Вывести баланс
                         </Button>
                     </form>
                 </div>
             }
-        </div>
+        </section>
     );
 };
 

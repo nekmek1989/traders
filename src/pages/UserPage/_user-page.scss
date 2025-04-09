@@ -52,6 +52,8 @@
 
       overflow: hidden;
 
+      flex-shrink: 0;
+
       @include tablet {
         @include square(rem(56))
       }
@@ -120,6 +122,17 @@
 
     box-shadow: 0px 1px 2px 0px rgba(239, 232, 232, 0.40) inset;
     backdrop-filter: blur(15px);
+
+    @include tablet {
+      flex-direction: column;
+      row-gap: rem(27);
+
+      padding: rem(27) rem(20);
+    }
+
+    @include mobile-s {
+      padding: rem(20);
+    }
   }
 
   &__form {
@@ -128,6 +141,20 @@
     align-items: center;
     row-gap: rem(26);
 
+    width: 100%;
+
+    padding: rem(30) rem(50) rem(45) rem(50);
+
+    border-radius: rem(8);
+
+    background-color: var(--dark-color-alt);
+
+    @include mobile-s {
+      padding: rem(22);
+    }
+  }
+
+  &__field, &__button {
     width: 100%;
   }
 }

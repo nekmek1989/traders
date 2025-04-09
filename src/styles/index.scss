@@ -16,6 +16,7 @@
 @use "../pages/UnAuth/login";
 @use "../components/Input/input";
 @use "../components/Select/select";
+@use "../components/SearchInput/search-input";
 @use "../components/Footer/footer";
 @use "../components/DropDown/drop-down";
 @use "../components/IconDropDownButton/icon-drop-down-button";
@@ -23,4 +24,6 @@
 @use "../components/Metric/metric";
 @use "../pages/UserPage/user-page";
 @use "../components/ChannelCard/channel-card";
+@use "../components/ChannelList/channel-list";
 @use "../components/Modal/modal";
+@use "../pages/Traders/traders";

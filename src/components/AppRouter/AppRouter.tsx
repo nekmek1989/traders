@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer.tsx";
 import Header from "../Header/Header.tsx";
 import UserPage from "../../pages/UserPage/UserPage.tsx";
 import Aside from "../Aside/Aside.tsx";
-import OtherUsersPage from "../../pages/OtherUsersPage.tsx";
+import Traders from "../../pages/Traders/Traders.tsx";
 import Settings from "../../pages/Settings.tsx";
 
 const AppRouter = () => {
@@ -32,16 +32,16 @@ const AppRouter = () => {
                 <div className="app-router__registered">
                     <div className='app-router__registered-inner' id={'modal-container-id'}>
                         <Header />
-                        <div className='container app-router__registered-body'>
+                        <main className='container app-router__registered-body'>
                             <Aside />
                             <Routes>
                                 <Route path={'/name'} element={<UserPage />} />
-                                <Route path={'/traders'} element={<OtherUsersPage />} />
+                                <Route path={'/traders'} element={<Traders />} />
                                 <Route path={'/settings'} element={<Settings/>} />
 
                                 <Route path="*" element={<Navigate to="/name" replace />}/>
                             </Routes>
-                        </div>
+                        </main>
                     </div>
                 </div>
               </>
@@ -53,13 +53,13 @@ const AppRouter = () => {
                         <span className="app-router__not-registered-ui-bubble"></span>
                     </div>
                     <HeaderUnlogin />
-                    <div className='app-router__not-registered-body container'>
+                    <main className='app-router__not-registered-body container'>
                         <Routes>
                             <Route path={'/register'} element={<Register />} />
                             <Route path={'/login'} element={<Login />} />
                             <Route path="*" element={<Navigate to="/register" replace />}/>
                         </Routes>
-                    </div>
+                    </main>
                 </div>
                 <Footer />
             </>

@@ -15,7 +15,7 @@ export interface User {
 }
 
 const defaultState: User = {
-    id: 0,
+    id: '0',
     name: '',
     password: '',
     avatar: '',

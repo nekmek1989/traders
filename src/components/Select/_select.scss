@@ -15,26 +15,45 @@
 
   width: 100%;
 
+  cursor: pointer;
+
 
   @include mobile-s {
     padding: rem(10) rem(20);
   }
 
-  &-wrapper {
-    position: relative;
+  &__alt {
+    box-shadow: none;
+    backdrop-filter: none;
 
-    &::after {
-      content: "";
-      position: absolute;
-      right: rem(27);
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
+    width: auto;
 
+    padding: rem(0);
 
-      background-image: url("/src/assets/icons/Arrow.png");
-      width: 18px;
-      height: 18px;
+    &:focus-visible {
+      outline: none;
+      outline-offset: 0;
     }
+
+    & + .select__image {
+      margin-left: 0;
+    }
+  }
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    &:has(.select__alt) {
+      column-gap: rem(8);
+
+    }
+  }
+
+  &__image {
+    margin-left: rem(-46);
+    z-index: 1;
   }
 }
