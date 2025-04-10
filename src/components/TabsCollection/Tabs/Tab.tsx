@@ -6,15 +6,15 @@ export interface ITabs {
     children: any
     toolTipBox? : string
     className? : string
-    onClick? : () => void
+    onClick? : (event?: MouseEvent) => void
 }
 
-const Tabs: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
+const Tab: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
 
     const [activeTabCollection, setActiveTab] = useState<HTMLCollectionOf<Element> | null>(null)
 
     const onTabClick = (event: React.MouseEvent<HTMLDivElement>): void => {
-        onClick?.()
+        onClick?.(event)
 
         const target = event.target as HTMLElement;
         const parent = target.closest('.tabs-collection') as HTMLElement | null;
@@ -33,15 +33,15 @@ const Tabs: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
 
     useEffect(
         () => {
-            setActiveTab(document.getElementsByClassName('is-active tabs'))
+            setActiveTab(document.getElementsByClassName('is-active tab'))
         }, [className]
     )
 
     if (toolTipBox) {
         return (
-            <div className='tabs-wrapper'>
+            <div className='tab-wrapper'>
                 <button
-                    className={className? className + ' tabs' : 'tabs'}
+                    className={`tab ${className}`}
                     onClick={event => onTabClick(event)}
                 >
                     {children}
@@ -53,7 +53,7 @@ const Tabs: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
 
     return (
         <button
-            className={className? className + ' tabs' : 'tabs'}
+            className={`tab ${className}`}
             onClick={event => onTabClick(event)}
         >
             {children}
@@ -61,4 +61,4 @@ const Tabs: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
     );
 };
 
-export default Tabs;
+export default Tab;

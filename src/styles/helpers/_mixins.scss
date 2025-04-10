@@ -62,3 +62,11 @@
   clip: rect(0 0 0 0) !important;
   overflow: hidden !important;
 }
+
+@mixin background {
+  border-radius: rem(20);
+  background: rgba(23, 35, 51, 0.80);
+
+  box-shadow: 0 rem(1) rem(2) 0 rgba(239, 232, 232, 0.40) inset;
+  backdrop-filter: blur(rem(15));
+}

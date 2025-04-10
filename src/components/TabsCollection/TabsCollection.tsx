@@ -1,19 +1,22 @@
 //@ts-ignore
 import React, {FC} from 'react';
-import Tabs, {ITabs} from "./Tabs/Tabs.tsx";
+import Tab, {ITabs} from "./Tabs/Tab.tsx";
 
 interface ITabsCollection {
     tabs: ITabs[]
+    className: string
+    alt?: boolean
 }
 
-const TabsCollection :FC<ITabsCollection> = ({tabs}) => {
+const TabsCollection :FC<ITabsCollection> = ({tabs, className, alt}) => {
+    const isTabAlt = alt ? 'tab_alt' : ''
     return (
-        <div className='tabs-collection'>
+        <div className={`tabs-collection ${className}`}>
             {tabs.map(tab =>
-                <Tabs
+                <Tab
                     children={tab.children}
                     toolTipBox={tab.toolTipBox}
-                    className={tab.className}
+                    className={`${tab.className} ${isTabAlt}`}
                     onClick={tab.onClick}
                     key={tab.children}
                 />

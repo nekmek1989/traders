@@ -85,6 +85,10 @@
       display: flex;
       column-gap: rem(30);
 
+      @include tablet {
+        column-gap: rem(20);
+      }
+
       @include mobile {
         flex-direction: column;
         row-gap: rem(30);

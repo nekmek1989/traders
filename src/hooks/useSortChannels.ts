@@ -1,5 +1,5 @@
 import {useMemo} from "react";
-import {IChannel} from "../components/ChannelCard/types";
+import {IChannel} from "../components/Channel/ChannelCard/types";
 import {sortChannelParam, sortForm} from "../pages/Traders/types";
 
 export const useSortChannels = (channels: IChannel[], sortParams: sortChannelParam)=> {

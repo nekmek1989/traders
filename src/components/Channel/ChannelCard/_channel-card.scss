@@ -1,14 +1,11 @@
-@use "../../styles/helpers" as *;
+@use "../../../styles/helpers/index" as *;
 
 
 .channel-card {
+  @include background;
+
   padding: rem(17);
   padding-bottom: rem(30);
-
-  border-radius: rem(20);
-  background-color: rgba(23, 35, 51, 0.70);
-  box-shadow: 0px 1px 2px 0px rgba(239, 232, 232, 0.40) inset;
-  backdrop-filter: blur(15px);
 
   display: flex;
   flex-direction: column;

@@ -6,11 +6,11 @@ import IconDropDownButton from "../../components/IconDropDownButton/IconDropDown
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {sortChannelParam, sortForm} from "./types";
-import {IChannel} from "../../components/ChannelCard/types";
+import {IChannel} from "../../components/Channel/ChannelCard/types";
 import {useSearchAndSortChannels} from "../../hooks/useSortChannels.ts";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
-import ChannelList from "../../components/ChannelList/ChannelList.tsx";
+import ChannelList from "../../components/Channel/ChannelList/ChannelList.tsx";
 
 
 const Traders = (): React.ReactNode => {

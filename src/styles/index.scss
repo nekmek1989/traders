@@ -23,9 +23,10 @@
 @use "../components/Aside/aside";
 @use "../components/Metric/metric";
 @use "../pages/UserPage/user-page";
-@use "../components/ChannelCard/channel-card";
-@use "../components/ChannelList/channel-list";
-@use "../components/ChannelList/ChannelItem/channel-item";
+@use "../components/Channel/ChannelCard/channel-card";
+@use "../components/Channel/ChannelList/channel-list";
+@use "../components/Channel/ChannelList/ChannelItem/channel-item";
+@use "../components/Channel/ChannelMain/channel-main";
 @use "../components/Modal/modal";
 @use "../pages/Traders/traders";
 @use "../pages/TraderChannel/trader-channel";

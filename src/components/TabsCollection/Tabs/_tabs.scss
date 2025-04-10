@@ -1,6 +1,6 @@
 @use "../../../styles/helpers" as *;
 
-.tabs {
+.tab {
 
   background-color: transparent;
   border: none;
@@ -24,6 +24,26 @@
 
     @include mobile-s {
       column-gap: 0;
+    }
+  }
+
+  &_alt {
+    border: rem(1) solid #4D5568;
+    border-radius: rem(6);
+
+    padding: rem(4) rem(10);
+
+    color: #A5A9B1;
+
+    text-wrap: nowrap;
+
+    &.is-active {
+
+      background:
+              linear-gradient(#1E293E, #1E293E) padding-box,
+              var(--base-gradient) border-box;
+      color: var(--green-color);
+      border: rem(1) solid transparent;
     }
   }
 }

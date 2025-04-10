@@ -1,5 +1,5 @@
 import axios from "axios";
-import {TFormChannel} from "../components/ChannelCard/types";
+import {TFormChannel} from "../components/Channel/ChannelCard/types";
 import {User} from "../store/userReducer.ts";
 
 export interface IUser {

@@ -1,0 +1,120 @@
+@use "../../../../styles/helpers/index" as *;
+
+.channel-item {
+  @include background;
+
+  font-size: rem(14);
+
+  padding: rem(17) rem(28);
+
+  display: grid;
+  grid-template-columns: 1.9fr 0.8fr 1fr 1fr 0.8fr 0.6fr 0.8fr 0.36fr;
+  align-items: center;
+  column-gap: rem(30);
+
+  @include tablet {
+    column-gap: rem(10);
+    padding: rem(12);
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: rem(20);
+  }
+
+  &__header {
+    display: flex;
+    column-gap: rem(10);
+    align-items: center;
+
+    @include tablet {
+      flex-direction: column;
+      row-gap: rem(4);
+
+      text-align: center;
+    }
+
+    @include mobile {
+      flex-direction: row;
+      text-align: start;
+    }
+  }
+
+  &__image {
+    &-wrapper {
+      @include square(rem(40));
+      @include flex-center;
+
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+  }
+
+  &__name {
+    hyphens: manual;
+    font-size: rem(12);
+  }
+
+  &__list {
+    @include mobile-above {
+      display: contents;
+    }
+
+    @include mobile {
+      grid-column: 1 / -1;
+      order: 1;
+
+      display: flex;
+      flex-direction: column;
+      row-gap: rem(10);
+    }
+  }
+
+  &__item {
+    @include mobile {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &:nth-child(4) {
+      color: var(--green-color);
+    }
+  }
+
+  &__label {
+    color: #6C6E9D;
+  }
+
+  &__risk-1,
+  &__risk-2,
+  &__risk-3 {
+    hyphens: auto;
+  }
+
+  &__risk-1 {
+    color: var(--green-color-alt);
+  }
+  &__risk-2 {
+    color: #ffb342;
+  }
+  &__risk-3 {
+    color: var(--red-color);
+  }
+
+  &__link {
+    &::after {
+      @include square(rem(36));
+      content: '';
+
+      background-image: url("/src/assets/icons/Arrow-right.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    @include mobile {
+      margin-left: auto;
+    }
+  }
+}

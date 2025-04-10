@@ -16,11 +16,11 @@ const ChannelItem = (props: channelItem): React.ReactNode => {
             </div>
             <ul className="channel-item__list">
                 <li className="channel-item__item">
-                    <p className={'channel-item__title visible-mobile'}>Биржа</p>
+                    <p className={'channel-item__label visible-mobile'}>Биржа</p>
                     <p className={'channel-item__description'}>{stock}</p>
                 </li>
                 <li className="channel-item__item">
-                    <p className={'channel-item__title visible-mobile'}>Уровень риска</p>
+                    <p className={'channel-item__label visible-mobile'}>Уровень риска</p>
                     {risk === 'Низкий'
                         ? <p className='channel-item__risk-1'>Низкий</p>
                         : risk === 'Средний'
@@ -29,19 +29,19 @@ const ChannelItem = (props: channelItem): React.ReactNode => {
                     }
                 </li>
                 <li className="channel-item__item">
-                    <p className={'channel-item__title visible-mobile'}>Доходность за месяц</p>
+                    <p className={'channel-item__label visible-mobile'}>Доходность за месяц</p>
                     <p className={'channel-item__description'}>{revenue}</p>
                 </li>
                 <li className="channel-item__item">
-                    <p className={'channel-item__title visible-mobile'}>Место в рейтинге</p>
+                    <p className={'channel-item__label visible-mobile'}>Место в рейтинге</p>
                     <p className={'channel-item__description'}>{rating} / 100</p>
                 </li>
                 <li className="channel-item__item">
-                    <p className={'channel-item__title visible-mobile'}>Подписчики</p>
+                    <p className={'channel-item__label visible-mobile'}>Подписчики</p>
                     <p className={'channel-item__description'}>{subscribes}</p>
                 </li>
                 <li className="channel-item__item">
-                    <p className={'channel-item__title visible-mobile'}>Цена подписки</p>
+                    <p className={'channel-item__label visible-mobile'}>Цена подписки</p>
                     <p className={'channel-item__description'}>$ {price}</p>
                 </li>
             </ul>

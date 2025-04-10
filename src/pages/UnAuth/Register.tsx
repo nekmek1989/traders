@@ -4,7 +4,7 @@ import TabsCollection from "../../components/TabsCollection/TabsCollection.tsx";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {Link} from "react-router";
-import {ITabs} from "../../components/TabsCollection/Tabs/Tabs.tsx";
+import {ITabs} from "../../components/TabsCollection/Tabs/Tab.tsx";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
