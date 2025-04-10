@@ -15,7 +15,7 @@ import {useModal} from "../../hooks/useModal.ts";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
-    const {header, components, error, channels, setChannels, isListElement, isMainOnPage} = props
+    const {header, components, error, channels, setChannels} = props
     const user = useSelector((state: RootState) => state.user)
     const [isModal, openModal, closeModal] = useModal()
     const {
@@ -91,7 +91,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
     }
 
     return (
-        <article className={'channel-card'} data-list-element={`${isListElement}`} data-main-element={`${isMainOnPage}`}>
+        <article className={'channel-card'} >
             <h3 className='channel-card__header'>
                 {header}
             </h3>

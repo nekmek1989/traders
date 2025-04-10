@@ -1,6 +1,6 @@
 import React from 'react';
 import {Props} from "./types";
-import ChannelCard from "../ChannelCard/ChannelCard.tsx";
+import ChannelItem from "./ChannelItem/ChannelItem.tsx";
 
 const ChannelList = (props: Props): React.ReactNode => {
     const {channels} = props
@@ -18,7 +18,7 @@ const ChannelList = (props: Props): React.ReactNode => {
             </ul>
             {channels &&
                 channels.map(channel =>
-                    <ChannelCard header={'Spot'} components={channel} isListElement key={channel.id}/>
+                    <ChannelItem channel={channel} classname={'channel__item'} key={channel.id}/>
                 )
             }
         </div>

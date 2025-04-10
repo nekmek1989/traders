@@ -22,8 +22,8 @@
     padding: rem(13) rem(28);
 
     @include tablet {
-      column-gap: rem(20);
-      padding-block: rem(7);
+      column-gap: rem(10);
+      padding: rem(12);
     }
 
     &-item {

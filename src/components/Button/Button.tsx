@@ -21,7 +21,8 @@ const Button: FC<IButtonProps> = ({children, className, onClick, type, small, sm
     return (
         <button
             className={
-                className? `button ${className}` + size + altButton
+                className
+                    ? `button ` + size + altButton + ` ${className}`
                     : 'button' + size + altButton
             }
             onClick={onClick}
