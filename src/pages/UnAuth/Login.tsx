@@ -43,7 +43,9 @@ const Login = () => {
 
                     const userData = await Fetch.getUserByEmail(email)
 
-                    if (userData) store.dispatch(recordUser(userData.data[0]))
+                    if (userData)
+                        store.dispatch(recordUser(userData.data[0]))
+                        
                 } else {
                     setErrorLogin(true)
                 }

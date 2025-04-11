@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IChannel} from "../components/Channel/ChannelCard/types";
 
 export interface User {
     id: string | number
@@ -12,6 +13,8 @@ export interface User {
     accountType: string
     createdAt: string
     headers: any
+    subscriptions: IChannel[] | []
+    ownedChannels: IChannel[] | []
 }
 
 const defaultState: User = {
@@ -26,6 +29,8 @@ const defaultState: User = {
     accountType: '',
     createdAt: '',
     headers: '',
+    subscriptions: [],
+    ownedChannels: []
 }
 
 export const userReducer = createSlice({
@@ -42,9 +47,19 @@ export const userReducer = createSlice({
 
         recordUser: (_, actions: PayloadAction<User>) => {
             return  {...actions.payload}
+        },
+
+        subscribe: (state, actions: PayloadAction<IChannel>) => {
+            state.subscriptions = [...state.subscriptions, actions.payload]
+        },
+
+        unSubscribe: (state, actions: PayloadAction<IChannel>) => {
+            state.subscriptions = state.subscriptions.filter(channel => {
+                return channel.id !== actions.payload.id
+            })
         }
     }
 })
 
-export const {addMoney, removeMoney, recordUser} = userReducer.actions
+export const {addMoney, removeMoney, recordUser, subscribe, unSubscribe} = userReducer.actions
 export default userReducer.reducer

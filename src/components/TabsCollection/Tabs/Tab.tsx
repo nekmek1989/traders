@@ -1,19 +1,16 @@
 //@ts-ignore
 import React, {FC, MouseEventHandler, useEffect, useState} from 'react';
 import Tooltip from "../../Tooltip/Tooltip.tsx";
+import {ITabs} from "./types";
 
-export interface ITabs {
-    children: any
-    toolTipBox? : string
-    className? : string
-    onClick? : (event?: MouseEvent) => void
-}
 
-const Tab: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
 
+const Tab = (props: ITabs): React.ReactNode => {
+
+    const {children, className, onClick, toolTipBox, value} = props
     const [activeTabCollection, setActiveTab] = useState<HTMLCollectionOf<Element> | null>(null)
 
-    const onTabClick = (event: React.MouseEvent<HTMLDivElement>): void => {
+    const onTabClick = (event: React.MouseEvent<HTMLElement>): void => {
         onClick?.(event)
 
         const target = event.target as HTMLElement;
@@ -42,7 +39,8 @@ const Tab: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
             <div className='tab-wrapper'>
                 <button
                     className={`tab ${className}`}
-                    onClick={event => onTabClick(event)}
+                    onClick={event  => onTabClick(event)}
+                    value={value}
                 >
                     {children}
                 </button>
@@ -55,6 +53,7 @@ const Tab: FC<ITabs> = ({children, className, onClick, toolTipBox}) => {
         <button
             className={`tab ${className}`}
             onClick={event => onTabClick(event)}
+            value={value}
         >
             {children}
         </button>

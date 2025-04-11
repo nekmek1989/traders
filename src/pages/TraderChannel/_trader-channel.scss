@@ -70,4 +70,80 @@
 
     text-wrap: wrap;
   }
+
+  &__modal {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(36);
+
+    &-body {
+      display: flex;
+      flex-direction: column;
+      row-gap: rem(24);
+    }
+
+    &-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: rem(10);
+
+      background-color: #182839;
+      border-radius: rem(10);
+
+      padding: rem(18);
+
+      @include mobile {
+        flex-direction: column;
+
+        align-items: start;
+        row-gap: rem(16);
+
+        padding-inline: rem(15);
+      }
+    }
+
+    &-name {
+      display: flex;
+      column-gap: rem(10);
+      align-items: center;
+    }
+
+    &-list {
+      display: flex;
+      column-gap: rem(20);
+      align-items: center;
+
+      @include mobile {
+        flex-direction: column;
+        align-items: start;
+        row-gap: rem(10);
+
+        width: 100%;
+      }
+    }
+
+    &-item {
+      @include mobile {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+
+    &-label {
+      color: #676C97;
+    }
+
+    &-error {
+      text-align: center;
+      text-wrap: balance;
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: rem(25);
+      }
+    }
+  }
 }

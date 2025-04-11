@@ -1,14 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Link, useNavigate} from "react-router";
 import Button from "../Button/Button.tsx";
 import IconDropDownButton from "../IconDropDownButton/IconDropDownButton.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {selectEn, selectRu} from "../../store/languageReducer.ts";
 import {AuthContext} from "../../context/Context.ts";
-import {selectBalance, selectSettings} from "../../store/sectionReducer.ts";
+import {selectBalance} from "../../store/sectionReducer.ts";
+import {RootState} from "../../store/store.ts";
 
-const Header = () => {
-    const userData = useSelector(state => state.user)
+const Header = (): React.ReactNode => {
+    const userData = useSelector((state: RootState) => state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 

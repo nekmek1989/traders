@@ -1,6 +1,8 @@
 //@ts-ignore
 import React, {FC} from 'react';
-import Tab, {ITabs} from "./Tabs/Tab.tsx";
+import {ITabs} from "./Tabs/types";
+import Tab from "./Tabs/Tab.tsx";
+
 
 interface ITabsCollection {
     tabs: ITabs[]
@@ -19,6 +21,7 @@ const TabsCollection :FC<ITabsCollection> = ({tabs, className, alt}) => {
                     className={`${tab.className} ${isTabAlt}`}
                     onClick={tab.onClick}
                     key={tab.children}
+                    value={tab.value}
                 />
             )}
         </div>
