@@ -14,6 +14,7 @@ import Traders from "../../pages/Traders/Traders.tsx";
 import Settings from "../../pages/Settings.tsx";
 import TraderChannel from "../../pages/TraderChannel/TraderChannel.tsx";
 import Statistics from "../../pages/Statistics/Statistics.tsx";
+import Help from "../../pages/Help/Help.tsx";
 
 const AppRouter = (): React.ReactNode => {
     const {isUserAuth, isLoading, error} = useContext(AuthContext)
@@ -39,6 +40,7 @@ const AppRouter = (): React.ReactNode => {
                                 <Route path={'/traders'} element={<Traders />} />
                                 <Route path={'/traders/:id'} element={<TraderChannel />}/>
                                 <Route path={'/statistics'} element={<Statistics />}/>
+                                <Route path={'/help'} element={<Help />}/>
                                 <Route path={'/settings'} element={<Settings/>} />
 
                                 <Route path="*" element={<Navigate to="/name" replace />}/>

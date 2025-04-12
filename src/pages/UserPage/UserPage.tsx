@@ -106,7 +106,7 @@ const UserPage = () => {
                         <Metric
                             title={'Общая прибыль'}
                             count={'$ '+  revenue.toFixed(1).toString().substring(0, 4)}
-                            svg={<img src={'/src/assets/icons/Money.svg'}/>}
+                            svg={<img src={'/src/assets/icons/Money.svg'} alt={''}/>}
                         />
                     </li>
                 </ul>
@@ -162,8 +162,8 @@ const UserPage = () => {
                         />
                         {addBalanceErrors?.balance &&
                             <p className='user-page__error'>
-                            {addBalanceErrors.balance?.message as string || 'Error'}
-                        </p>
+                                {addBalanceErrors.balance?.message as string || 'Error'}
+                            </p>
                         }
                         <Button type={'submit'} className={'user-page__button'}>
                             Пополнить баланс

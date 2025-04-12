@@ -1,7 +1,6 @@
 @use "../../styles/helpers" as *;
 
-
-.input {
+.text-aria {
   border-radius: var(--border-radius);
   background: transparent;
   border: none;
@@ -14,10 +13,7 @@
 
   color: var(--grey-color);
 
-  &[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+  resize: none;
 
   @include mobile-s {
     padding: rem(10) rem(20);
@@ -25,9 +21,5 @@
 
   &::placeholder {
     color: var(--grey-color);
-  }
-
-  &__upload-file {
-    @include visually-hidden;
   }
 }

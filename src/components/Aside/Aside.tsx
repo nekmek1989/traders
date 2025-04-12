@@ -3,11 +3,13 @@ import {Link, useLocation} from "react-router";
 import {useDispatch} from "react-redux";
 import {selectMain} from "../../store/sectionReducer.ts";
 import useWindowWidth from "../../hooks/useWindowWidth.ts";
+import useWindowHeight from "../../hooks/useWindowHeight.ts";
 
 const Aside = () => {
     const searchParams: string = useLocation().pathname
     const [currentLocation, setCurrentLocation] = useState<string>('')
     const size = useWindowWidth()
+    const height = useWindowHeight()
     const dispatch = useDispatch()
     const nav = useRef<HTMLElement | null>(null)
     const navMenu = useRef<HTMLElement | null>(null)
@@ -45,9 +47,9 @@ const Aside = () => {
     useEffect(() => {
         if (nav.current && size < 768) {
             const navElement = nav.current
-            navElement.style.top = `${window.innerHeight - navElement.clientHeight}px`
+            navElement.style.top = `${height - navElement.clientHeight}px`
         }
-    }, [nav]);
+    }, [nav, height, size]);
 
     useEffect(() => {
         setCurrentLocation(searchParams)

@@ -1,55 +1,68 @@
 import React, {useEffect, useState} from 'react';
 import Plot from 'react-plotly.js';
 import {absoluteToRelativeFormater} from "../../utils/absoluteToRelativeFormater.ts";
+import useWindowWidth from "../../hooks/useWindowWidth.ts";
+import {ITabs} from "../TabsCollection/Tabs/types";
+import TabsCollection from "../TabsCollection/TabsCollection.tsx";
+import {deltaValues} from "../../utils/deltaValues.ts";
 
 const Chart = (props: Props): React.ReactNode => {
     const { data, range } = props
     const [bars, setBars] = useState<number[]>([0, 20])
+    const size = useWindowWidth()
+    const [type, setType] = useState<type>('n')
+    const tabs: ITabs[] = [
+        {className: 'is-active', children: 'n', onClick: () => setType('n'), value: 'n'},
+        {children: '%', onClick: () => setType('%'), value: '%'}
+    ]
 
     const x = () => {
         const seen = new Map<string, number>();
 
-        return data.map(step => {
-            let label = '';
-            const date = step[0];
+        return data.map((step: data) => {
+                let label = '';
+                const date = step[0];
 
-            switch (range) {
-                case "24h":
-                    label = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
-                    break;
-                case "1w":
-                    label = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')} ${date.getDay() + 1}`;
-                    break;
-                case "1m":
-                case "3m":
-                    label = `${date.getDate()} / ${date.getMonth() + 1}`;
-                    break;
-            }
+                switch (range) {
+                    case "24h":
+                        label = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+                        break;
+                    case "1w":
+                        label = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')} ${date.getDay() + 1}`;
+                        break;
+                    case "1m":
+                    case "3m":
+                        label = `${date.getDate()} / ${date.getMonth() + 1}`;
+                        break;
+                }
 
-            const count = seen.get(label) || 0;
-            seen.set(label, count + 1);
+                const count = seen.get(label) || 0;
+                seen.set(label, count + 1);
 
-            return label + '\u200B'.repeat(count);
-        });
+                return label + '\u200B'.repeat(count);
+            });
     }
 
     const y = () => {
-        const y = data.map(step => step[1])
-        return absoluteToRelativeFormater(y)
+        const y = data.map((step: data) => step[1])
+        return type === 'n' ? deltaValues(y) : absoluteToRelativeFormater(y)
     }
 
 
     useEffect( () => {
-            if (innerWidth < 1024 && innerWidth >= 768) {
+            if (size < 1024 && size >= 768) {
                 setBars([0, 15])
-            } else if (innerWidth < 768) {
+            }
+            else if (size < 768) {
                 setBars([0, 10])
-            } else setBars([0, 20])
-        }, [innerWidth]
+            }
+            else setBars([0, 20])
+        }, [size]
     )
 
     return (
         <div className={'chart'}>
+            <TabsCollection tabs={tabs} className={'chart__tabs'} alt />
             <Plot
                 data={[
                     {
@@ -86,9 +99,10 @@ const Chart = (props: Props): React.ReactNode => {
                             zerolinewidth: 0,
                             zeroline: false,
                             showline: false,
-                            ticksuffix: '%',
+                            ticksuffix: type === '%' ? '%' : '',
                             fixedrange: true,
                         },
+                        //@ts-ignore
                         barcornerradius: 4,
                     }
                 }

@@ -1,10 +1,8 @@
-// @ts-ignore
 import React, {useContext, useEffect, useState} from 'react';
 import TabsCollection from "../../components/TabsCollection/TabsCollection.tsx";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {Link} from "react-router";
-import {ITabs} from "../../components/TabsCollection/Tabs/Tab.tsx";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
@@ -13,8 +11,9 @@ import Loader from "../../components/Loader/Loader.tsx";
 import {store} from "../../store/store.ts";
 import {recordUser, User} from "../../store/userReducer.ts";
 import {passwordsMatches} from "../../utils/passwordsMatches.ts";
+import {ITabs} from "../../components/TabsCollection/Tabs/types";
 
-const Register = () => {
+const Register = (): React.ReactNode => {
 
     const [user, setUser] = useState({email: '', password: '', accountType: 'Пассивный заработок'})
     const [userAlreadyAuth, setUserAlreadyAuth] = useState<boolean>(false)
@@ -34,12 +33,14 @@ const Register = () => {
             children: 'Пассивный заработок',
             toolTipBox: 'Возможность копировать реальные сделки успешных профессиональных трейдеров.',
             className: 'is-active',
-            onClick: () => setUser({...user, accountType: 'Пассивный заработок'})
+            onClick: () => setUser({...user, accountType: 'Пассивный заработок'}),
+            value: 'Пассивный заработок'
         },
         {
             children: 'Публичный трейдинг',
             toolTipBox: 'Возможность совершать сделки, и делиться своим успехом.',
-            onClick: () => setUser({...user, accountType: 'Публичный трейдинг'})
+            onClick: () => setUser({...user, accountType: 'Публичный трейдинг'}),
+            value: 'Публичный трейдинг'
         }
     ]
 
@@ -81,7 +82,7 @@ const Register = () => {
     return (
         <div className='login'>
             <h1 className='login__title'>Регистрация</h1>
-            <TabsCollection tabs={tabs} />
+            <TabsCollection tabs={tabs} className={'login__tabs'} />
             <form className='login__form' onSubmit={handleSubmit(addUser)}>
                 <Input
                     type='text'
@@ -90,8 +91,8 @@ const Register = () => {
                     {...register('email', {
                         required: 'Введите почту',
                         pattern: {
-                            value: /^\S+@\S+\.\S+$/,
-                            message: 'Введите корректную почту'
+                            value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                            message: 'Введите корректную почту',
                         }
                     })}
                 />

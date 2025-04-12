@@ -1,0 +1,53 @@
+@use "../../styles/helpers" as *;
+
+.help {
+  @include background;
+
+  padding: rem(108) rem(157);
+
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(20);
+
+  @include tablet {
+    padding: rem(120) rem(32);
+  }
+
+  @include mobile {
+    padding: rem(32) rem(20);
+  }
+
+  &__title,
+  &__description {
+    text-align: center;
+  }
+
+  &__form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: rem(33);
+    row-gap: rem(22);
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(5);
+
+    &:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__button {
+    grid-column: 1 / -1;
+  }
+
+  &__error {
+    color: var(--red-color);
+  }
+}
