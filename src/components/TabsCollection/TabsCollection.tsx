@@ -10,10 +10,12 @@ interface ITabsCollection {
     alt?: boolean
 }
 
-const TabsCollection :FC<ITabsCollection> = ({tabs, className, alt}) => {
+const TabsCollection = (props: ITabsCollection): React.ReactNode => {
+    const {tabs, className, alt} = props
     const isTabAlt = alt ? 'tab_alt' : ''
+    const isTabCollectionAlt = alt ? 'tabs-collection_alt' : ''
     return (
-        <div className={`tabs-collection ${className}`}>
+        <div className={`tabs-collection ${isTabCollectionAlt} ${className}`}>
             {tabs.map(tab =>
                 <Tab
                     children={tab.children}

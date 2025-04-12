@@ -7,26 +7,27 @@
 
 
   &__header {
+    --headerPaddingX: #{rem(30)};
     @include background;
 
-    padding: rem(30);
+    padding: rem(30) var(--headerPaddingX);
 
     display: flex;
     flex-direction: column;
+    row-gap: rem(40);
 
     @include tablet {
-      padding: rem(24) rem(18);
+      --headerPaddingX: #{rem(18)};
+      padding-block: rem(24);
     }
 
     @include mobile {
-       padding: rem(20) rem(12);
+      --headerPaddingX: #{rem(12)};
+       padding-block: rem(20);
      }
 
     &-extra {
-      margin-top: rem(22);
-      padding-top: rem(16);
-
-      border-top: rem(1) solid #4D5568;
+      position: relative;
 
       display: grid;
       grid-template-columns: max-content auto;
@@ -40,16 +41,19 @@
       @include mobile {
         row-gap: rem(20);
       }
-    }
-  }
 
-  &__tabs {
-    column-gap: rem(20);
-    row-gap: rem(10);
-    flex-wrap: wrap;
+      &::before {
+        position: absolute;
 
-    @include mobile {
-      column-gap: rem(10);
+        content: '';
+
+        top: rem(-20);
+        left: calc(var(--headerPaddingX) * -1);
+
+        width: calc(100% + var(--headerPaddingX) * 2);
+        height: rem(1);
+        background-color: #333B54;
+      }
     }
   }
 

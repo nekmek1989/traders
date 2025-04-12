@@ -1,5 +1,4 @@
-//@ts-ignore
-import React, {createContext, useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Navigate, Route, Routes} from "react-router";
 import Login from "../../pages/UnAuth/Login.tsx";
 import Register from "../../pages/UnAuth/Register.tsx";
@@ -14,8 +13,9 @@ import Aside from "../Aside/Aside.tsx";
 import Traders from "../../pages/Traders/Traders.tsx";
 import Settings from "../../pages/Settings.tsx";
 import TraderChannel from "../../pages/TraderChannel/TraderChannel.tsx";
+import Statistics from "../../pages/Statistics/Statistics.tsx";
 
-const AppRouter = () => {
+const AppRouter = (): React.ReactNode => {
     const {isUserAuth, isLoading, error} = useContext(AuthContext)
 
     if (isLoading) {
@@ -37,7 +37,8 @@ const AppRouter = () => {
                             <Routes>
                                 <Route path={'/name'} element={<UserPage />} />
                                 <Route path={'/traders'} element={<Traders />} />
-                                <Route path={'/traders/:id'} element={<TraderChannel/>}/>
+                                <Route path={'/traders/:id'} element={<TraderChannel />}/>
+                                <Route path={'/statistics'} element={<Statistics />}/>
                                 <Route path={'/settings'} element={<Settings/>} />
 
                                 <Route path="*" element={<Navigate to="/name" replace />}/>

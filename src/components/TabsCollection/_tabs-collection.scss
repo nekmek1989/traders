@@ -4,4 +4,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &_alt {
+    column-gap: rem(20);
+    row-gap: rem(10);
+    flex-wrap: wrap;
+
+    @include mobile {
+      column-gap: rem(10);
+    }
+  }
 }

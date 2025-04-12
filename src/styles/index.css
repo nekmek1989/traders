@@ -741,6 +741,7 @@ a[class] {
   .app-router__registered-body {
     flex-direction: column;
     row-gap: 1.875rem;
+    padding-bottom: 0;
   }
 }
 
@@ -748,6 +749,16 @@ a[class] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.tabs-collection_alt {
+  column-gap: 1.25rem;
+  row-gap: 0.625rem;
+  flex-wrap: wrap;
+}
+@media (width <= 47.99875rem) {
+  .tabs-collection_alt {
+    column-gap: 0.625rem;
+  }
 }
 
 .tab {
@@ -1791,7 +1802,6 @@ a[class] {
     grid-template-columns: repeat(6, 1fr);
     column-gap: 0.625rem;
     row-gap: 0.625rem;
-    padding: 0.75rem;
   }
 }
 @media (width <= 47.99875rem) {
@@ -1989,28 +1999,30 @@ a[class] {
   row-gap: 1.25rem;
 }
 .trader-channel__header {
+  --headerPaddingX: 1.875rem;
   border-radius: 1.25rem;
   background: rgba(23, 35, 51, 0.8);
   box-shadow: 0 0.0625rem 0.125rem 0 rgba(239, 232, 232, 0.4) inset;
   backdrop-filter: blur(0.9375rem);
-  padding: 1.875rem;
+  padding: 1.875rem var(--headerPaddingX);
   display: flex;
   flex-direction: column;
+  row-gap: 2.5rem;
 }
 @media (width <= 64.06125rem) {
   .trader-channel__header {
-    padding: 1.5rem 1.125rem;
+    --headerPaddingX: 1.125rem;
+    padding-block: 1.5rem;
   }
 }
 @media (width <= 47.99875rem) {
   .trader-channel__header {
-    padding: 1.25rem 0.75rem;
+    --headerPaddingX: 0.75rem;
+    padding-block: 1.25rem;
   }
 }
 .trader-channel__header-extra {
-  margin-top: 1.375rem;
-  padding-top: 1rem;
-  border-top: 0.0625rem solid #4D5568;
+  position: relative;
   display: grid;
   grid-template-columns: max-content auto;
   column-gap: 3rem;
@@ -2026,15 +2038,14 @@ a[class] {
     row-gap: 1.25rem;
   }
 }
-.trader-channel__tabs {
-  column-gap: 1.25rem;
-  row-gap: 0.625rem;
-  flex-wrap: wrap;
-}
-@media (width <= 47.99875rem) {
-  .trader-channel__tabs {
-    column-gap: 0.625rem;
-  }
+.trader-channel__header-extra::before {
+  position: absolute;
+  content: "";
+  top: -1.25rem;
+  left: calc(var(--headerPaddingX) * -1);
+  width: calc(100% + var(--headerPaddingX) * 2);
+  height: 0.0625rem;
+  background-color: #333B54;
 }
 .trader-channel__info {
   display: flex;
@@ -2134,6 +2145,86 @@ a[class] {
 
 .chart > .main-svg {
   transition: 0s !important;
+}
+
+.statistics {
+  --paddingX: 1.5625rem;
+  border-radius: 1.25rem;
+  background: rgba(23, 35, 51, 0.8);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(239, 232, 232, 0.4) inset;
+  backdrop-filter: blur(0.9375rem);
+  padding: 1.5625rem var(--paddingX);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.875rem;
+}
+.statistics__header, .statistics__buttons {
+  position: relative;
+  display: flex;
+  column-gap: 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (width <= 64.06125rem) {
+  .statistics__header, .statistics__buttons {
+    flex-direction: column;
+    align-items: start;
+    row-gap: 0.9375rem;
+  }
+}
+.statistics__buttons::after, .statistics__buttons::before {
+  position: absolute;
+  content: "";
+  left: calc(var(--paddingX) * -1);
+  width: calc(100% + var(--paddingX) * 2);
+  height: 0.0625rem;
+  background-color: #333B54;
+}
+.statistics__buttons::before {
+  top: -1.4375rem;
+}
+.statistics__buttons::after {
+  top: calc(100% + 1.4375rem);
+}
+.statistics__title {
+  display: flex;
+  align-items: center;
+  column-gap: 0.625rem;
+}
+.statistics__image-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.statistics__metrics {
+  display: flex;
+  column-gap: 1.875rem;
+  font-size: 0.875rem;
+}
+@media (width <= 47.99875rem) {
+  .statistics__metrics {
+    width: 100%;
+    row-gap: 0.5rem;
+    flex-direction: column;
+  }
+}
+@media (width <= 47.99875rem) {
+  .statistics__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.statistics__label {
+  color: #9C9BD6;
+}
+.statistics__banner {
+  background-color: var(--green-color);
+  border-radius: 0.5rem;
+  padding: 0.25rem 1.25rem;
+  color: var(--dark-color);
 }
 
 /*# sourceMappingURL=index.css.map */

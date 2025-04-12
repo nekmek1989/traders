@@ -12,8 +12,6 @@
     grid-template-columns: repeat(6, 1fr);
     column-gap: rem(10);
     row-gap: rem(10);
-
-    padding: rem(12);
   }
 
   @include mobile {
