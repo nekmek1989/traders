@@ -1120,9 +1120,10 @@ a[class] {
 }
 @media (width <= 47.99875rem) {
   .aside {
+    position: fixed;
+    z-index: 1;
     padding: 1.875rem 0;
     width: 100vw;
-    order: 1;
     margin-left: calc(-1 * var(--container-padding-x));
     border-radius: 0.5rem 0.5rem 0 0;
   }

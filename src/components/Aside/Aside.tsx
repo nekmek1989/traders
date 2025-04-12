@@ -2,11 +2,14 @@ import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from "react-router";
 import {useDispatch} from "react-redux";
 import {selectMain} from "../../store/sectionReducer.ts";
+import useWindowWidth from "../../hooks/useWindowWidth.ts";
 
 const Aside = () => {
     const searchParams: string = useLocation().pathname
     const [currentLocation, setCurrentLocation] = useState<string>('')
+    const size = useWindowWidth()
     const dispatch = useDispatch()
+    const nav = useRef<HTMLElement | null>(null)
     const navMenu = useRef<HTMLElement | null>(null)
     const path = {
         name: '/name',
@@ -21,23 +24,37 @@ const Aside = () => {
     }
 
     const scroll = () => {
-
-        if (document.documentElement.clientWidth < 767) return
-
         const {current} = navMenu
+
         const coordinateY = document.documentElement.getBoundingClientRect().y
 
         if (current) current.style.marginTop = `${-coordinateY}px`
     }
 
-    document.addEventListener('scroll', scroll)
+    useEffect(() => {
+            if (size >= 768) {
+                scroll()
+                document.addEventListener('scroll', scroll)
+                return () => document.removeEventListener('scroll', scroll)
+            } else {
+                document.removeEventListener('scroll', scroll)
+                if(navMenu.current) navMenu.current.style.marginTop = `0px`
+            }
+        }, [size]);
+
+    useEffect(() => {
+        if (nav.current && size < 768) {
+            const navElement = nav.current
+            navElement.style.top = `${window.innerHeight - navElement.clientHeight}px`
+        }
+    }, [nav]);
 
     useEffect(() => {
         setCurrentLocation(searchParams)
     }, [searchParams]);
 
     return (
-        <aside className='aside'>
+        <aside className='aside' ref={nav}>
             <nav className='aside__nav' ref={navMenu}>
                 <ul className='aside__list'>
                     <li className="aside__item">

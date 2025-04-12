@@ -10,9 +10,11 @@
   backdrop-filter: blur(rem(12));
 
   @include mobile {
+    position: fixed;
+    z-index: 1;
+
     padding: rem(30) 0;
     width: 100vw;
-    order: 1;
 
     margin-left: calc(-1 * var(--container-padding-x));
 
