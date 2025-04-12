@@ -1,0 +1,7 @@
+@use "../../styles/helpers" as *;
+
+.chart {
+  & > .main-svg {
+    transition: 0s !important;
+  }
+}

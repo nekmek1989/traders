@@ -730,6 +730,7 @@ a[class] {
 .app-router__registered-body {
   display: flex;
   column-gap: 1.875rem;
+  padding-bottom: 0.625rem;
 }
 @media (width <= 64.06125rem) {
   .app-router__registered-body {
@@ -1982,6 +1983,11 @@ a[class] {
   grid-column: 1/-1;
 }
 
+.trader-channel {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+}
 .trader-channel__header {
   border-radius: 1.25rem;
   background: rgba(23, 35, 51, 0.8);
@@ -2049,6 +2055,18 @@ a[class] {
   color: var(--dark-color);
   text-wrap: wrap;
 }
+.trader-channel__body {
+  border-radius: 1.25rem;
+  background: rgba(23, 35, 51, 0.8);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(239, 232, 232, 0.4) inset;
+  backdrop-filter: blur(0.9375rem);
+  padding: 1.375rem;
+}
+@media (width <= 47.99875rem) {
+  .trader-channel__body {
+    padding: 0.625rem;
+  }
+}
 .trader-channel__modal {
   display: flex;
   flex-direction: column;
@@ -2112,6 +2130,10 @@ a[class] {
   display: flex;
   flex-direction: column;
   row-gap: 1.5625rem;
+}
+
+.chart > .main-svg {
+  transition: 0s !important;
 }
 
 /*# sourceMappingURL=index.css.map */

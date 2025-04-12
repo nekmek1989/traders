@@ -77,7 +77,7 @@ const Aside = () => {
                     <li className="aside__item">
                         <Link
                             to={path.traders}
-                            className={path.traders === currentLocation ? 'aside__link is-active' : 'aside__link'}
+                            className={path.traders === currentLocation ?'aside__link is-active' : 'aside__link'}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,11 @@
 @use "../../styles/helpers" as *;
 
 .trader-channel {
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(20);
+
+
   &__header {
     @include background;
 
@@ -69,6 +74,16 @@
     color: var(--dark-color);
 
     text-wrap: wrap;
+  }
+
+  &__body {
+    @include background;
+
+    padding: rem(22);
+
+    @include mobile {
+      padding: rem(10);
+    }
   }
 
   &__modal {

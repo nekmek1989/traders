@@ -84,6 +84,7 @@
     &-body {
       display: flex;
       column-gap: rem(30);
+      padding-bottom: rem(10);
 
       @include tablet {
         column-gap: rem(20);

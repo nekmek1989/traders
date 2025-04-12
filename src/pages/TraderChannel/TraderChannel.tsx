@@ -16,17 +16,19 @@ import {RootState, store} from "../../store/store.ts";
 import {removeMoney, subscribe, unSubscribe} from "../../store/userReducer.ts";
 import {selectBalance} from "../../store/sectionReducer.ts";
 import FetchMarketData from "../../API/fetchMarket.ts";
+import Chart from "../../components/Chart/Chart.tsx";
 
 const TraderChannel = (): React.ReactNode => {
     const [channel, setChannel] = useState<IChannel>()
     const params = useParams()
     const selectDateRangeTabs: ITabs[] = [
-        {className: 'is-active', children: 'Сегодня', value: '24h', onClick: (event: React.MouseEvent<HTMLElement>) => selectRange(event)},
-        {children: '7 дней', value: '1w', onClick: (event: React.MouseEvent<HTMLElement>) => selectRange(event)},
-        {children: '30 дней', value: '1m', onClick: (event: React.MouseEvent<HTMLElement>) => selectRange(event)},
-        {children: '100 дней', value: '3m', onClick: (event: React.MouseEvent<HTMLElement>) => selectRange(event)}
+        {className: 'is-active', children: 'Сегодня', value: '24h', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)},
+        {children: '7 дней', value: '1w', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)},
+        {children: '30 дней', value: '1m', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)},
+        {children: '100 дней', value: '3m', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)}
     ]
     const [selectedDate, setSelectedDate] = useState<string>('Сегодня')
+    const [range, setRange] = useState<'24h'| '1w'| '1m' | '3m'>('24h')
     const randomRevenue = useMemo(() => randomInt(100), [selectedDate])
     const [isModal, openModal, closeModal] = useModal()
     const [isMoneyAmount, setIsMoneyAmount] = useState(false)
@@ -53,21 +55,23 @@ const TraderChannel = (): React.ReactNode => {
         }
     )
 
-    const [fetchChart, e, isChartLoading] = useFetch(
+    const [fetchChart, errorChart, isChartLoading] = useFetch(
         async (data) => {
             const response = await FetchMarketData.getCoinMarketData(data)
-            response.data.forEach(step => {
-                step[0] = new Date(step[0] * 1000)
-            })
-            if (response)
-                setChartData(response.data)
-                console.log(response.data)
+            if (response) {
+                const formatedData = response.data.map((step: any[]) => {
+                    step[0] = new Date(step[0] * 1000)
+                    return step.slice(0, 2)
+                }).slice(0, 21)
+                setChartData(formatedData)
+                setRange(data ? data : '24h')
+            }
         }
     )
 
-    const selectRange = (event?: React.MouseEvent<HTMLElement>) => {
+    const selectRange = (event?: React.MouseEvent<HTMLButtonElement>) => {
         if (event) {
-            const target = event.target as HTMLElement
+            const target = event.target as HTMLButtonElement
             setSelectedDate(target.innerText)
             fetchChart(target.value)
         }
@@ -155,8 +159,13 @@ const TraderChannel = (): React.ReactNode => {
                     </div>
                 </div>
                     <div className={'trader-channel__body'}>
-                        {/*{chartData && !isChartLoading &&*/}
-                        {/*    chartData.map(element => <p>{element[0].getDay()}</p>)}*/}
+                        {isChartLoading
+                            ? <Loader/>
+                            : <Chart data={chartData} range={range}/>
+                        }
+                        {errorChart &&
+                            errorChart
+                        }
                     </div>
                 </>
             }
