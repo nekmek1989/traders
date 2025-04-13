@@ -1,28 +1,23 @@
-// @ts-ignore
-import React, {FC} from 'react';
+import React from 'react';
+import {ButtonProps} from "./types";
 
 
-interface IButtonProps {
-    children?: string
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-    className?: string
-    type?: 'button' | 'submit' | 'reset' | undefined
-    small?: boolean
-    alt?: boolean
-    smallest?: boolean
-    deleteButton?: boolean
-}
+const Button = (props: ButtonProps): React.ReactNode => {
+    const {children, className, onClick, type, small, smallest, alt, deleteButton} = props
 
-const Button: FC<IButtonProps> = ({children, className, onClick, type, small, smallest, alt, deleteButton}) => {
-    const size: string = small? ' button__size-small'
-        : smallest? ' button__size-smallest'
+    const size: string = small
+        ? ' button__size-small'
+        : smallest
+            ? ' button__size-smallest'
             : ''
+
     const altButton: string = alt? ' button_alt' : ''
+
     const red = deleteButton ? 'button_delete' : ''
 
     return (
         <button
-            className={ `button ` + size + altButton + red + ` ${className}`}
+            className={ `button ${size} ${altButton} ${red} ${className}`}
             onClick={onClick}
             type={type}
         >
