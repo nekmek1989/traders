@@ -8,7 +8,7 @@ import {useModal} from "../../hooks/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
 import {changeEmail, changePassword} from "../../store/userReducer.ts";
 import {passwordsMatches} from "../../utils/passwordsMatches.ts";
-import {useChangeUser} from "../../hooks/useChangeUser.ts";
+import {useChangeUser} from "../../hooks/useChangeUser/useChangeUser.ts";
 import {useFetch} from "../../hooks/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";

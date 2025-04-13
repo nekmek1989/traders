@@ -1,0 +1,1 @@
+type hookChangeUser = (...dependence: any[]) => string

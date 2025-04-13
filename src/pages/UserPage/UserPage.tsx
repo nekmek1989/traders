@@ -12,7 +12,7 @@ import {balanceForm} from "./types";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {addMoney, removeMoney} from "../../store/userReducer.ts";
-import {useChangeUser} from "../../hooks/useChangeUser.ts";
+import {useChangeUser} from "../../hooks/useChangeUser/useChangeUser.ts";
 
 const UserPage = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)
