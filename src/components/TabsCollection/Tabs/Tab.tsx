@@ -1,20 +1,17 @@
-//@ts-ignore
-import React, {FC, MouseEventHandler, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Tooltip from "../../Tooltip/Tooltip.tsx";
-import {ITabs} from "./types";
+import {TabsProps} from "./types";
 
-
-
-const Tab = (props: ITabs): React.ReactNode => {
-
+const Tab = (props: TabsProps): React.ReactNode => {
     const {children, className, onClick, toolTipBox, value} = props
-    const [activeTabCollection, setActiveTab] = useState<HTMLCollectionOf<Element> | null>(null)
 
-    const onTabClick = (event: React.MouseEvent<HTMLElement>): void => {
+    const [activeTabCollection, setActiveTabCollection] = useState<HTMLCollectionOf<Element> | null>(null)
+
+    const onTabClick = (event: React.MouseEvent<HTMLElement>) => {
         onClick?.(event)
 
         const target = event.target as HTMLElement;
-        const parent = target.closest('.tabs-collection') as HTMLElement | null;
+        const parent = target.closest('.tabs-collection') as HTMLElement
 
         if (activeTabCollection) {
             Array.from(activeTabCollection).forEach(activeTab => {
@@ -30,7 +27,7 @@ const Tab = (props: ITabs): React.ReactNode => {
 
     useEffect(
         () => {
-            setActiveTab(document.getElementsByClassName('is-active tab'))
+            setActiveTabCollection(document.getElementsByClassName('is-active tab'))
         }, [className]
     )
 

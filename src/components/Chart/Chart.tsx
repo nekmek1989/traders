@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Plot from 'react-plotly.js';
 import {absoluteToRelativeFormater} from "../../utils/absoluteToRelativeFormater.ts";
 import useWindowWidth from "../../hooks/useWindowWidth.ts";
-import {ITabs} from "../TabsCollection/Tabs/types";
+import {TabsProps} from "../TabsCollection/Tabs/types";
 import TabsCollection from "../TabsCollection/TabsCollection.tsx";
 import {deltaValues} from "../../utils/deltaValues.ts";
 
@@ -11,7 +11,7 @@ const Chart = (props: Props): React.ReactNode => {
     const [bars, setBars] = useState<number[]>([0, 20])
     const size = useWindowWidth()
     const [type, setType] = useState<type>('n')
-    const tabs: ITabs[] = [
+    const tabs: TabsProps[] = [
         {className: 'is-active', children: 'n', onClick: () => setType('n'), value: 'n'},
         {children: '%', onClick: () => setType('%'), value: '%'}
     ]

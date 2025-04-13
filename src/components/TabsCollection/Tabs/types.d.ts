@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface ITabs {
+export type TabsProps = {
     children: any
     toolTipBox? : string
     className? : string | ''

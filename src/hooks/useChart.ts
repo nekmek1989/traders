@@ -1,4 +1,4 @@
-import {ITabs} from "../components/TabsCollection/Tabs/types";
+import {TabsProps} from "../components/TabsCollection/Tabs/types";
 import React, {useMemo, useState} from "react";
 import {useFetch} from "./useFetch.ts";
 import FetchMarketData from "../API/fetchMarket.ts";
@@ -10,7 +10,7 @@ type date = '24h'| '1w'| '1m' | '3m'
 
 export const useChart =
     (): [tabsCollection: React.ReactNode, dateRange: dateUI, chart: React.ReactNode, fetchChart: (data?: any) => Promise<void> , error: string, loading: boolean] => {
-        const selectDateRangeTabs: ITabs[] = [
+        const selectDateRangeTabs: TabsProps[] = [
             {className: 'is-active', children: 'Сегодня', value: '24h', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)},
             {children: '7 дней', value: '1w', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)},
             {children: '30 дней', value: '1m', onClick: (event: React.MouseEvent<HTMLButtonElement>) => selectRange(event)},

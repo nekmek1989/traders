@@ -11,7 +11,7 @@ import Loader from "../../components/Loader/Loader.tsx";
 import {store} from "../../store/store.ts";
 import {recordUser, User} from "../../store/userReducer.ts";
 import {passwordsMatches} from "../../utils/passwordsMatches.ts";
-import {ITabs} from "../../components/TabsCollection/Tabs/types";
+import {TabsProps} from "../../components/TabsCollection/Tabs/types";
 
 const Register = (): React.ReactNode => {
 
@@ -28,7 +28,7 @@ const Register = (): React.ReactNode => {
         }
     } = useForm( {mode: 'onBlur'} )
 
-    const tabs: ITabs[] = [
+    const tabs: TabsProps[] = [
         {
             children: 'Пассивный заработок',
             toolTipBox: 'Возможность копировать реальные сделки успешных профессиональных трейдеров.',
