@@ -1,13 +1,7 @@
 import React from 'react';
+import {SelectProps} from "./types";
 
-type Select = {
-    className: string
-    options: string[]
-    value?: string
-    alt?: boolean
-} & React.SelectHTMLAttributes<HTMLSelectElement>
-
-const Select = (props: Select): React.ReactNode => {
+const Select = (props: SelectProps): React.ReactNode => {
     const { className, options, value, alt, ...rest } = props
 
     return (
