@@ -1,8 +1,7 @@
-//@ts-ignore
 import React from 'react';
 import {Link} from "react-router";
 
-const Footer = () => {
+const Footer = (): React.ReactNode => {
     return (
         <footer className='footer container'>
             <Link to={'https://t.me/nikgura'} className='footer__link'>

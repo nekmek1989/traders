@@ -1,7 +1,5 @@
-// @ts-ignore
 import React, {useState} from 'react';
-import {Link, redirect} from "react-router";
-import Button from "../Button/Button.tsx";
+import {Link} from "react-router";
 import BurgerButton from "../BurgerButton/BurgerButton.tsx";
 import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
 
@@ -9,13 +7,14 @@ const HeaderUnlogin = () => {
 
     const [modalElement, setModalElement] = useState('header-unlogin__nav hidden-tablet')
 
-    const showOverlay = (): void => {
+    const showOverlay = () => {
         lockHTMLElement()
         setModalElement('header-unlogin__nav is-active')
     }
 
-    const quitModal = (event): void => {
-        if (event.target.classList.contains('is-active')) {
+    const quitModal = (event: React.MouseEvent<HTMLElement>) => {
+        const target = event.target as HTMLElement
+        if (target.classList.contains('is-active')) {
             unlockHTMLElement()
             setModalElement('header-unlogin__nav hidden-tablet')
         }

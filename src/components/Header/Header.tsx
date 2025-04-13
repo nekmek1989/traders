@@ -2,21 +2,19 @@ import React, {useContext} from 'react';
 import {Link, useNavigate} from "react-router";
 import Button from "../Button/Button.tsx";
 import IconDropDownButton from "../IconDropDownButton/IconDropDownButton.tsx";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {selectEn, selectRu} from "../../store/languageReducer.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {selectBalance} from "../../store/sectionReducer.ts";
-import {RootState} from "../../store/store.ts";
+import {RootState, store} from "../../store/store.ts";
 
 const Header = (): React.ReactNode => {
-    const userData = useSelector((state: RootState) => state.user)
-    const dispatch = useDispatch()
+    const user = useSelector((state: RootState) => state.user)
     const navigate = useNavigate()
-
     const {setIsUserAuth} = useContext(AuthContext)
     const languageOptions = [
-        <Button alt smallest onClick={()=>dispatch(selectRu())} children='RU' key={'RU'}/>,
-        <Button alt smallest onClick={()=>dispatch(selectEn())} children='EN' key={'EN'}/>
+        <Button alt smallest onClick={()=> store.dispatch(selectRu())} children='RU' key={'RU'}/>,
+        <Button alt smallest onClick={()=> store.dispatch(selectEn())} children='EN' key={'EN'}/>
     ]
 
     const logOut = () => {
@@ -28,7 +26,7 @@ const Header = (): React.ReactNode => {
         <button
             className='header__user-button'
             onClick={() => {
-                dispatch(selectBalance())
+                store.dispatch(selectBalance())
                 navigate('/name')
             }}
             key={'balance'}
@@ -60,16 +58,15 @@ const Header = (): React.ReactNode => {
                     <img src='/src/assets/images/Logo.svg' alt=''/>
                 </Link>
                 <div className='header__components'>
-                    {userData.accountType === 'Пассивный заработок'
-                        || userData.accountType === 'Публичный трейдинг'
+                    {user.accountType === 'Пассивный заработок' || user.accountType === 'Публичный трейдинг'
                             ? <Button alt smallest className='header__account-type hidden-mobile'>
-                                {userData.accountType}
+                                {user.accountType}
                               </Button>
                             : null
                     }
                     <div className="header__money-amount">
-                        <img src='/src/assets/icons/Wallet.svg'/>
-                        $ {userData.money}
+                        <img src='/src/assets/icons/Wallet.svg' alt={''}/>
+                        $ {user.money}
                     </div>
                     <IconDropDownButton
                         className='header__select-language'
@@ -81,7 +78,7 @@ const Header = (): React.ReactNode => {
                         className='header__user'
                         elements={userMenu}
                     >
-                        <img src='/src/assets/icons/Profile.svg'/>
+                        <img src='/src/assets/icons/Profile.svg' alt={''}/>
                     </IconDropDownButton>
                 </div>
             </div>
