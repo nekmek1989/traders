@@ -1,11 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 
-type IDropDown = {
-    children: any
-    className?: string
-}
 
-const DropDown = (props: IDropDown): React.ReactNode => {
+const DropDown = (props: DropDownProps): React.ReactNode => {
     const {children, className} = props
     const dropDownElement = useRef<HTMLDivElement | null>(null)
 
