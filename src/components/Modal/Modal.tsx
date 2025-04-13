@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState} from 'react';
 import Portal, { createContainer } from '../Portal/Portal.tsx';
 import BurgerButton from "../BurgerButton/BurgerButton.tsx";
+import {ModalProps} from "./types";
 
 const MODAL_CONTAINER_ID = 'modal-container-id';
 
-type Props = { onClose?: () => void; children: React.ReactElement};
-
-const Modal = (props: Props) => {
+const Modal = (props: ModalProps): React.ReactNode => {
     const { onClose, children } = props;
 
     const rootRef = useRef<HTMLDivElement>(null);
@@ -22,9 +21,8 @@ const Modal = (props: Props) => {
             if (event.target === rootRef.current || event.key === 'Escape') {
                 onClose?.()
             }
-        } else if (onClose) {
-            onClose()
         }
+        onClose?.()
     }
 
     document.addEventListener('keydown', event => handleClose(event))
