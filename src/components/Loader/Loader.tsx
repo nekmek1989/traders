@@ -1,7 +1,6 @@
-//@ts-ignore
 import React from 'react';
 
-const Loader = () => {
+const Loader = (): React.ReactNode => {
     return (
             <div className='loader-wrapper'>
                 <div className='loader'>
