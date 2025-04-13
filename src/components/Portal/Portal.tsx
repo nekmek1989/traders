@@ -1,21 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {createPortal} from "react-dom";
+import {PortalProps} from "./types";
 
-type Props = { id: string, children: React.ReactNode}
-
-const Portal = (props: Props) => {
+const Portal = (props: PortalProps) => {
     const {id, children} = props
     const [container, setContainer] = useState<HTMLElement>();
 
     useEffect(() => {
         if (id) {
-            const portalContainer = document.getElementById(id);
+            const portalContainer = document.getElementById(id)
 
             if (!portalContainer) {
-                throw new Error('Error');
+                throw new Error('Error')
             }
 
-            setContainer(portalContainer);
+            setContainer(portalContainer)
         }
     }, [id]);
     return container ? createPortal(children, container) : null
