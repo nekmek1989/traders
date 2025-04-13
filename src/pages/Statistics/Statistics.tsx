@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo} from 'react';
-import {useChart} from "../../hooks/useChart.ts";
+import {useChart} from "../../hooks/useChart/useChart.ts";
 import Loader from "../../components/Loader/Loader.tsx";
 import {randomInt} from "../../utils/randomInt.ts";
 import {useSelector} from "react-redux";

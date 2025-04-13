@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 import {RootState, store} from "../../store/store.ts";
 import {removeMoney, subscribe, unSubscribe} from "../../store/userReducer.ts";
 import {selectBalance} from "../../store/sectionReducer.ts";
-import {useChart} from "../../hooks/useChart.ts";
+import {useChart} from "../../hooks/useChart/useChart.ts";
 
 const TraderChannel = (): React.ReactNode => {
     const [channel, setChannel] = useState<IChannel>()
