@@ -48,7 +48,7 @@
     }
   }
 
-  &__alt {
+  &_alt {
     background: transparent;
     border: rem(1) solid var(--green-color);
     box-shadow: none;
@@ -61,6 +61,18 @@
         opacity: 0;
       }
       opacity: 0.7;
+    }
+  }
+
+  &_delete {
+    background: var(--red-color);
+
+    &::before {
+      @include visually-hidden
+    }
+
+    @include hover {
+      background: #DE282C;
     }
   }
 }

@@ -10,21 +10,19 @@ interface IButtonProps {
     small?: boolean
     alt?: boolean
     smallest?: boolean
+    deleteButton?: boolean
 }
 
-const Button: FC<IButtonProps> = ({children, className, onClick, type, small, smallest, alt}) => {
+const Button: FC<IButtonProps> = ({children, className, onClick, type, small, smallest, alt, deleteButton}) => {
     const size: string = small? ' button__size-small'
         : smallest? ' button__size-smallest'
             : ''
-    const altButton: string = alt? ' button__alt' : ''
+    const altButton: string = alt? ' button_alt' : ''
+    const red = deleteButton ? 'button_delete' : ''
 
     return (
         <button
-            className={
-                className
-                    ? `button ` + size + altButton + ` ${className}`
-                    : 'button' + size + altButton
-            }
+            className={ `button ` + size + altButton + red + ` ${className}`}
             onClick={onClick}
             type={type}
         >

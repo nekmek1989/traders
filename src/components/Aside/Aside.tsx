@@ -1,16 +1,15 @@
-import {useEffect, useRef, useState} from 'react';
-import {Link, useLocation} from "react-router";
-import {useDispatch} from "react-redux";
+import React, {useEffect, useRef} from 'react';
+import {Link} from "react-router";
 import {selectMain} from "../../store/sectionReducer.ts";
 import useWindowWidth from "../../hooks/useWindowWidth.ts";
 import useWindowHeight from "../../hooks/useWindowHeight.ts";
+import {useCurrentLocation} from "../../hooks/useCurrentLocation.ts";
+import {store} from "../../store/store.ts";
 
-const Aside = () => {
-    const searchParams: string = useLocation().pathname
-    const [currentLocation, setCurrentLocation] = useState<string>('')
+const Aside = (): React.ReactNode => {
+    const currentLocation = useCurrentLocation()
     const size = useWindowWidth()
     const height = useWindowHeight()
-    const dispatch = useDispatch()
     const nav = useRef<HTMLElement | null>(null)
     const navMenu = useRef<HTMLElement | null>(null)
     const path = {
@@ -22,7 +21,7 @@ const Aside = () => {
     }
 
     const onLinkClick = () => {
-        dispatch(selectMain())
+        store.dispatch(selectMain())
     }
 
     const scroll = () => {
@@ -37,6 +36,7 @@ const Aside = () => {
             if (size >= 768) {
                 scroll()
                 document.addEventListener('scroll', scroll)
+
                 return () => document.removeEventListener('scroll', scroll)
             } else {
                 document.removeEventListener('scroll', scroll)
@@ -50,10 +50,6 @@ const Aside = () => {
             navElement.style.top = `${height - navElement.clientHeight}px`
         }
     }, [nav, height, size]);
-
-    useEffect(() => {
-        setCurrentLocation(searchParams)
-    }, [searchParams]);
 
     return (
         <aside className='aside' ref={nav}>

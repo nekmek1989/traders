@@ -57,9 +57,17 @@ export const userReducer = createSlice({
             state.subscriptions = state.subscriptions.filter(channel => {
                 return channel.id !== actions.payload.id
             })
+        },
+
+        changeEmail: (state, actions: PayloadAction<string>) => {
+            state.email = actions.payload
+        },
+
+        changePassword: (state, action: PayloadAction<string>) => {
+            state.password = action.payload
         }
     }
 })
 
-export const {addMoney, removeMoney, recordUser, subscribe, unSubscribe} = userReducer.actions
+export const {addMoney, removeMoney, recordUser, subscribe, unSubscribe, changeEmail, changePassword} = userReducer.actions
 export default userReducer.reducer

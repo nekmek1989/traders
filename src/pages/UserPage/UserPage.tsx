@@ -1,4 +1,3 @@
-//@ts-ignore
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSelector} from "react-redux";
 import Metric from "../../components/Metric/Metric.tsx";
@@ -12,10 +11,10 @@ import {useForm} from "react-hook-form";
 import {balanceForm} from "./types";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
-import {addMoney, removeMoney, User} from "../../store/userReducer.ts";
+import {addMoney, removeMoney} from "../../store/userReducer.ts";
+import {useChangeUser} from "../../hooks/useChangeUser.ts";
 
-
-const UserPage = () => {
+const UserPage = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)
     const section = useSelector((state: RootState) => state.section)
     const [channels, setChannels] = useState<IChannel[] | []>([])
@@ -34,29 +33,18 @@ const UserPage = () => {
         resetField: resetRemoveBalanceField,
     } = useForm<balanceForm>({ mode: 'onBlur',  defaultValues: {balance: null}})
 
-    const [fetch] = useFetch(
-        async (data: {
-            action: 'downloadChannels' | 'changeBalance',
-            formData?: User
-        }) => {
-            switch (data.action) {
-                case 'downloadChannels':
-                    const response = await Fetch.getChannelByUserId(user.id)
 
-                    if (response) {
-                        const filteredResponse: IChannel[] = response.data.filter(
-                            (channel: IChannel) => channel.userId === user.id
-                        )
-                        setChannels(filteredResponse)
-                    }
-                    return
-                case 'changeBalance':
-                    if (data.formData) {
-                        if (!user.id) return
-                        await Fetch.changeUser(user)
-                    }
+    const [fetchChannels] = useFetch(
+        async () => {
+            const response = await Fetch.getChannelByUserId(user.id)
+
+            if (response) {
+                const filteredResponse: IChannel[] = response.data.filter(
+                    (channel: IChannel) => channel.userId === user.id
+                )
+                setChannels(filteredResponse)
             }
-
+            return
         }
     )
 
@@ -75,19 +63,17 @@ const UserPage = () => {
 
 
     useEffect(() => {
-        fetch({action: 'downloadChannels'})
+        fetchChannels()
     }, [user.id]);
 
-    useEffect(() => {
-        fetch({action: 'changeBalance', formData: user})
-    }, [user.money]);
+    useChangeUser(user.money)
 
     return (
         <section className='user-page'>
             <div className="user-page__header">
                 <div className="user-page__title">
                     <div className="user-page__image-wrapper">
-                        <img src={user.avatar} className="user-page__image"/>
+                        <img src={user.avatar} className="user-page__image" alt={''}/>
                     </div>
                     <h3 className='user-page__name'>
                         {user.name}
@@ -98,7 +84,7 @@ const UserPage = () => {
                         <Metric
                             title={'Подписчиков'}
                             count={user.subscribers}
-                            svg={<img src={'/src/assets/icons/Subscribers.svg'}/>}
+                            svg={<img src={'/src/assets/icons/Subscribers.svg'} alt={''}/>}
                         />
                     </li>
 

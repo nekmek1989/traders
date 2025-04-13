@@ -11,7 +11,7 @@ import Header from "../Header/Header.tsx";
 import UserPage from "../../pages/UserPage/UserPage.tsx";
 import Aside from "../Aside/Aside.tsx";
 import Traders from "../../pages/Traders/Traders.tsx";
-import Settings from "../../pages/Settings.tsx";
+import Settings from "../../pages/Settings/Settings.tsx";
 import TraderChannel from "../../pages/TraderChannel/TraderChannel.tsx";
 import Statistics from "../../pages/Statistics/Statistics.tsx";
 import Help from "../../pages/Help/Help.tsx";

@@ -67,6 +67,32 @@ export default class Fetch {
         }
     }
 
+    static async deleteUser(id: string | number) {
+        try {
+            const response = await axios.put(
+                `https://67e3b0492ae442db76d11fd1.mockapi.io/test/1/users/${id}`,
+                { title: "Deleted",
+                    password: '',
+                    email: '',
+                    avatar: '',
+                    createdAt: '',
+                    id: '',
+                    name: '',
+                    subscribers: 0,
+                    addressWallet: '',
+                    money: 0,
+                    accountType: '',
+                    subscriptions: [],
+                    ownedChannels: []
+                }
+            );
+            return response
+        } catch (e) {
+            return false
+        }
+    }
+
+
 
 
     static async getAllChannels() {

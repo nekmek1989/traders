@@ -85,7 +85,7 @@ const Register = (): React.ReactNode => {
             <TabsCollection tabs={tabs} className={'login__tabs'} />
             <form className='login__form' onSubmit={handleSubmit(addUser)}>
                 <Input
-                    type='text'
+                    type='email'
                     placeholder='Email'
                     className='login__field'
                     {...register('email', {
