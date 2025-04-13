@@ -1,21 +1,17 @@
-//@ts-ignore
-import React, {FC} from 'react';
+import React from 'react';
 
-interface IBurgerButtonProps {
-    className?: string
-    onClick?: () => void
-}
-
-const BurgerButton: FC<IBurgerButtonProps> = ({onClick, className}) => {
+const BurgerButton = (props: BurgerButtonProps): React.ReactNode => {
+    const {onClick, className} = props
 
     const buttonClick = (): void => {
         if (onClick) {
             onClick()
         }
     }
+
     return (
         <button
-            className={'burger-button ' + className}
+            className={`burger-button ${className}`}
             onClick={() => buttonClick()}
         >
             <div className='burger-button__inner'>
