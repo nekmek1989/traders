@@ -1,8 +1,7 @@
 import {useState} from "react";
-import {lockHTMLElement, unlockHTMLElement} from "../utils/htmlState.ts";
+import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
 
-export const useModal =
-    (): [isModal: boolean, openModal: () => void, closeModal: () => void] => {
+export const useModal: hookModal = () => {
         const [isModal, setIsModal] = useState<boolean>(false)
 
         const openModal = () => {

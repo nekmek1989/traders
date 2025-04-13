@@ -1,5 +1,5 @@
 import React from 'react';
-import {useFetch} from "../../../hooks/useFetch.ts";
+import {useFetch} from "../../../hooks/useFetch/useFetch.ts";
 import Fetch from "../../../API/fetch.ts";
 import {Link} from "react-router";
 import Modal from "../../Modal/Modal.tsx";
@@ -11,7 +11,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {TChannelCard, TFormChannel} from "./types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store.ts";
-import {useModal} from "../../../hooks/useModal.ts";
+import {useModal} from "../../../hooks/useModal/useModal.ts";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {

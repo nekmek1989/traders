@@ -1,13 +1,11 @@
 import {useState} from "react";
 
-type FetchFunction = (data?: any) => Promise<void>
-
-export const useFetch =
-    ( callback: FetchFunction ) : [FetchFunction, string, boolean] => {
+export const useFetch: hookFetch =
+    ( callback ) => {
         const [isLoading, setIsLoading] = useState(false)
         const [error, setError] = useState('')
 
-        const fetch: FetchFunction = async (data?: any): Promise<void> => {
+        const fetch: FetchFunction = async (...data) => {
             try {
                 setIsLoading(true)
 

@@ -20,7 +20,7 @@ const SearchInput = (props: SearchInputProps): React.ReactNode => {
                 defaultValue={defaultValue}
                 uploadFile={uploadFile}
             />
-            <img src={'/src/assets/icons/Search.svg'} className={'search-input__image'}/>
+            <img src={'/src/assets/icons/Search.svg'} className={'search-input__image'} alt={''}/>
         </label>
     );
 };

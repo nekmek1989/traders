@@ -1,7 +1,7 @@
 import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 
-export const useCurrentLocation = (): string => {
+export const useCurrentLocation: hookCurrentLocation = () => {
     const {pathname} = useLocation()
     const [currentLocation, setCurrentLocation] = useState<string>('')
 

@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import {selectMain} from "../../store/sectionReducer.ts";
 import useWindowWidth from "../../hooks/useWindowWidth.ts";
 import useWindowHeight from "../../hooks/useWindowHeight.ts";
-import {useCurrentLocation} from "../../hooks/useCurrentLocation.ts";
+import {useCurrentLocation} from "../../hooks/useCurrentLocation/useCurrentLocation.ts";
 import {store} from "../../store/store.ts";
 
 const Aside = (): React.ReactNode => {

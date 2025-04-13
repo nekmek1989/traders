@@ -4,16 +4,14 @@ import {useSelector} from "react-redux";
 import {RootState, store} from "../../store/store.ts";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
-import {useModal} from "../../hooks/useModal.ts";
+import {useModal} from "../../hooks/useModal/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
 import {changeEmail, changePassword} from "../../store/userReducer.ts";
 import {passwordsMatches} from "../../utils/passwordsMatches.ts";
 import {useChangeUser} from "../../hooks/useChangeUser/useChangeUser.ts";
-import {useFetch} from "../../hooks/useFetch.ts";
+import {useFetch} from "../../hooks/useFetch/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
-
-//TODO: типизировать все
 
 const Settings = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)

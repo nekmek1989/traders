@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import {RootState, store} from "../../store/store.ts";
 import {useEffect, useState} from "react";
-import {useFetch} from "../useFetch.ts";
+import {useFetch} from "../useFetch/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {recordUser, User} from "../../store/userReducer.ts";
 

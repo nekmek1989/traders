@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {Link} from "react-router";
-import {useFetch} from "../../hooks/useFetch.ts";
+import {useFetch} from "../../hooks/useFetch/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {IAuth} from "../../App/App.tsx";
@@ -11,6 +11,8 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {store} from "../../store/store.ts";
 import {recordUser, User} from "../../store/userReducer.ts";
 import Loader from "../../components/Loader/Loader.tsx";
+
+//todo: не принимает данных из формы
 
 const Login = () => {
 
@@ -64,10 +66,10 @@ const Login = () => {
                 <form className='login__form' onSubmit={handleSubmit(checkUser)}>
 
                     <Input
-                        type='text'
+                        type='email'
                         placeholder='Email'
+                        errors={errors.email}
                         className='login__field input'
-
                         {...register('email', {
                                 required: 'Введите почту',
                                 pattern: {
@@ -86,6 +88,7 @@ const Login = () => {
                     <Input
                         type='password'
                         placeholder='Пароль'
+                        errors={errors.password}
                         className='login__field input'
                         {...register('password', {
                             required: 'Введите пароль',

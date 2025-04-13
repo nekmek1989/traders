@@ -1,6 +1,6 @@
 import {TabsProps} from "../../components/TabsCollection/Tabs/types";
 import React, {useMemo, useState} from "react";
-import {useFetch} from "../useFetch.ts";
+import {useFetch} from "../useFetch/useFetch.ts";
 import FetchMarketData from "../../API/fetchMarket.ts";
 import Chart from "../../components/Chart/Chart.tsx";
 import TabsCollection from "../../components/TabsCollection/TabsCollection.tsx";

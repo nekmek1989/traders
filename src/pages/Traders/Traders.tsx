@@ -3,11 +3,11 @@ import {useForm} from "react-hook-form";
 import SearchInput from "../../components/SearchInput/SearchInput.tsx";
 import Select from "../../components/Select/Select.tsx";
 import IconDropDownButton from "../../components/IconDropDownButton/IconDropDownButton.tsx";
-import {useFetch} from "../../hooks/useFetch.ts";
+import {useFetch} from "../../hooks/useFetch/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {sortChannelParam, sortForm} from "./types";
 import {IChannel} from "../../components/Channel/ChannelCard/types";
-import {useSearchAndSortChannels} from "../../hooks/useSortChannels.ts";
+import {useSearchAndSortChannels} from "../../hooks/useSortChannels/useSortChannels.ts";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
 import ChannelList from "../../components/Channel/ChannelList/ChannelList.tsx";
@@ -26,7 +26,8 @@ const Traders = (): React.ReactNode => {
 
     const {
         handleSubmit,
-        register
+        register,
+        reset
     } = useForm<sortForm>()
 
 
@@ -84,7 +85,10 @@ const Traders = (): React.ReactNode => {
                         type={'reset'}
                         className={'traders__button'}
                         onClick={
-                            () => setSearchParams({search: '', type: "Счёт", risk: "Уровень риска"})
+                            () => {
+                                setSearchParams({search: '', type: "Счёт", risk: "Уровень риска"})
+                                reset()
+                            }
                         }
                         alt
                         small

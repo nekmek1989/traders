@@ -1,13 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useNavigate, useParams} from "react-router";
-import {useFetch} from "../../hooks/useFetch.ts";
+import {useFetch} from "../../hooks/useFetch/useFetch.ts";
 import {IChannel} from "../../components/Channel/ChannelCard/types";
 import Fetch from "../../API/fetch.ts";
 import Loader from "../../components/Loader/Loader.tsx";
 import Button from "../../components/Button/Button.tsx";
 import ChannelMain from "../../components/Channel/ChannelMain/ChannelMain.tsx";
 import {randomInt} from "../../utils/randomInt.ts";
-import {useModal} from "../../hooks/useModal.ts";
+import {useModal} from "../../hooks/useModal/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
 import {useSelector} from "react-redux";
 import {RootState, store} from "../../store/store.ts";

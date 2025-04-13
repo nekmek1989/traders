@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useSelector} from "react-redux";
 import Metric from "../../components/Metric/Metric.tsx";
 import {randomInt} from "../../utils/randomInt.ts";
-import {useFetch} from "../../hooks/useFetch.ts";
+import {useFetch} from "../../hooks/useFetch/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import ChannelCard from "../../components/Channel/ChannelCard/ChannelCard.tsx";
 import {IChannel} from "../../components/Channel/ChannelCard/types";

@@ -1,8 +1,7 @@
 import {useMemo} from "react";
-import {IChannel} from "../components/Channel/ChannelCard/types";
-import {sortChannelParam, sortForm} from "../pages/Traders/types";
+import {hookSearchAndSortChannels, hookSortChannels} from "./types";
 
-export const useSortChannels = (channels: IChannel[], sortParams: sortChannelParam)=> {
+export const useSortChannels: hookSortChannels = (channels, sortParams)=> {
     if (sortParams === 'По цене') {
         return [...channels].sort((a, b) => b.price - a.price)
     } else if (sortParams ==='По популярности') {
@@ -14,7 +13,7 @@ export const useSortChannels = (channels: IChannel[], sortParams: sortChannelPar
 }
 
 
-export const useSearchAndSortChannels = (channels: IChannel[], params: sortForm, sortParams: sortChannelParam) => {
+export const useSearchAndSortChannels: hookSearchAndSortChannels = (channels, params, sortParams) => {
 
     const isRiskSelected = params.risk !== 'Уровень риска'
     const isTypeSelected = params.type !== 'Счёт'
@@ -22,7 +21,7 @@ export const useSearchAndSortChannels = (channels: IChannel[], params: sortForm,
     const sortedChannels = useSortChannels(channels, sortParams)
 
     const searchedAndSortedChannels = useMemo(() => {
-        return sortedChannels.filter(
+        return  sortedChannels.filter(
             channel =>
                 channel.name
                     .toLowerCase()

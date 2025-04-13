@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Fetch from "../API/fetch.ts";
 import {AuthContext} from "../context/Context.ts";
 import AppRouter from "../components/AppRouter/AppRouter.tsx";
-import {useFetch} from "../hooks/useFetch.ts";
+import {useFetch} from "../hooks/useFetch/useFetch.ts";
 import Loader from "../components/Loader/Loader.tsx";
 import Error from "../pages/Error.tsx";
 import {store} from "../store/store.ts";

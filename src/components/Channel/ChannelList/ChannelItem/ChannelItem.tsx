@@ -8,7 +8,7 @@ const ChannelItem = (props: channelItem): React.ReactNode => {
         <article className={'channel-item ' + props.classname}>
             <div className={'channel-item__header'}>
                 <div className="channel-item__image-wrapper">
-                    <img className={'channel-item__image'} src={avatar} alt={''}/>
+                    <img className={'channel-item__image'} src={avatar ? avatar : undefined} alt={''}/>
                 </div>
                 <p className={'channel-item__name'}>
                     {name}

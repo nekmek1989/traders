@@ -3,7 +3,7 @@ import TabsCollection from "../../components/TabsCollection/TabsCollection.tsx";
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {Link} from "react-router";
-import {useFetch} from "../../hooks/useFetch.ts";
+import {useFetch} from "../../hooks/useFetch/useFetch.ts";
 import Fetch from "../../API/fetch.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {useForm, useWatch} from "react-hook-form";
@@ -44,7 +44,7 @@ const Register = (): React.ReactNode => {
         }
     ]
 
-    const [fetch, isLoading] = useFetch(
+    const [fetch, error, isLoading] = useFetch(
         async () => {
             const {email} = user
 
@@ -162,6 +162,11 @@ const Register = (): React.ReactNode => {
                 <div className='login__error'>
                     Данны Email уже зарегистрирован, попробуйте войти или сменить Email
                 </div>
+            }
+            {error &&
+                <p className={''}>
+                    {error}
+                </p>
             }
         </div>
     );
