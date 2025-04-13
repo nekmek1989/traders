@@ -911,11 +911,13 @@ a[class] {
 }
 
 .input {
+  border-radius: 1.25rem;
+  background: rgba(23, 35, 51, 0.8);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(239, 232, 232, 0.4) inset;
+  backdrop-filter: blur(0.9375rem);
   border-radius: var(--border-radius);
   background: transparent;
-  border: none;
-  box-shadow: 0px 1px 2px 0px rgba(239, 232, 232, 0.6) inset;
-  backdrop-filter: blur(1.5px);
+  border: 0.0625rem solid transparent;
   padding: 1rem 1.6875rem;
   width: 100%;
   color: var(--grey-color);
@@ -932,7 +934,7 @@ a[class] {
 .input::placeholder {
   color: var(--grey-color);
 }
-.input__upload-file {
+.input_upload-file {
   position: absolute !important;
   width: 1px !important;
   height: 1px !important;
@@ -943,6 +945,12 @@ a[class] {
   clip-path: inset(100%) !important;
   clip: rect(0 0 0 0) !important;
   overflow: hidden !important;
+}
+.input_invalid {
+  border: 0.0625rem solid var(--red-color);
+}
+.input_invalid::placeholder {
+  color: var(--red-color);
 }
 
 .select {
@@ -995,6 +1003,11 @@ a[class] {
   display: flex;
   align-items: center;
   width: 100%;
+}
+@media (width > 64.06125rem) {
+  .search-input-wrapper {
+    min-width: 13.75rem;
+  }
 }
 .search-input__image {
   margin-left: -2.875rem;
@@ -2304,11 +2317,13 @@ a[class] {
 }
 
 .text-aria {
+  border-radius: 1.25rem;
+  background: rgba(23, 35, 51, 0.8);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(239, 232, 232, 0.4) inset;
+  backdrop-filter: blur(0.9375rem);
   border-radius: var(--border-radius);
   background: transparent;
-  border: none;
-  box-shadow: 0px 1px 2px 0px rgba(239, 232, 232, 0.6) inset;
-  backdrop-filter: blur(1.5px);
+  border: 0.0625rem solid transparent;
   padding: 1rem 1.6875rem;
   width: 100%;
   color: var(--grey-color);
@@ -2321,6 +2336,12 @@ a[class] {
 }
 .text-aria::placeholder {
   color: var(--grey-color);
+}
+.text-aria_invalid {
+  border: 0.0625rem solid var(--red-color);
+}
+.text-aria_invalid::placeholder {
+  color: var(--red-color);
 }
 
 .settings {
@@ -2372,6 +2393,7 @@ a[class] {
 }
 .settings__error {
   color: var(--red-color);
+  text-align: start;
 }
 .settings__button-error {
   align-self: end;

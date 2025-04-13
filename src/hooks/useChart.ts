@@ -1,5 +1,5 @@
 import {ITabs} from "../components/TabsCollection/Tabs/types";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {useFetch} from "./useFetch.ts";
 import FetchMarketData from "../API/fetchMarket.ts";
 import Chart from "../components/Chart/Chart.tsx";
@@ -37,9 +37,12 @@ export const useChart =
             if (event) {
                 const target = event.target as HTMLButtonElement
                 setSelectedDate(target.innerText as dateUI)
-                fetchChart(target.value)
             }
         }
+
+        useMemo(() => {
+            fetchChart()
+        }, [selectedDate])
 
         const chart = Chart({data: chartData, range: range})
 

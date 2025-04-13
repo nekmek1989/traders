@@ -6,5 +6,6 @@ type Props =  {
     onBlur: (e: SyntheticEvent) => void
     name: string
     ref: any
+    errors: object | undefined
     className?: string
 }

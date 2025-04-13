@@ -2,9 +2,10 @@ import React from 'react';
 import {InputProps} from "./types";
 
 const Input = (props: InputProps): React.ReactNode => {
-    const {type, className, placeholder, name, ref, onBlur, onChange, disabled, defaultValue, uploadFile} = props
+    const {type, className, placeholder, name, ref, onBlur, onChange, errors, disabled, defaultValue, uploadFile} = props
 
-    const upload = uploadFile ? ' input__upload-file' : ''
+    const upload = uploadFile ? ' input_upload-file' : ''
+    const isInvalid = errors ? ' input_invalid' : ''
     return (
         <input
             placeholder={placeholder}
@@ -15,7 +16,7 @@ const Input = (props: InputProps): React.ReactNode => {
             onChange={onChange}
             disabled={disabled}
             defaultValue={defaultValue}
-            className={className + ' input' + upload}
+            className={className + ' input' + upload + isInvalid}
             id={name}
         />
     );

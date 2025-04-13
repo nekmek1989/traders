@@ -9,6 +9,7 @@ const SearchInput = (props: SearchInputProps): React.ReactNode => {
         <label htmlFor={name} className={className + ' search-input-wrapper'}>
             <Input
                 type={type}
+                errors={undefined}
                 className={'search-input'}
                 placeholder={placeholder}
                 onChange={onChange}

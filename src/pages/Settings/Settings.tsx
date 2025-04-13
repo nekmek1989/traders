@@ -81,6 +81,7 @@ const Settings = (): React.ReactNode => {
                         <Input
                             type={'email'}
                             placeholder={'Новый email'}
+                            errors={errorsEmail.email}
                             {...registerEmail('email', {
                                 required: 'Введите почту',
                                 pattern: {
@@ -99,6 +100,7 @@ const Settings = (): React.ReactNode => {
                         <Input
                             type={'password'}
                             placeholder={'Ваш пароль'}
+                            errors={errorsEmail.password}
                             {...registerEmail('password', {
                                 required: 'Введите пароль',
                                 validate: value => value === user.password ? true : 'Введите свой пароль!'
@@ -124,6 +126,7 @@ const Settings = (): React.ReactNode => {
                         <Input
                             type={'password'}
                             placeholder={'Текуший пароль'}
+                            errors={errorsPassword.changePassword}
                             {...registerPassword('changePassword', {
                                 required: 'Введите пароль',
                                 validate: value => value === user.password ? true : 'Введите свой пароль!'
@@ -139,12 +142,14 @@ const Settings = (): React.ReactNode => {
                         <Input
                             type={'password'}
                             placeholder={'Новый пароль'}
+                            errors={errorsPassword.newPassword}
                             {...registerPassword('newPassword', {
                                 required: 'Введите пароль',
                                 pattern: {
                                     value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
                                     message: 'Пароль должен содержать 1 заглавную букву, 1 строчную букву и 1 число'
-                                }
+                                },
+                                validate: value => value === getPasswordValues('changePassword') ? 'Новый пароль должен отличатся от старого' : true
                             })}
                         />
                         {errorsPassword.newPassword &&
@@ -157,6 +162,7 @@ const Settings = (): React.ReactNode => {
                         <Input
                             type={'password'}
                             placeholder={'Текуший пароль'}
+                            errors={errorsPassword.repeatNewPassword}
                             {...registerPassword('repeatNewPassword', {
                                 required: 'Введите пароль',
                                 validate: value =>  passwordsMatches(getPasswordValues('newPassword'), value)

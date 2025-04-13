@@ -28,52 +28,52 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
     const optionStock = ['Binance', 'Bybit', '1488', 'Mexc']
     const optionRisk = ['Низкий', "Средний", "Высокий"]
 
-    const [fetch] = useFetch(
-        async ( data: {
-            action: 'delete' | 'edit' | 'create',
-            formData?: TFormChannel
-        }) => {
-            const {action, formData} = data
+    const [fetchDelete] = useFetch(
+        async () => {
+            if (components && setChannels && channels) {
+                await Fetch.deleteChannel(components.id)
 
-            switch (action) {
-                case "delete":
-                    if (components && setChannels && channels) {
-                        await Fetch.deleteChannel(components.id)
+                setChannels([...channels].filter(
+                    (channel) => channel.id !== components.id)
+                )
+            }
+            return
+        }
+    )
 
-                        setChannels([...channels].filter(
-                            (channel) => channel.id !== components.id)
-                        )
-                    }
-                    return
-                case "edit":
-                    if (components && formData) {
-                        const response = await Fetch.changeChannel(components?.id, formData)
-                        if (response && setChannels && channels) {
-                            setChannels([...channels].map(channel => {
-                                if (channel.id === components.id) {
-                                    return response.data
-                                }
-                                return channel
-                            }))
-                            closeModal()
+    const [fetchChange] = useFetch(
+        async (newData: TFormChannel) => {
+            if (components && newData) {
+                const response = await Fetch.changeChannel(components?.id, newData)
+                if (response && setChannels && channels) {
+                    setChannels([...channels].map(channel => {
+                        if (channel.id === components.id) {
+                            return response.data
                         }
-                    }
-                    return
-                case 'create':
-                    if (formData) {
-                        const response = await Fetch.postChannel(user.id, formData)
+                        return channel
+                    }))
+                    closeModal()
+                }
+            }
+            return
+        }
+    )
 
-                        if (response && setChannels && channels) {
-                            setChannels([...channels, response.data])
-                            closeModal()
-                        }
-                    }
+    const [fetchAdd] = useFetch(
+        async (newData: TFormChannel) => {
+            if (newData) {
+                const response = await Fetch.postChannel(user.id, newData)
+
+                if (response && setChannels && channels) {
+                    setChannels([...channels, response.data])
+                    closeModal()
+                }
             }
         }
     )
 
-    const deleteChannel = (): void => {
-        fetch({action: 'delete'})
+    const deleteChannel = () => {
+        fetchDelete()
     }
 
     const createChannel: SubmitHandler<TFormChannel> = async (data, event) => {
@@ -83,9 +83,10 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
             //@ts-ignore
             data.avatar = '/src/assets/icons/default-user.png'
             if (isChangeChannel) {
-                await fetch({action: 'edit', formData: data})
+                fetchChange(data)
             } else {
-                await fetch({action: 'create', formData: data})
+                // await fetch({action: 'create', formData: data})
+                fetchAdd(data)
             }
         }
     }
@@ -235,7 +236,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                 </div>
                                 <Input
                                     type={'file'}
-                                    placeholder='Название канала'
+                                    errors={errors.avatar}
                                     className='channel-card__field'
                                     uploadFile
                                     {...register('avatar')}
@@ -245,6 +246,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                             <Input
                                 type={'text'}
                                 placeholder='Название канала'
+                                errors={errors.name}
                                 className='channel-card__field'
                                 defaultValue={components?.name}
                                 {...register('name',
@@ -302,6 +304,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                 <Input
                                     type={'number'}
                                     placeholder='Стоимость подписки (от 50$)'
+                                    errors={errors.price}
                                     className='channel-card__field'
                                     defaultValue={components?.price}
                                     {...register('price',
@@ -315,6 +318,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                                     value: 4,
                                                     message: 'Стоимость подписки может быть не больше 9999$'
                                                 },
+                                                validate: value => value < 50 ? 'От 50$' : true,
                                                 valueAsNumber: true as any,
                                             }
                                             : {

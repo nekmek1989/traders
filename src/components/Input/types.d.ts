@@ -7,6 +7,7 @@ export type InputProps =  {
     onBlur: (e: SyntheticEvent) => void
     name: string
     ref: any
+    errors: object | undefined
     defaultValue?: string | number
     disabled?: boolean
     className?: string

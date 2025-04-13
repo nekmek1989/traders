@@ -33,6 +33,7 @@ const Help = (): React.ReactNode => {
                     <Input
                         type={'text'}
                         placeholder={'Ваше имя'}
+                        errors={errors.name}
                         {...register('name', {
                             required: 'Введите имя',
                             pattern: {
@@ -51,6 +52,7 @@ const Help = (): React.ReactNode => {
                     <Input
                         type={'email'}
                         placeholder={'Ваш email'}
+                        errors={errors.email}
                         {...register('email', {
                             required: 'Введите Почту',
                             pattern: {
@@ -68,6 +70,7 @@ const Help = (): React.ReactNode => {
                 <label htmlFor={'message'} className={'help__label'}>
                     <TextAria
                         placeholder={'Сообщение'}
+                        errors={errors.message}
                         {...register('message', {
                             required: 'Поле обязательно для ввода'
                         })}

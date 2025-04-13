@@ -16,7 +16,6 @@ const Aside = (): React.ReactNode => {
         name: '/name',
         traders: '/traders',
         statistics: '/statistics',
-        instructions: '/instructions',
         help: '/help'
     }
 
@@ -151,38 +150,6 @@ const Aside = (): React.ReactNode => {
                                 </g>
                             </svg>
                             <p className='hidden-mobile'>Статистика</p>
-                        </Link>
-                    </li>
-                    <li className="aside__item">
-                        <Link
-                            to={path.instructions}
-                            className={path.instructions === currentLocation ? 'aside__link is-active' : 'aside__link'}
-                        >
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="27"
-                                fill="none"
-                                viewBox="0 0 24 27"
-                            >
-                                <g
-                                    stroke="#fff"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="1.5"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M15.65 1.682H6.78a5.094 5.094 0 0 0-5.113 4.972v14.284a5.105 5.105 0 0 0 4.99 5.215H17.43a5.18 5.18 0 0 0 4.972-5.215V8.717z"
-                                        clipRule="evenodd"
-                                    ></path>
-                                    <path d="M15.299 1.667v3.878a3.43 3.43 0 0 0 3.424 3.434h3.673"></path>
-                                    <path d="M15.05 18.478h-7.2"></path>
-                                    <path d="M12.324 13.475H7.85"></path>
-                                </g>
-                            </svg>
-                            <p className='hidden-mobile'>Инструкции</p>
                         </Link>
                     </li>
                     <li className="aside__item">
