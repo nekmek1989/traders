@@ -1,29 +1,28 @@
 import React, {useEffect, useRef} from 'react';
+import useWindowWidth from "../../hooks/useWindowWidth.ts";
 
 
 const DropDown = (props: DropDownProps): React.ReactNode => {
     const {children, className} = props
     const dropDownElement = useRef<HTMLDivElement | null>(null)
+    const size = useWindowWidth()
 
     const positionDropDown = () => {
-        if (window.innerWidth < 480) {
+        if (size < 480) {
             const { current } = dropDownElement
             const x = current?.getBoundingClientRect().x
 
             if(x && current) {
                 if (x < 0) {
-                    current.style.setProperty('--left', '-100px')
+                    current.style.setProperty('--left', `${-190 + Math.log(-x) * 10 + 30}px`)
                 }
             }
         }
     }
 
-    window.addEventListener('resize', () => {
-        positionDropDown()
-    });
     useEffect(() => {
         positionDropDown()
-    }, []);
+    }, [size]);
     return (
         <div className={className? className + ' dropDown': 'dropDown'} ref={dropDownElement}>
             {children}
