@@ -114,20 +114,28 @@
     @include background;
 
     display: flex;
-    column-gap: rem(42);
-    justify-content: space-between;
+    flex-direction: column;
+    row-gap: rem(20);
 
     padding: rem(50) rem(40);
 
     @include tablet {
-      flex-direction: column;
-      row-gap: rem(27);
-
       padding: rem(27) rem(20);
     }
 
     @include mobile-s {
       padding: rem(20);
+    }
+  }
+
+  &__forms {
+    display: flex;
+    column-gap: rem(42);
+    justify-content: space-between;
+
+    @include tablet {
+      flex-direction: column;
+      row-gap: rem(27);
     }
   }
 

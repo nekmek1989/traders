@@ -1333,20 +1333,29 @@ a[class] {
   box-shadow: 0 0.0625rem 0.125rem 0 rgba(239, 232, 232, 0.4) inset;
   backdrop-filter: blur(0.9375rem);
   display: flex;
-  column-gap: 2.625rem;
-  justify-content: space-between;
+  flex-direction: column;
+  row-gap: 1.25rem;
   padding: 3.125rem 2.5rem;
 }
 @media (width <= 64.06125rem) {
   .user-page__balance {
-    flex-direction: column;
-    row-gap: 1.6875rem;
     padding: 1.6875rem 1.25rem;
   }
 }
 @media (width <= 30.06125rem) {
   .user-page__balance {
     padding: 1.25rem;
+  }
+}
+.user-page__forms {
+  display: flex;
+  column-gap: 2.625rem;
+  justify-content: space-between;
+}
+@media (width <= 64.06125rem) {
+  .user-page__forms {
+    flex-direction: column;
+    row-gap: 1.6875rem;
   }
 }
 .user-page__form {

@@ -17,6 +17,7 @@ import {useChangeUser} from "../../hooks/useChangeUser.ts";
 const UserPage = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)
     const section = useSelector((state: RootState) => state.section)
+    const [message, setMessage] = useState<string>()
     const [channels, setChannels] = useState<IChannel[] | []>([])
     const revenue = useMemo<number>(() => randomInt(user.money), [user.money])
     const {
@@ -32,6 +33,8 @@ const UserPage = (): React.ReactNode => {
         formState: { errors: withdrawBalanceErrors },
         resetField: resetRemoveBalanceField,
     } = useForm<balanceForm>({ mode: 'onBlur',  defaultValues: {balance: null}})
+
+    const error = useChangeUser(user.money)
 
 
     const [fetchChannels] = useFetch(
@@ -49,24 +52,23 @@ const UserPage = (): React.ReactNode => {
     )
 
     const addBalance = (data: balanceForm) => {
-            if (data.balance) store.dispatch(addMoney(data.balance))
+        if (data.balance) store.dispatch(addMoney(data.balance))
 
-            resetAddBalanceField('balance')
+        resetAddBalanceField('balance')
+        setMessage('Баланс успешно изменен')
     }
 
     const withdrawBalance = (data: balanceForm) => {
-            if (data.balance) store.dispatch(removeMoney(data.balance))
+        if (data.balance) store.dispatch(removeMoney(data.balance))
 
-            resetRemoveBalanceField('balance')
+        resetRemoveBalanceField('balance')
+        setMessage('Баланс успешно изменен')
     }
-
 
 
     useEffect(() => {
         fetchChannels()
     }, [user.id]);
-
-    useChangeUser(user.money)
 
     return (
         <section className='user-page'>
@@ -122,46 +124,49 @@ const UserPage = (): React.ReactNode => {
 
             {section.section === 'balance' &&
                 <div className={'user-page__balance'}>
-                    <form className={'user-page__form'} onSubmit={handleAddBalanceSubmit(addBalance)}>
-                        <h4 className={'user-page__title'}>
-                            Пополнить баланс
-                        </h4>
-                        <Input
-                            type={'number'}
-                            placeholder='Сумма'
-                            className='user-page__field'
-                            {...registerAddBalance('balance',
-                                {
-                                        required: 'Введите стоимость подписки',
-                                        pattern: {
-                                            value: /^(0|[1-9][0-9]*)$/,
-                                            message: 'Только положительные числа!'
-                                        },
-                                        validate: value => value as number <= 0 ? 'Только положительные числа!' : true,
-                                        maxLength: {
-                                            value: 4,
-                                            message: 'Стоимость подписки может быть не больше 9999$'
-                                        },
-                                        valueAsNumber: true as any,
-                                    }
-                            )}
-                        />
-                        {addBalanceErrors?.balance &&
-                            <p className='user-page__error'>
-                                {addBalanceErrors.balance?.message as string || 'Error'}
-                            </p>
-                        }
-                        <Button type={'submit'} className={'user-page__button'}>
-                            Пополнить баланс
-                        </Button>
-                    </form>
-                    <form className={'user-page__form'} onSubmit={handleWithdrawBalanceSubmit(withdrawBalance)}>
+                    <div className={'user-page__forms'}>
+                        <form className={'user-page__form'} onSubmit={handleAddBalanceSubmit(addBalance)}>
+                            <h4 className={'user-page__title'}>
+                                Пополнить баланс
+                            </h4>
+                            <Input
+                                type={'number'}
+                                placeholder='Сумма'
+                                errors={addBalanceErrors.balance}
+                                className='user-page__field'
+                                {...registerAddBalance('balance',
+                                    {
+                                            required: 'Введите стоимость подписки',
+                                            pattern: {
+                                                value: /^(0|[1-9][0-9]*)$/,
+                                                message: 'Только положительные числа!'
+                                            },
+                                            validate: value => value as number <= 0 ? 'Только положительные числа!' : true,
+                                            maxLength: {
+                                                value: 4,
+                                                message: 'Стоимость подписки может быть не больше 9999$'
+                                            },
+                                            valueAsNumber: true as any,
+                                        }
+                                )}
+                            />
+                            {addBalanceErrors?.balance &&
+                                <p className='user-page__error'>
+                                    {addBalanceErrors.balance?.message as string || 'Error'}
+                                </p>
+                            }
+                            <Button type={'submit'} className={'user-page__button'}>
+                                Пополнить баланс
+                            </Button>
+                        </form>
+                        <form className={'user-page__form'} onSubmit={handleWithdrawBalanceSubmit(withdrawBalance)}>
                         <h4 className={'user-page__title'}>
                             Вывести баланс
                         </h4>
                         <Input
                             type={'number'}
                             placeholder='Сумма'
+                            errors={withdrawBalanceErrors.balance}
                             className='user-page__field'
                             {...registerWithdrawBalance('balance',
                                 {
@@ -188,6 +193,17 @@ const UserPage = (): React.ReactNode => {
                             Вывести баланс
                         </Button>
                     </form>
+                    </div>
+                    {message &&
+                        <p className={''}>
+                            {message}
+                        </p>
+                    }
+                    {error &&
+                        <p className={''}>
+                            {error}
+                        </p>
+                    }
                 </div>
             }
         </section>

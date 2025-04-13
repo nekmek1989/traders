@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {useSelector} from "react-redux";
 import {RootState, store} from "../../store/store.ts";
@@ -18,6 +18,7 @@ import {AuthContext} from "../../context/Context.ts";
 const Settings = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)
     const [isModal, openModal, closeModal] = useModal()
+    const [messageOnChange, setMessageOnChange] = useState('')
     const {setIsUserAuth} = useContext(AuthContext)
     const {
         handleSubmit: handleEmailSubmit,
@@ -37,6 +38,8 @@ const Settings = (): React.ReactNode => {
         }
     } = useForm<changePassword>({mode: 'onBlur'})
 
+    const error = useChangeUser(user.email, user.password)
+
     const [fetchDeleteUser] = useFetch(
         async () => {
             await Fetch.deleteUser(user.id)
@@ -45,24 +48,29 @@ const Settings = (): React.ReactNode => {
         }
     )
 
-
     const setEmail = (data: changeEmail) => {
         store.dispatch(changeEmail(data.email))
 
+        const auth = JSON.parse(localStorage.getItem('auth') as string)
+        localStorage.setItem('auth', JSON.stringify({...auth, email: data.email}))
+
         resetEmail()
+        setMessageOnChange('Почта успешно изменена')
     }
 
     const setPassword = (data: changePassword) => {
         store.dispatch(changePassword(data.newPassword))
 
+        const auth = JSON.parse(localStorage.getItem('auth') as string)
+        localStorage.setItem('auth', JSON.stringify({...auth, password: data.newPassword}))
+
         resetPassword()
+        setMessageOnChange('Пароль успешно изменен')
     }
 
     const deleteAccount = () => {
         fetchDeleteUser()
     }
-
-    useChangeUser(user.email, user.password)
 
     return (
         <section className={'settings'}>
@@ -180,6 +188,16 @@ const Settings = (): React.ReactNode => {
                         children={'Изменить пароль'}
                     />
                 </form>
+                {error &&
+                    <p className={''}>
+                        {error}
+                    </p>
+                }
+                {messageOnChange &&
+                    <p className={''}>
+                        {messageOnChange}
+                    </p>
+                }
             </div>
             <Button
                 className={'settings__button-error'}
@@ -215,6 +233,11 @@ const Settings = (): React.ReactNode => {
                         </div>
                     </div>
                 </Modal>
+            }
+            {error &&
+                <p className={''}>
+                    {error}
+                </p>
             }
         </section>
     );
