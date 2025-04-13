@@ -1,19 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import DropDown from "../DropDown/DropDown.tsx";
+import {IconDropDownButtonProps} from "./types";
 
-interface IDropDown {
-    children: React.ReactNode
-    elements: React.ReactNode
-    className?: string
-}
-
-const IconDropDownButton = (props: IDropDown): React.ReactNode => {
+const IconDropDownButton = (props: IconDropDownButtonProps): React.ReactNode => {
     const {children, className, elements} = props
 
     const [classes, setClasses] = useState<string>('icon-drop-down-button__description')
     const menuRef = useRef<HTMLDivElement | null>(null)
 
-    const showDescription = ():void => {
+    const showDescription = () => {
         if (!classes.includes('is-active')) setClasses(classes + ' is-active')
     }
 
@@ -21,17 +16,18 @@ const IconDropDownButton = (props: IDropDown): React.ReactNode => {
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setClasses('icon-drop-down-button__description');
+                setClasses('icon-drop-down-button__description')
             }
-        };
-        document.addEventListener("click", handleClickOutside);
-        return () => document.removeEventListener("click", handleClickOutside);
+        }
+        document.addEventListener("click", handleClickOutside)
+
+        return () => document.removeEventListener("click", handleClickOutside)
     }, []);
 
 
     return (
         <div
-            className={className? className +' icon-drop-down-button' : 'icon-drop-down-button'}
+            className={`icon-drop-down-button ${className}`}
             onClick={showDescription}
             ref={menuRef}
         >
