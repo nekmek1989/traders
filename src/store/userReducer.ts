@@ -5,7 +5,7 @@ export interface User {
     id: string | number
     name: string
     password: string
-    avatar: string | '../assets/icons/default-user.png'
+    avatar: string
     email: string
     subscribers: number
     addressWallet: string

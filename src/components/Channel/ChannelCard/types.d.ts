@@ -7,7 +7,7 @@ export type TChannelCard = {
 }
 
 export interface IChannel {
-    avatar: string | '/src/assets/icons/default-user.png'
+    avatar: string
     createdAt: string
     id: string
     name: string

@@ -26,6 +26,7 @@ const TraderChannel = (): React.ReactNode => {
     const navigate = useNavigate()
     const [isUserSubscribe, setIsUserSubscribe] = useState<boolean>(false)
     const [isMyChannel, setIsMyChannel] = useState<boolean>(false)
+    const isValidAvatar = channel?.avatar && !channel.avatar.includes('/src/');
 
     const [fetch, error, isLoading] = useFetch(
         async () => {
@@ -161,7 +162,7 @@ const TraderChannel = (): React.ReactNode => {
                                     <div className={'trader-channel__modal-title'}>
                                         <div className={'trader-channel__modal-name'}>
                                             <div className="channel-main__image-wrapper">
-                                                <img className={'channel-main__image'} src={channel.avatar} alt={''}/>
+                                                <img className={'channel-main__image'} src={isValidAvatar ? channel.avatar : '/images/default-user.png'} alt={''}/>
                                             </div>
                                             <p className={'channel-main__name'}>
                                                 {channel.name}

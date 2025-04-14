@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link} from "react-router";
 import BurgerButton from "../BurgerButton/BurgerButton.tsx";
 import {lockHTMLElement, unlockHTMLElement} from "../../utils/htmlState.ts";
+import Logo from "/src/assets/images/Logo.svg";
 
 const HeaderUnlogin = () => {
 
@@ -24,7 +25,7 @@ const HeaderUnlogin = () => {
         <header className='header-unlogin'>
             <div className="header-unlogin__inner container">
                 <Link to={'/login'} className='logo'>
-                    <img src='/src/assets/images/Logo.svg' alt=''/>
+                    <img src={Logo} alt=''/>
                 </Link>
                 <nav
                     className={modalElement}

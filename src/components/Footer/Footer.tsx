@@ -1,16 +1,18 @@
 import React from 'react';
 import {Link} from "react-router";
+import telegramIcon from '/src/assets/icons/telegram.png'
+import Logo from '/src/assets/images/Logo.svg'
 
 const Footer = (): React.ReactNode => {
     return (
         <footer className='footer container'>
-            <Link to={'https://t.me/nikgura'} className='footer__link'>
-                <img src='/src/assets/icons/telegram.png' alt='' className='footer__icon'/>
+            <Link to={''} className='footer__link'>
+                <img src={telegramIcon} alt='' className='footer__icon'/>
             </Link>
             <div className='footer__inner'>
                 <div className='footer__title'>
                     <Link to={'/login'} className='logo'>
-                        <img src='/src/assets/images/Logo.svg' alt=''/>
+                        <img src={Logo} alt=''/>
                     </Link>
                     <p className='footer__description size-small'>
                         криптовалютная платформа для управления инвестициями.

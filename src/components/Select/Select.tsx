@@ -1,5 +1,6 @@
 import React from 'react';
 import {SelectProps} from "./types";
+import Arrow from "/src/assets/icons/Arrow.png"
 
 const Select = (props: SelectProps): React.ReactNode => {
     const { className, options, value, alt, ...rest } = props
@@ -20,7 +21,7 @@ const Select = (props: SelectProps): React.ReactNode => {
             </select>
 
             <img
-                src={"/src/assets/icons/Arrow.png"}
+                src={Arrow}
                 className={'select__image'}
                 alt={''}
             />

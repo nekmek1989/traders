@@ -1,6 +1,7 @@
 import React from 'react';
 import {SearchInputProps} from "./types";
 import Input from "../Input/Input.tsx";
+import Search from '/src/assets/icons/Search.svg'
 
 const SearchInput = (props: SearchInputProps): React.ReactNode => {
     const {type, className, placeholder, name, ref, onBlur, onChange, disabled, defaultValue, uploadFile} = props
@@ -20,7 +21,7 @@ const SearchInput = (props: SearchInputProps): React.ReactNode => {
                 defaultValue={defaultValue}
                 uploadFile={uploadFile}
             />
-            <img src={'/src/assets/icons/Search.svg'} className={'search-input__image'} alt={''}/>
+            <img src={Search} className={'search-input__image'} alt={''}/>
         </label>
     );
 };

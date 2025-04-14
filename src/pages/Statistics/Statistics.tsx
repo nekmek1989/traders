@@ -11,6 +11,7 @@ const Statistics = (): React.ReactNode => {
     const randomRevenue = useMemo(() => {
         return randomInt(100)
     }, [selectedDate])
+    const isValidAvatar = user.avatar && !user.avatar.includes('/src/')
 
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const Statistics = (): React.ReactNode => {
             <div className={'statistics__header'}>
                 <div className={'statistics__title'}>
                     <div className={'statistics__image-wrapper'}>
-                        <img className={'statistics__image'} src={user.avatar} alt={''}/>
+                        <img className={'statistics__image'} src={isValidAvatar ? user.avatar : '/images/default-user.png'} alt={''}/>
                     </div>
                     <h4 className={'statistics__name'}>
                         {user.name}

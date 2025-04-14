@@ -13,12 +13,15 @@ import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {addMoney, removeMoney} from "../../store/userReducer.ts";
 import {useChangeUser} from "../../hooks/useChangeUser/useChangeUser.ts";
+import Subscribers from '/src/assets/icons/Subscribers.svg'
+import Money from '/src/assets/icons/Money.svg'
 
 const UserPage = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)
     const section = useSelector((state: RootState) => state.section)
     const [message, setMessage] = useState<string>()
     const [channels, setChannels] = useState<IChannel[] | []>([])
+    const isValidAvatar = user.avatar && !user.avatar.includes('/src/')
     const revenue = useMemo<number>(() => randomInt(user.money), [user.money])
     const {
         handleSubmit: handleAddBalanceSubmit,
@@ -86,7 +89,7 @@ const UserPage = (): React.ReactNode => {
             <div className="user-page__header">
                 <div className="user-page__title">
                     <div className="user-page__image-wrapper">
-                        <img src={user.avatar} className="user-page__image" alt={''}/>
+                        <img src={isValidAvatar ? user.avatar : '/images/default-user.png'} className="user-page__image" alt={''}/>
                     </div>
                     <h3 className='user-page__name'>
                         {user.name}
@@ -97,7 +100,7 @@ const UserPage = (): React.ReactNode => {
                         <Metric
                             title={'Подписчиков'}
                             count={user.subscribers}
-                            svg={<img src={'/src/assets/icons/Subscribers.svg'} alt={''}/>}
+                            svg={<img src={Subscribers} alt={''}/>}
                         />
                     </li>
 
@@ -105,7 +108,7 @@ const UserPage = (): React.ReactNode => {
                         <Metric
                             title={'Общая прибыль'}
                             count={'$ '+  revenue.toFixed(1).toString().substring(0, 4)}
-                            svg={<img src={'/src/assets/icons/Money.svg'} alt={''}/>}
+                            svg={<img src={Money} alt={''}/>}
                         />
                     </li>
                 </ul>

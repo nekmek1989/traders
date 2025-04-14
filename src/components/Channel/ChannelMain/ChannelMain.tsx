@@ -4,11 +4,13 @@ import {Props} from "./types";
 const ChannelMain = (props: Props): React.ReactNode => {
     const {channel, className} = props
     const { avatar, name, revenue, subscribes, price, risk, stock, rating } = channel
+    const isValidAvatar = avatar && !avatar.includes('/src/')
+
     return (
         <article className={`channel-main ${className}`}>
             <div className={`channel-main__header`}>
                 <div className="channel-main__image-wrapper">
-                    <img className={'channel-main__image'} src={avatar} alt={''}/>
+                    <img className={'channel-main__image'} src={isValidAvatar ? avatar : '/images/default-user.png'} alt={''}/>
                 </div>
                 <p className={'channel-main__name'}>
                     {name}

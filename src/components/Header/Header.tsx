@@ -7,6 +7,9 @@ import {selectEn, selectRu} from "../../store/languageReducer.ts";
 import {AuthContext} from "../../context/Context.ts";
 import {selectBalance} from "../../store/sectionReducer.ts";
 import {RootState, store} from "../../store/store.ts";
+import Logo from "/src/assets/images/Logo.svg";
+import WalletIcon from '/src/assets/icons/Wallet.svg'
+import ProfileIcon from '/src/assets/icons/Profile.svg'
 
 const Header = (): React.ReactNode => {
     const user = useSelector((state: RootState) => state.user)
@@ -55,7 +58,7 @@ const Header = (): React.ReactNode => {
         <header className='header'>
             <div className='header__inner container'>
                 <Link to={'/login'} className='logo'>
-                    <img src='/src/assets/images/Logo.svg' alt=''/>
+                    <img src={Logo} alt=''/>
                 </Link>
                 <div className='header__components'>
                     {user.accountType === 'Пассивный заработок' || user.accountType === 'Публичный трейдинг'
@@ -65,7 +68,7 @@ const Header = (): React.ReactNode => {
                             : null
                     }
                     <div className="header__money-amount">
-                        <img src='/src/assets/icons/Wallet.svg' alt={''}/>
+                        <img src={WalletIcon} alt={''}/>
                         $ {user.money}
                     </div>
                     <IconDropDownButton
@@ -78,7 +81,7 @@ const Header = (): React.ReactNode => {
                         className='header__user'
                         elements={userMenu}
                     >
-                        <img src='/src/assets/icons/Profile.svg' alt={''}/>
+                        <img src={ProfileIcon} alt={''}/>
                     </IconDropDownButton>
                 </div>
             </div>

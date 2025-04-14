@@ -12,12 +12,14 @@ import {TChannelCard, TFormChannel} from "./types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store.ts";
 import {useModal} from "../../../hooks/useModal/useModal.ts";
+import plusIcon from '/src/assets/icons/Plus.svg'
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
     const {header, components, error, channels, setChannels} = props
     const user = useSelector((state: RootState) => state.user)
     const [isModal, openModal, closeModal] = useModal()
+    const isValidAvatar = components?.avatar && !components.avatar.includes('/src/');
     const {
         handleSubmit,
         register,
@@ -81,7 +83,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
             const isChangeChannel =  event.target.attributes['data-is-change-channel'].value === 'true'
 
             //@ts-ignore
-            data.avatar = '/src/assets/icons/default-user.png'
+            data.avatar = '/images/default-user.png'
             if (isChangeChannel) {
                 fetchChange(data)
             } else {
@@ -101,7 +103,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                     <div className="channel-card__title">
                         <div className='channel-card__author'>
                             <div className="channel-card__image-wrapper">
-                                <img src={components?.avatar || '/src/assets/icons/default-user.png'} alt={''}/>
+                                <img src={isValidAvatar ? components.avatar : '/images/default-user.png'} alt={''}/>
                             </div>
                             <h3 className='channel-card__name'>
                                 {components?.name}
@@ -206,7 +208,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                         className='channel-card__create-button'
                         onClick={openModal}
                       >
-                        <img src={'/src/assets/icons/Plus.svg'} className='channel-card__create-image' alt={''}/>
+                        <img src={plusIcon} className='channel-card__create-image' alt={''}/>
                         Создать канал
                     </button>
                     <Link to={'/instructions'} className='channel-card__link'>
@@ -232,7 +234,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                         >
                             <label htmlFor={'avatar'} className={'channel-card__field-wrapper'}>
                                 <div className={'channel-card__image-wrapper'}>
-                                    <img src={components?.avatar || '/src/assets/images/uploadPhoto.png'} alt={''} className={'channel-card__image'}/>
+                                    <img src={isValidAvatar ? components.avatar : '/images/default-user.png'} alt={''} className={'channel-card__image'}/>
                                 </div>
                                 <Input
                                     type={'file'}
