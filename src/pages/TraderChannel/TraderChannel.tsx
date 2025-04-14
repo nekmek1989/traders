@@ -56,6 +56,7 @@ const TraderChannel = (): React.ReactNode => {
         if (channel && user.money > channel.price) {
             store.dispatch(removeMoney(channel.price))
             store.dispatch(subscribe(channel))
+            setIsUserSubscribe(true)
         }
     }
 
@@ -99,7 +100,6 @@ const TraderChannel = (): React.ReactNode => {
 
     useEffect(() => {
         fetchUser()
-        setIsUserSubscribe(isUserSub())
     }, [user.money, user.subscriptions]);
 
     return (
@@ -121,13 +121,21 @@ const TraderChannel = (): React.ReactNode => {
                             <div className={'trader-channel__banner'}>
                             Доход за {selectedDate}: {randomRevenue.toFixed(1)}%
                             </div>
-                            {!isMyChannel &&
-                                <Button
-                                    className={'trader-channel__button'}
-                                    children={isUserSubscribe ? 'Отписаться' : 'Подключить трейдера'}
-                                    onClick={isUserSubscribe ? unConnectChannel : showModal}
-                                    small
-                                />
+                            {!isMyChannel
+                                ? isUserSubscribe
+                                    ? <Button
+                                        className={'trader-channel__button'}
+                                        children={'Отписаться'}
+                                        onClick={unConnectChannel}
+                                        small
+                                      />
+                                    : <Button
+                                        className={'trader-channel__button'}
+                                        children={'Подключить трейдера'}
+                                        onClick={showModal}
+                                        small
+                                       />
+                                : null
                             }
                         </div>
                     </div>

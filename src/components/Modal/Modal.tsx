@@ -22,7 +22,6 @@ const Modal = (props: ModalProps): React.ReactNode => {
                 onClose?.()
             }
         }
-        onClose?.()
     }
 
     document.addEventListener('keydown', event => handleClose(event))

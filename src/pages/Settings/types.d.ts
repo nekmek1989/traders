@@ -1,9 +1,9 @@
-type changeEmail = {
+type formEmail = {
     email: string
     password: string
 }
 
-type changePassword = {
+type formPassword = {
     changePassword: string
     newPassword: string
     repeatNewPassword: string

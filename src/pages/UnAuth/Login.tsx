@@ -1,5 +1,4 @@
-// @ts-ignore
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Input from "../../components/Input/Input.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {Link} from "react-router";
@@ -12,9 +11,7 @@ import {store} from "../../store/store.ts";
 import {recordUser, User} from "../../store/userReducer.ts";
 import Loader from "../../components/Loader/Loader.tsx";
 
-//todo: не принимает данных из формы
-
-const Login = () => {
+const Login = (): React.ReactNode => {
 
     const {setIsUserAuth} = useContext(AuthContext)
     const [errorLogin, setErrorLogin] = useState<boolean>(false)

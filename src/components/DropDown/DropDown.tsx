@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import useWindowWidth from "../../hooks/useWindowWidth.ts";
+import useWindowWidth from "../../hooks/useSize/useWindowWidth.ts";
 
 
 const DropDown = (props: DropDownProps): React.ReactNode => {

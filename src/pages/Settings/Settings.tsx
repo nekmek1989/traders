@@ -25,7 +25,7 @@ const Settings = (): React.ReactNode => {
         formState: {
             errors: errorsEmail
         }
-    } = useForm<changeEmail>({mode: 'onBlur'})
+    } = useForm<formEmail>({mode: 'onBlur'})
     const {
         handleSubmit: handlePasswordSubmit,
         register: registerPassword,
@@ -34,7 +34,7 @@ const Settings = (): React.ReactNode => {
         formState: {
             errors: errorsPassword
         }
-    } = useForm<changePassword>({mode: 'onBlur'})
+    } = useForm<formPassword>({mode: 'onBlur'})
 
     const error = useChangeUser(user.email, user.password)
 
@@ -46,7 +46,7 @@ const Settings = (): React.ReactNode => {
         }
     )
 
-    const setEmail = (data: changeEmail) => {
+    const setEmail = (data: formEmail) => {
         store.dispatch(changeEmail(data.email))
 
         const auth = JSON.parse(localStorage.getItem('auth') as string)
@@ -56,7 +56,7 @@ const Settings = (): React.ReactNode => {
         setMessageOnChange('Почта успешно изменена')
     }
 
-    const setPassword = (data: changePassword) => {
+    const setPassword = (data: formPassword) => {
         store.dispatch(changePassword(data.newPassword))
 
         const auth = JSON.parse(localStorage.getItem('auth') as string)

@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import {Link} from "react-router";
 import {selectMain} from "../../store/sectionReducer.ts";
-import useWindowWidth from "../../hooks/useWindowWidth.ts";
-import useWindowHeight from "../../hooks/useWindowHeight.ts";
+import useWindowWidth from "../../hooks/useSize/useWindowWidth.ts";
+import useWindowHeight from "../../hooks/useSize/useWindowHeight.ts";
 import {useCurrentLocation} from "../../hooks/useCurrentLocation/useCurrentLocation.ts";
 import {store} from "../../store/store.ts";
 

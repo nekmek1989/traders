@@ -5,7 +5,7 @@ export const useFetch: hookFetch =
         const [isLoading, setIsLoading] = useState(false)
         const [error, setError] = useState('')
 
-        const fetch: FetchFunction = async (...data) => {
+        const fetch: FetchFunction = async (data) => {
             try {
                 setIsLoading(true)
 

@@ -16,9 +16,11 @@ export const useChart: hookChart = () => {
         const [selectedDate, setSelectedDate] = useState<dateUI>('Сегодня')
         const [range, setRange] = useState<date>('24h')
         const [chartData, setChartData] = useState<[]>([])
+
         const [fetchChart, errorChart, isChartLoading] = useFetch(
             async (data?) => {
                 const response = await FetchMarketData.getCoinMarketData(data)
+
                 if (response) {
                     const formatedData = response.data.map((step: any[]) => {
                         step[0] = new Date(step[0] * 1000)
@@ -34,12 +36,13 @@ export const useChart: hookChart = () => {
             if (event) {
                 const target = event.target as HTMLButtonElement
                 setSelectedDate(target.innerText as dateUI)
+                setRange(target.value as date)
             }
         }
 
         useMemo(() => {
-            fetchChart()
-        }, [selectedDate])
+            fetchChart(range)
+        }, [range])
 
         const chart = Chart({data: chartData, range: range})
 

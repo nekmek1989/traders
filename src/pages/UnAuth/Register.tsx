@@ -26,7 +26,7 @@ const Register = (): React.ReactNode => {
         formState: {
             errors
         }
-    } = useForm( {mode: 'onBlur'} )
+    } = useForm<registerForm>({mode: 'onBlur'} )
 
     const tabs: TabsProps[] = [
         {
@@ -71,7 +71,7 @@ const Register = (): React.ReactNode => {
         }
     )
 
-    const addUser = (): void => {
+    const addUser = () => {
         fetch()
     }
 
@@ -87,6 +87,7 @@ const Register = (): React.ReactNode => {
                 <Input
                     type='email'
                     placeholder='Email'
+                    errors={errors.email}
                     className='login__field'
                     {...register('email', {
                         required: 'Введите почту',
@@ -106,6 +107,7 @@ const Register = (): React.ReactNode => {
                 <Input
                     type='password'
                     placeholder='Пароль'
+                    errors={errors.password}
                     className='login__field'
                     {...register('password', {
                         required: 'Введите пароль',
@@ -128,6 +130,7 @@ const Register = (): React.ReactNode => {
                 <Input
                     type='password'
                     placeholder='Повторите пароль'
+                    errors={errors.passwordRepeat}
                     className='login__field'
                     {...register('passwordRepeat', {
                         required: 'Пароли должны совпадать',

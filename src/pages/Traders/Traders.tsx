@@ -34,8 +34,14 @@ const Traders = (): React.ReactNode => {
     const [fetch, error, isLoading] = useFetch(
        async () => {
            const response = await Fetch.getAllChannels()
-           if (response)
-               setChannels(response.data)
+           if (response) {
+               const filteredChannels = response.data.filter((channel: IChannel) => {
+                   if (channel.name) {
+                       return channel
+                   }
+               })
+               setChannels(filteredChannels)
+           }
         }
     )
 

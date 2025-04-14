@@ -65,6 +65,17 @@ const UserPage = (): React.ReactNode => {
         setMessage('Баланс успешно изменен')
     }
 
+    const validateWithdraw = (money: number | null) => {
+        if (money)
+            if (money < 0) {
+                return 'Только положительные числа!'
+            } else if (money > user.money) {
+                return 'Недостаточно средств'
+            } else {
+                return true
+            }
+    }
+
 
     useEffect(() => {
         fetchChannels()
@@ -136,16 +147,12 @@ const UserPage = (): React.ReactNode => {
                                 className='user-page__field'
                                 {...registerAddBalance('balance',
                                     {
-                                            required: 'Введите стоимость подписки',
+                                            required: 'Введите сумму для пополнения',
                                             pattern: {
                                                 value: /^(0|[1-9][0-9]*)$/,
                                                 message: 'Только положительные числа!'
                                             },
                                             validate: value => value as number <= 0 ? 'Только положительные числа!' : true,
-                                            maxLength: {
-                                                value: 4,
-                                                message: 'Стоимость подписки может быть не больше 9999$'
-                                            },
                                             valueAsNumber: true as any,
                                         }
                                 )}
@@ -170,16 +177,12 @@ const UserPage = (): React.ReactNode => {
                             className='user-page__field'
                             {...registerWithdrawBalance('balance',
                                 {
-                                    required: 'Введите стоимость подписки',
+                                    required: 'Введите сумму для вывода',
                                     pattern: {
                                         value: /^(0|[1-9][0-9]*)$/,
                                         message: 'Только положительные числа!'
                                     },
-                                    validate: value => value as number > user.money ? 'Недостаточно средств' : true,
-                                    maxLength: {
-                                        value: 4,
-                                        message: 'Стоимость подписки может быть не больше 9999$'
-                                    },
+                                    validate: money => validateWithdraw(money),
                                     valueAsNumber: true as any,
                                 }
                             )}

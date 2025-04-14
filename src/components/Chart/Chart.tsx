@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Plot from 'react-plotly.js';
 import {absoluteToRelativeFormater} from "../../utils/absoluteToRelativeFormater.ts";
-import useWindowWidth from "../../hooks/useWindowWidth.ts";
+import useWindowWidth from "../../hooks/useSize/useWindowWidth.ts";
 import {TabsProps} from "../TabsCollection/Tabs/types";
 import TabsCollection from "../TabsCollection/TabsCollection.tsx";
 import {deltaValues} from "../../utils/deltaValues.ts";

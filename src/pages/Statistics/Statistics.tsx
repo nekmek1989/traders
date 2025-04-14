@@ -51,7 +51,7 @@ const Statistics = (): React.ReactNode => {
                     : chart
                 }
                 {errorChart&&
-                    errorChart
+                    <p className={''}>errorChart</p>
                 }
             </div>
         </section>
