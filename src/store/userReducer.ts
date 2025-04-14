@@ -65,9 +65,14 @@ export const userReducer = createSlice({
 
         changePassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload
+        },
+
+        addMyChannel: (state, action: PayloadAction<IChannel>) => {
+            //@ts-ignore
+            state.ownedChannels.push(action.payload)
         }
     }
 })
 
-export const {addMoney, removeMoney, recordUser, subscribe, unSubscribe, changeEmail, changePassword} = userReducer.actions
+export const {addMoney, removeMoney, recordUser, subscribe, unSubscribe, changeEmail, changePassword, addMyChannel} = userReducer.actions
 export default userReducer.reducer

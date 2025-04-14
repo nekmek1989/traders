@@ -10,9 +10,10 @@ import Button from "../../Button/Button.tsx";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {TChannelCard, TFormChannel} from "./types";
 import {useSelector} from "react-redux";
-import {RootState} from "../../../store/store.ts";
+import {RootState, store} from "../../../store/store.ts";
 import {useModal} from "../../../hooks/useModal/useModal.ts";
 import plusIcon from '/src/assets/icons/Plus.svg'
+import {addMyChannel} from "../../../store/userReducer.ts";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
@@ -68,6 +69,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
 
                 if (response && setChannels && channels) {
                     setChannels([...channels, response.data])
+                    store.dispatch(addMyChannel(response.data))
                     closeModal()
                 }
             }
@@ -87,7 +89,6 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
             if (isChangeChannel) {
                 fetchChange(data)
             } else {
-                // await fetch({action: 'create', formData: data})
                 fetchAdd(data)
             }
         }
