@@ -1,1 +1,1 @@
-https://imperium-broker.netlify.app/register
+https://imperium-broker.netlify.app
