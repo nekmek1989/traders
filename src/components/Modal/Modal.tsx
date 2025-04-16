@@ -38,7 +38,7 @@ const Modal = (props: ModalProps): React.ReactNode => {
                         <div className={'modal__inner'}>
                             <BurgerButton
                                 className={'is-active modal__button'}
-                                onClick={handleClose}
+                                onClick={onClose}
                             />
                             {children}
                         </div>
