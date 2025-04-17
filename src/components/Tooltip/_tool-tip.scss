@@ -18,5 +18,12 @@
       opacity: 1;
       visibility: visible;
     }
+
+    @include mobile {
+      &:active + .tooltip__description {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
   }
 }

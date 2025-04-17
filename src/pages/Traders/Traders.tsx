@@ -114,7 +114,7 @@ const Traders = (): React.ReactNode => {
                             Сбросить
                         </Button>,
 
-                        sortParams.map(sortText =>
+                        ...sortParams.map(sortText =>
                             <Button
                                 className={'traders__button'}
                                 onClick={() => setSelectedSort(sortText)}

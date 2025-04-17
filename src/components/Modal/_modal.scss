@@ -7,21 +7,28 @@
   background-color: rgba(0, 0, 0, 0.6);
 
   &__inner {
+    --paddingX: #{rem(75)};
     background-color: var(--dark-color);
 
-    padding-inline: rem(75);
+    padding-inline: var(--paddingX);
     padding-bottom: rem(50);
     border-radius: rem(20);
 
     width: 80%;
 
+    @include tablet {
+      --paddingX: #{rem(35)};
+    }
+
     @include mobile {
       width: 100%;
+
+      --paddingX: #{rem(20)};
     }
   }
 
   &__button {
     margin-left: auto;
-    translate: rem(75);
+    translate: var(--paddingX);
   }
 }

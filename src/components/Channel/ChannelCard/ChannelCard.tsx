@@ -14,6 +14,7 @@ import {RootState, store} from "../../../store/store.ts";
 import {useModal} from "../../../hooks/useModal/useModal.ts";
 import plusIcon from '/src/assets/icons/Plus.svg'
 import {addMyChannel} from "../../../store/userReducer.ts";
+import Loader from "../../Loader/Loader.tsx";
 
 
 const ChannelCard = (props: TChannelCard): React.ReactNode => {
@@ -44,7 +45,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
         }
     )
 
-    const [fetchChange] = useFetch(
+    const [fetchChange, errorChange, isLoadingChange] = useFetch(
         async (newData: TFormChannel) => {
             if (components && newData) {
                 const response = await Fetch.changeChannel(components?.id, newData)
@@ -62,7 +63,7 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
         }
     )
 
-    const [fetchAdd] = useFetch(
+    const [fetchAdd, errorAdd, isLoadingAdd] = useFetch(
         async (newData: TFormChannel) => {
             if (newData) {
                 const response = await Fetch.postChannel(user.id, newData)
@@ -356,6 +357,15 @@ const ChannelCard = (props: TChannelCard): React.ReactNode => {
                                 }
                             </Button>
                         </form>
+                        {isLoadingAdd || isLoadingChange &&
+                            <Loader />
+                        }
+                        {errorAdd &&
+                            errorAdd
+                        }
+                        {errorChange &&
+                            errorChange
+                        }
                     </div>
                 </Modal>
             }

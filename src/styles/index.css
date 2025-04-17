@@ -848,6 +848,12 @@ a[class] {
   opacity: 1;
   visibility: visible;
 }
+@media (width <= 47.99875rem) {
+  .tooltip__header:active + .tooltip__description {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 
 .login {
   border-radius: 20px;
@@ -1965,20 +1971,27 @@ a[class] {
   background-color: rgba(0, 0, 0, 0.6);
 }
 .modal__inner {
+  --paddingX: 4.6875rem;
   background-color: var(--dark-color);
-  padding-inline: 4.6875rem;
+  padding-inline: var(--paddingX);
   padding-bottom: 3.125rem;
   border-radius: 1.25rem;
   width: 80%;
 }
+@media (width <= 64.06125rem) {
+  .modal__inner {
+    --paddingX: 2.1875rem;
+  }
+}
 @media (width <= 47.99875rem) {
   .modal__inner {
     width: 100%;
+    --paddingX: 1.25rem;
   }
 }
 .modal__button {
   margin-left: auto;
-  translate: 4.6875rem;
+  translate: var(--paddingX);
 }
 
 .traders {
