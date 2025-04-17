@@ -3,6 +3,9 @@
 html {
   &.is-lock {
     overflow: hidden;
+    height: 100%;
+    position: fixed;
+    width: 100%;
   }
 }
 
@@ -16,6 +19,13 @@ body {
   color: var(--white-color);
 
   background-color: var(--dark-color);
+
+  &.is-lock {
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+  }
 }
 
 
